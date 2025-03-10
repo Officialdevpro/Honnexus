@@ -1,0 +1,23 @@
+
+{
+    "name": "Honnexus",
+    "short_name": "Honnexus",
+    "description": "Smar Library Management System.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000",
+    "icons": [
+      {
+        "src": "assets/images/image.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "assets/images/image.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
