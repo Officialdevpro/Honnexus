@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
     link.addEventListener("click", function () {
       sections.forEach((section) => (section.style.display = "none"));
       sections[index].style.display = "flex";
+
+      if(index==1){
+        document.getElementById("search-box").focus()
+      }
     });
   });
 
