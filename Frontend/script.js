@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  sections[0].style.display = "flex";
+
   let icon = document.querySelector("svg");
   icon.addEventListener("click", () => {
     document.querySelector(".search-bar").classList.toggle("active");
