@@ -44,140 +44,19 @@
           </div>
           <div class="books-container">
             <b>Recommended for You</b>
-            <ul class="books">
-              <li class="book-card">
-                <div class="left-portion">
-                  <img src="assets/images/image.png" alt="" />
-                </div>
-                <div class="right-portion">
-                  <p>(MPMC) Micorprocessor & Micorcontrollers</p>
-                  <div class="author-details">
-                    <small>Edition - Second Edition</small>
-                    <small>Author : Mr.R.Radhakrishnam</small>
-                  </div>
-                  <div class="">
-                    <p>Available Books : <b>12</b></p>
-                  </div>
-                  <div class="ratings">
-                    <div class="stars">
-                      <img src="icons/star.svg" alt="" class="star-icon"/>
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      (45)
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="book-card">
-                <div class="left-portion">
-                  <img src="assets/images/image.png" alt="" />
-                </div>
-                <div class="right-portion">
-                  <p>(MPMC) Micorprocessor & Micorcontrollers</p>
-                  <div class="author-details">
-                    <small>Edition - Second Edition</small>
-                    <small>Author : Mr.R.Radhakrishnam</small>
-                  </div>
-                  <div class="">
-                    <p>Available Books : <b>12</b></p>
-                  </div>
-                  <div class="ratings">
-                    <div class="stars">
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      (45)
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="book-card">
-                <div class="left-portion">
-                  <img src="assets/images/image.png" alt="" />
-                </div>
-                <div class="right-portion">
-                  <p>(MPMC) Micorprocessor & Micorcontrollers</p>
-                  <div class="author-details">
-                    <small>Edition - Second Edition</small>
-                    <small>Author : Mr.R.Radhakrishnam</small>
-                  </div>
-                  <div class="">
-                    <p>Available Books : <b>12</b></p>
-                  </div>
-                  <div class="ratings">
-                    <div class="stars">
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      (45)
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="book-card">
-                <div class="left-portion">
-                  <img src="assets/images/image.png" alt="" />
-                </div>
-                <div class="right-portion">
-                  <p>(MPMC) Micorprocessor & Micorcontrollers</p>
-                  <div class="author-details">
-                    <small>Edition - Second Edition</small>
-                    <small>Author : Mr.R.Radhakrishnam</small>
-                  </div>
-                  <div class="">
-                    <p>Available Books : <b>12</b></p>
-                  </div>
-                  <div class="ratings">
-                    <div class="stars">
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      (45)
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="book-card">
-                <div class="left-portion">
-                  <img src="assets/images/image.png" alt="" />
-                </div>
-                <div class="right-portion">
-                  <p>(MPMC) Micorprocessor & Micorcontrollers</p>
-                  <div class="author-details">
-                    <small>Edition - Second Edition</small>
-                    <small>Author : Mr.R.Radhakrishnam</small>
-                  </div>
-                  <div class="">
-                    <p>Available Books : <b>12</b></p>
-                  </div>
-                  <div class="ratings">
-                    <div class="stars">
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      <img src="icons/star.svg" alt="" />
-                      (45)
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
+            <ul class="books"></ul>
           </div>
         </section>
         <section class="search">
           <div class="search-header">
             <div class="search-container">
               <div class="search-bar">
-                <input id="search-box" type="text" placeholder="Search Your Books.." />
+                <input
+                  id="search-box"
+                  type="text"
+                  required
+                  placeholder="Search Your Books.."
+                />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -196,11 +75,12 @@
                 </svg>
               </div>
             </div>
+            <div class="search-results"></div>
           </div>
         </section>
         <section class="profile">
           <div class="profile-top-portion">
-            <img src="./assets/profile.png" alt="">
+            <img src="./assets/profile.png" alt="" />
             <div class="profile-details">
               <h2>22ECEBE175</h2>
               <small>Naveen V</small>
@@ -217,12 +97,15 @@
             </div>
           </div>
         </section>
-        <section class="settings">settings</section>
+        <section class="status">
+          <h3>Borrowed Books</h3>
+          <div class="borrowed-books"></div>
+        </section>
       </main>
       <footer>
         <ul>
           <li>
-            <img src="icons/home.svg" alt="" />
+            <img src="icons/book.svg" alt="" />
             <small>Home</small>
           </li>
           <li>
@@ -237,14 +120,11 @@
             <img src="icons/category-plus.svg" alt="" />
             <small>Status</small>
           </li>
-          <li>
-            <img src="icons/settings.svg" alt="" />
-            <small>Settings</small>
-          </li>
         </ul>
       </footer>
     </div>
-    <script src="./script.js"></script>
+    <script type="module" src="./script.js"></script>
+
     <script src="./service-worker.js"></script>
   </body>
 </html>

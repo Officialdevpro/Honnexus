@@ -1,0 +1,102 @@
+[
+  {
+    "BookName": "Basic Electrical and Electronics Engineering",
+    "AuthorName": "R. Muthusubramanian",
+    "Edition": "1st",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX258_BO1,204,203,200_.jpg",
+    "BookStock": 5,
+    "TotalBook": 15,
+    "Rating": 4.2,
+    "NumberOfRatings": 320
+  },
+  {
+    "BookName": "Basic Electrical and Electronics Engineering",
+    "AuthorName": "R. Saravanakumar, V. Jegathesan, K. Vinoth Kumar",
+    "Edition": "1st",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX258_BO1,204,203,200_.jpg",
+    "BookStock": 8,
+    "TotalBook": 20,
+    "Rating": 3.8,
+    "NumberOfRatings": 215
+  },
+  {
+    "BookName": "The Art of Electronics",
+    "AuthorName": "Paul Horowitz, Winfield Hill",
+    "Edition": "3rd",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/41Z8Z3X4ZFL._SX377_BO1,204,203,200_.jpg",
+    "BookStock": 10,
+    "TotalBook": 25,
+    "Rating": 4.7,
+    "NumberOfRatings": 540
+  },
+  {
+    "BookName": "Microelectronic Circuits",
+    "AuthorName": "Adel S. Sedra, Kenneth C. Smith",
+    "Edition": "7th",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX258_BO1,204,203,200_.jpg",
+    "BookStock": 7,
+    "TotalBook": 18,
+    "Rating": 4.5,
+    "NumberOfRatings": 430
+  },
+  {
+    "BookName": "Digital Signal Processing",
+    "AuthorName": "John G. Proakis, Dimitris G. Manolakis",
+    "Edition": "4th",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX258_BO1,204,203,200_.jpg",
+    "BookStock": 6,
+    "TotalBook": 22,
+    "Rating": 4.3,
+    "NumberOfRatings": 310
+  },
+  {
+    "BookName": "Power Electronics: Converters, Applications, and Design",
+    "AuthorName": "Ned Mohan, Tore M. Undeland, William P. Robbins",
+    "Edition": "3rd",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/41Z8Z3X4ZFL._SX377_BO1,204,203,200_.jpg",
+    "BookStock": 9,
+    "TotalBook": 30,
+    "Rating": 4.6,
+    "NumberOfRatings": 380
+  },
+  {
+    "BookName": "Computer Networks",
+    "AuthorName": "Andrew S. Tanenbaum, David J. Wetherall",
+    "Edition": "5th",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/41Z8Z3X4ZFL._SX377_BO1,204,203,200_.jpg",
+    "BookStock": 12,
+    "TotalBook": 40,
+    "Rating": 4.8,
+    "NumberOfRatings": 620
+  },
+  {
+    "BookName": "Digital Design",
+    "AuthorName": "M. Morris Mano, Michael D. Ciletti",
+    "Edition": "5th",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX258_BO1,204,203,200_.jpg",
+    "BookStock": 15,
+    "TotalBook": 50,
+    "Rating": 4.4,
+    "NumberOfRatings": 290
+  },
+  {
+    "BookName": "Signals and Systems",
+    "AuthorName": "Alan V. Oppenheim, Alan S. Willsky",
+    "Edition": "2nd",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX258_BO1,204,203,200_.jpg",
+    "BookStock": 11,
+    "TotalBook": 35,
+    "Rating": 4.5,
+    "NumberOfRatings": 400
+  },
+  {
+    "BookName": "Control Systems Engineering",
+    "AuthorName": "Norman S. Nise",
+    "Edition": "7th",
+    "BookImage": "https://images-na.ssl-images-amazon.com/images/I/41Z8Z3X4ZFL._SX377_BO1,204,203,200_.jpg",
+    "BookStock": 13,
+    "TotalBook": 45,
+    "Rating": 4.6,
+    "NumberOfRatings": 470
+  }
+]

@@ -30,6 +30,7 @@ footer {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 1;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -210,6 +211,7 @@ main section .home {
 .home {
   padding: 7px;
 }
+
 .profile-top-portion {
   margin-top: 15px;
   display: flex;
@@ -273,4 +275,24 @@ main section .home {
 
 .profile {
   gap: 20px;
+}
+
+.search-results{
+  background-color: #fff;
+  z-index: -1;
+
+}
+.search-results li{
+  padding: 10px;
+ 
+}
+.status{
+  padding: 10px;
+
+}
+.borrowed-books{
+  display: flex;
+  justify-content: center;align-items: center;
+  flex-direction: column;
+  gap: 10px;
 }
