@@ -296,3 +296,179 @@ main section .home {
   flex-direction: column;
   gap: 10px;
 }
+
+nav {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 50px;
+
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+nav .nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+.nav-content .toggle-btn,
+.nav-content span a {
+  height: 60px;
+  width: 60px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.nav-content .toggle-btn {
+  font-size: 35px;
+  color: #0e2431;
+  z-index: 100;
+  transform: rotate(-225deg);
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+nav.open .toggle-btn {
+  transform: rotate(0deg);
+}
+.nav-content span {
+  position: absolute;
+  transition: all 0.4s ease;
+  opacity: 0;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+}
+nav.open .nav-content span {
+  transform: rotate(calc(var(--i) * (360deg / 8))) translateY(120px);
+  opacity: 1;
+}
+.nav-content span a {
+  text-decoration: none;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+.nav-content span a i {
+  font-size: 24px;
+  color: #0e2431;
+  transform: rotate(calc(var(--i) * (360deg / -8)));
+  opacity: 0.8;
+  transition: 0.2s;
+}
+.nav-content span a:hover i {
+  opacity: 1;
+}
+
+
+#scanner-container {
+  position: relative;
+  max-width: 500px;
+  margin: 20px auto;
+  display: none;
+}
+#barcode-scanner {
+  width: 100%;
+  height: auto;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #000;
+}
+#scan-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#scan-line {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(255, 0, 0, 0.7);
+  position: relative;
+  animation: scan 2s infinite linear;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+}
+@keyframes scan {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+#controls {
+  margin-top: 20px;
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s;
+}
+button:hover {
+  background-color: #0056b3;
+}
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+#scan-again {
+  background-color: #28a745;
+}
+#scan-again:hover {
+  background-color: #218838;
+}
+#start-scan {
+  display: inline-block;
+}
+
+#barcode-result {
+  font-weight: bold;
+  color: #007bff;
+  font-size: 24px;
+  min-height: 36px;
+}
+#status {
+  color: #666;
+  font-style: italic;
+  min-height: 20px;
+}
+.hidden {
+  display: none;
+}
+.camera-error {
+  color: red;
+  font-weight: bold;
+}
+.scanned-data {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 20px;
+  text-align: left;
+  display: none;
+}
