@@ -1,3 +1,5 @@
+import { borrowedBooksTemplate } from "./templates.js";
+
 export async function getStudentById(studentId) {
     let req = await fetch("./data/students.json");
     let students = await req.json();
@@ -22,7 +24,11 @@ export async function getStudentById(studentId) {
               <h1>1</h1>
             </div>
           </div>`
-      console.log(student); // Displays student details
+      console.log(student);
+      borrowedBooksTemplate(student.BorrowedBooks)
+      
+
+       // Displays student details
       return student;
     } else {
       console.log("Student not found");
@@ -30,6 +36,6 @@ export async function getStudentById(studentId) {
     }
   }
   
-  // Example usage:
+
 
   

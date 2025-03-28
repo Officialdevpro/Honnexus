@@ -53,6 +53,7 @@ main {
   width: 100%;
   height: 100vh;
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
@@ -123,9 +124,50 @@ main section.settings {
 .book-card {
   width: 100%;
   display: grid;
-  grid-template-columns: 0.5fr 2fr;
+  grid-template-columns: 1fr 2fr;
   gap: 10px;
   overflow: hidden;
+}
+.borrowed-book-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  row-gap: 20px;
+  column-gap: 3px;
+}
+.book-card.column .right-portion {
+  width: 100%;
+  text-align: center;
+  padding: 0px 10px;
+}
+.book-card.column .left-portion {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px;
+ 
+  position: relative;
+  
+}
+.book-card.column .left-portion img {
+  width: 100%;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+.book-card .left-portion img {
+  width: 100%;
+  height: 100%;
+}
+.book-card.column {
+  gap: 0;
+  text-align: center;
+}
+.book-card.column {
+ 
+  display: flex; /* Switch to flexbox for column layout */
+  flex-direction: column;
+  justify-content: center;
+ 
+  align-items: center;
 }
 /* .book-card .left-portion{
     width: 30%;
@@ -146,7 +188,20 @@ main section.settings {
   gap: 8px;
   align-items: center;
 }
-
+.label {
+  position: absolute;
+  bottom: 25px;
+  font-weight: normal;
+  left: 10px;
+  width: 118px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  align-items: center;
+  background-color: #e6630a;
+}
 .search-header {
   background-color: #6d6d6d;
   position: absolute;
@@ -204,11 +259,10 @@ input:focus {
     hue-rotate(-10deg);
 }
 
-main section .home{
- 
+/* main section .home {
   display: none;
   padding: 10px;
-}
+} */
 .home {
   padding: 7px;
 }
@@ -278,22 +332,20 @@ main section .home{
   gap: 20px;
 }
 
-.search-results{
+.search-results {
   background-color: #fff;
   z-index: -1;
-
 }
-.search-results li{
+.search-results li {
   padding: 10px;
- 
 }
-.status{
+.status {
   padding: 10px;
-
 }
-.borrowed-books{
+.borrowed-books {
   display: flex;
-  justify-content: center;align-items: center;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   gap: 10px;
 }
@@ -378,7 +430,6 @@ nav.open .nav-content span {
   opacity: 1;
 }
 
-
 #scanner-container {
   position: relative;
   max-width: 500px;
@@ -412,8 +463,12 @@ nav.open .nav-content span {
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
 }
 @keyframes scan {
-  0% { top: 0; }
-  100% { top: 100%; }
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 100%;
+  }
 }
 #controls {
   margin-top: 20px;
@@ -472,4 +527,7 @@ button:disabled {
   margin-top: 20px;
   text-align: left;
   display: none;
+}
+.borrowed-book-details {
+  width: 100%;
 }

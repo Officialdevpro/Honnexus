@@ -10,21 +10,58 @@
     "BorrowedBooks": [
       {
         "BookId": "B001",
-        "BookName": "Digital Design",
+        "BookName": "The Art of Electronics",
         "AuthorName": "M. Morris Mano, Michael D. Ciletti",
+        "BookImage": "https://tse4.mm.bing.net/th?id=OIP.zvYeoJ67Drbt8Kq6yv1eUwHaJm&pid=Api&P=0&h=180",
         "Edition": "5th",
         "BorrowDate": "2025-03-28",
         "DueDate": "2025-04-28",
-        "Returned": false
+        "Returned": false,
+        "DaysLeft": 12
       },
       {
         "BookId": "B002",
-        "BookName": "Computer Networks",
+        "BookName": "Digital Signal Processing",
+        "BookImage": "https://tse3.mm.bing.net/th?id=OIP.F0maDSzvU_fGohabGL6CawAAAA&pid=Api&P=0&h=180",
         "AuthorName": "Andrew S. Tanenbaum",
         "Edition": "6th",
         "BorrowDate": "2025-03-20",
         "DueDate": "2025-04-20",
-        "Returned": true
+        "Returned": true,
+        "DaysLeft": 15
+      },
+      {
+        "BookId": "B002",
+       "BookName": "Power Electronics: Converters, Applications, and Design",
+        "BookImage": "https://tse3.mm.bing.net/th?id=OIP.TxTdSCc2p_Ib_bPrwTg3wgHaJj&pid=Api&P=0&h=180",
+        "AuthorName": "Andrew S. Tanenbaum",
+        "Edition": "6th",
+        "BorrowDate": "2025-03-20",
+        "DueDate": "2025-04-20",
+        "Returned": true,
+        "DaysLeft": 10
+      },
+      {
+        "BookId": "B002",
+        "BookName": "Basic Electrical and Electronics Engineering",
+        "BookImage": "https://tse1.mm.bing.net/th?id=OIP.Ji80eMjJVAY3pr3fLJxiDwHaKS&pid=Api&P=0&h=180",
+        "AuthorName": "Andrew S. Tanenbaum",
+        "Edition": "6th",
+        "BorrowDate": "2025-03-20",
+        "DueDate": "2025-04-20",
+        "Returned": true,
+        "DaysLeft": 2
+      },
+      {
+        "BookId": "B002",
+        "BookName": "Microelectronic Circuits",
+        "BookImage": "https://tse3.mm.bing.net/th?id=OIP.OBcLH98U5rLdnchUUyoTBQHaKa&pid=Api&P=0&h=180",
+        "AuthorName": "Andrew S. Tanenbaum",
+        "Edition": "6th",
+        "BorrowDate": "2025-03-20",
+        "DueDate": "2025-04-20",
+        "Returned": true,
+        "DaysLeft": 3
       }
     ],
     "BorrowedBooksCount": 2,
