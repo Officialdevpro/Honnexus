@@ -1,0 +1,33 @@
+[
+  {
+    "StudentId": "22ECEBE175",
+    "StudentName": "John Doe",
+    "Department": "Computer Science",
+    "Year": "3rd",
+    "Semester": "6th",
+    "Email": "johndoe@example.com",
+    "PhoneNumber": "+1234567890",
+    "BorrowedBooks": [
+      {
+        "BookId": "B001",
+        "BookName": "Digital Design",
+        "AuthorName": "M. Morris Mano, Michael D. Ciletti",
+        "Edition": "5th",
+        "BorrowDate": "2025-03-28",
+        "DueDate": "2025-04-28",
+        "Returned": false
+      },
+      {
+        "BookId": "B002",
+        "BookName": "Computer Networks",
+        "AuthorName": "Andrew S. Tanenbaum",
+        "Edition": "6th",
+        "BorrowDate": "2025-03-20",
+        "DueDate": "2025-04-20",
+        "Returned": true
+      }
+    ],
+    "BorrowedBooksCount": 2,
+    "ReturnedBooksCount": 1
+  }
+]

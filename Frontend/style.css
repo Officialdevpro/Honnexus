@@ -204,8 +204,9 @@ input:focus {
     hue-rotate(-10deg);
 }
 
-main section .home {
-  display: flex;
+main section .home{
+ 
+  display: none;
   padding: 10px;
 }
 .home {
