@@ -10,8 +10,8 @@ export async function getStudentById(studentId) {
         document.querySelector(".scanned-data").innerHTML = `<div class="profile-top-portion">
             <img src="./assets/profile.png" alt="" />
             <div class="profile-details">
-              <h2>22ECEBE175</h2>
-              <small>Naveen V</small>
+              <h2>${student.StudentId}</h2>
+              <small>${student.StudentName}</small>
             </div>
           </div>
           <div class="profile-status">
@@ -24,7 +24,7 @@ export async function getStudentById(studentId) {
               <h1>1</h1>
             </div>
           </div>`
-      console.log(student);
+    
       borrowedBooksTemplate(student.BorrowedBooks)
       
 
