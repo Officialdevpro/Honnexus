@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Honnexus</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h2>Honnexus</h2>
+        <div class="header-left">
+          <img src="./icons/bell.svg" alt="" />
+        </div>
+      </header>
+      <main>
+        <section class="home">
+          <div class="home-top-row">
+            <b>Most Borrowed Books</b>
+            <ul class="top-row">
+              <li>
+                <img src="https://tse1.mm.bing.net/th?id=OIP.IJqZJz53cqy-i2hoafBmVAHaJr&pid=Api&P=0&h=180" alt="" />
+                <small>Books</small>
+              </li>
+              <li>
+                <img src="https://tse1.mm.bing.net/th?id=OIP.Pxzk06p0mTcOuMqLLAFExAAAAA&pid=Api&P=0&h=180" alt="" />
+                <small>Books</small>
+              </li>
+              <li>
+                <img src="https://tse3.mm.bing.net/th?id=OIP.qfzTJeE3H-Xt9ve1jlbNlAHaLB&pid=Api&P=0&h=180" alt="" />
+                <small>Books</small>
+              </li>
+              <li>
+                <img src="https://tse3.mm.bing.net/th?id=OIP.i5GybQUD9APBBKKc4oYhxwHaHa&pid=Api&P=0&h=180" alt="" />
+                <small>Books</small>
+              </li>
+              <li>
+                <img src="https://tse2.mm.bing.net/th?id=OIP.ZEDA_D-8gMd0XEdTGcUGCwHaJm&pid=Api&P=0&h=180" alt="" />
+                <small>Books</small>
+              </li>
+            </ul>
+          </div>
+          <div class="books-container">
+            <b>Recommended for You</b>
+            <ul class="books"></ul>
+          </div>
+        </section>
+        <section class="search">
+          <div class="search-header">
+            <div class="search-container">
+              <div class="search-bar">
+                <input
+                  id="search-box"
+                  type="text"
+                  required
+                  placeholder="Search Your Books.."
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                  <path d="M21 21l-6 -6" />
+                </svg>
+              </div>
+            </div>
+            <div class="search-results"></div>
+          </div>
+        </section>
+        <section class="admin">
+          <div id="scanner-container">
+            <video id="barcode-scanner" autoplay playsinline></video>
+            <div id="scan-overlay">
+              <div id="scan-line"></div>
+            </div>
+          </div>
+
+          <div id="scanned-data" class="scanned-data">
+            <h3>Scanned Data:</h3>
+            <p id="scanned-content"></p>
+          </div>
+          <div class="borrowed-book-details">
+            <!-- <li class="book-card column">
+              <div class="left-portion">
+                <b class="label">10 days ago</b>
+                <img src="./assets/images/image.png" alt="Book cover" />
+              </div>
+              <div class="right-portion">
+                <p>Basic Electrical and Electronics Engineering</p>
+              </div>
+            </li> -->
+          </div>
+
+          <div id="controls">
+            <!-- <button id="start-scan">Start Scanner</button> -->
+            <button id="toggle-scan" class="hidden">Pause Scan</button>
+            <button id="switch-camera" class="hidden">Switch Camera</button>
+            <button id="scan-again" class="hidden">Scan Again</button>
+          </div>
+        </section>
+        <section class="profile">
+          <div class="profile-top-portion">
+            <img src="./assets/profile.png" alt="" />
+            <div class="profile-details">
+              <h2>22ECEBE175</h2>
+              <small>Naveen V</small>
+            </div>
+          </div>
+          <div class="profile-status">
+            <div class="left-box">
+              <b>Borrowed</b>
+              <h1>4</h1>
+            </div>
+            <div class="right-box">
+              <b>Returned</b>
+              <h1>1</h1>
+            </div>
+          </div>
+         
+        </section>
+        <section class="status">
+          <h3>Borrowed Books</h3>
+          <div class="borrowed-books"></div>
+        </section>
+      </main>
+      <footer>
+        <ul>
+          <li>
+            <img src="icons/book.svg" alt="" />
+            <small>Home</small>
+          </li>
+          <li>
+            <img src="icons/list-search.svg" alt="" />
+            <small>Search</small>
+          </li>
+          <li>
+            <nav>
+              <div class="nav-content">
+                <div class="toggle-btn">
+                  <img src="icons/plus.svg" alt="" />
+                </div>
+                <span style="--i: 2" id="start-scan">
+                  <a href="#" data-file-type="audio"
+                    ><img src="icons/scan.svg" alt=""
+                  /></a>
+                </span>
+
+                <span style="--i: 3" id="recordBtn">
+                  <a href="#" data-file-type="video"
+                    ><img src="icons/zoom-scan.svg" alt=""
+                  /></a>
+                </span>
+                <span style="--i: 4" id="refresh">
+                  <a href="#" data-file-type="webcam"
+                    ><i class="bx bx-refresh"></i
+                  ></a>
+                </span>
+              </div>
+            </nav>
+          </li>
+          <li>
+            <img src="icons/user.svg" alt="" />
+            <small>Profile</small>
+          </li>
+          <li>
+            <img src="icons/category-plus.svg" alt="" />
+            <small>Status</small>
+          </li>
+        </ul>
+      </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script type="module" src="./scanner.js"></script>
+    <script type="module" src="./script.js"></script>
+    <script type="module" src="./main.js"></script>
+
+    <script src="./service-worker.js"></script>
+  </body>
+</html>

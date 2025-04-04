@@ -3,7 +3,7 @@ const urlsToCache = [
   "./index.html",  // Use relative path
   "./style.css",
   "./script.js",
-  "./icons/logo.png"
+  "./icons/image.png"
 ];
 
 // Install Service Worker
