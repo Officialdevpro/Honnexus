@@ -21,23 +21,38 @@
             <b>Most Borrowed Books</b>
             <ul class="top-row">
               <li>
-                <img src="https://tse1.mm.bing.net/th?id=OIP.IJqZJz53cqy-i2hoafBmVAHaJr&pid=Api&P=0&h=180" alt="" />
+                <img
+                  src="https://tse1.mm.bing.net/th?id=OIP.IJqZJz53cqy-i2hoafBmVAHaJr&pid=Api&P=0&h=180"
+                  alt=""
+                />
                 <small>Books</small>
               </li>
               <li>
-                <img src="https://tse1.mm.bing.net/th?id=OIP.Pxzk06p0mTcOuMqLLAFExAAAAA&pid=Api&P=0&h=180" alt="" />
+                <img
+                  src="https://tse1.mm.bing.net/th?id=OIP.Pxzk06p0mTcOuMqLLAFExAAAAA&pid=Api&P=0&h=180"
+                  alt=""
+                />
                 <small>Books</small>
               </li>
               <li>
-                <img src="https://tse3.mm.bing.net/th?id=OIP.qfzTJeE3H-Xt9ve1jlbNlAHaLB&pid=Api&P=0&h=180" alt="" />
+                <img
+                  src="https://tse3.mm.bing.net/th?id=OIP.qfzTJeE3H-Xt9ve1jlbNlAHaLB&pid=Api&P=0&h=180"
+                  alt=""
+                />
                 <small>Books</small>
               </li>
               <li>
-                <img src="https://tse3.mm.bing.net/th?id=OIP.i5GybQUD9APBBKKc4oYhxwHaHa&pid=Api&P=0&h=180" alt="" />
+                <img
+                  src="https://tse3.mm.bing.net/th?id=OIP.i5GybQUD9APBBKKc4oYhxwHaHa&pid=Api&P=0&h=180"
+                  alt=""
+                />
                 <small>Books</small>
               </li>
               <li>
-                <img src="https://tse2.mm.bing.net/th?id=OIP.ZEDA_D-8gMd0XEdTGcUGCwHaJm&pid=Api&P=0&h=180" alt="" />
+                <img
+                  src="https://tse2.mm.bing.net/th?id=OIP.ZEDA_D-8gMd0XEdTGcUGCwHaJm&pid=Api&P=0&h=180"
+                  alt=""
+                />
                 <small>Books</small>
               </li>
             </ul>
@@ -127,22 +142,321 @@
               <h1>1</h1>
             </div>
           </div>
-         
-        </section>
-        <section class="status">
           <h3>Borrowed Books</h3>
-          <div class="borrowed-books"></div>
+          <div class="borrowed-book-details ">
+            <li class="book-card column">
+              <div class="left-portion">
+                <b class="label">10 days ago</b>
+                <img
+                  src="https://tse3.mm.bing.net/th?id=OIP.OBcLH98U5rLdnchUUyoTBQHaKa&pid=Api&P=0&h=180"
+                  alt="Book cover"
+                />
+              </div>
+              <div class="right-portion">
+                <p>Basic Electrical and Electronics Engineering</p>
+              </div>
+            </li>
+            <li class="book-card column">
+              <div class="left-portion">
+                <b class="label">5 days ago</b>
+                <img
+                  src="https://tse3.mm.bing.net/th?id=OIP.OBcLH98U5rLdnchUUyoTBQHaKa&pid=Api&P=0&h=180"
+                  alt="Book cover"
+                />
+              </div>
+              <div class="right-portion">
+                <p>Basic Electrical and Electronics Engineering</p>
+              </div>
+            </li>
+            <li class="book-card column">
+              <div class="left-portion">
+                <b class="label">13 days ago</b>
+                <img
+                  src="https://tse3.mm.bing.net/th?id=OIP.OBcLH98U5rLdnchUUyoTBQHaKa&pid=Api&P=0&h=180"
+                  alt="Book cover"
+                />
+              </div>
+              <div class="right-portion">
+                <p>Basic Electrical and Electronics Engineering</p>
+              </div>
+            </li>
+            <li class="book-card column">
+              <div class="left-portion">
+                <b class="label">3 days ago</b>
+                <img
+                  src="https://tse3.mm.bing.net/th?id=OIP.OBcLH98U5rLdnchUUyoTBQHaKa&pid=Api&P=0&h=180"
+                  alt="Book cover"
+                />
+              </div>
+              <div class="right-portion">
+                <p>Basic Electrical and Electronics Engineering</p>
+              </div>
+            </li>
+          </div>
+        </section>
+        <style>
+          body.dark {
+            background-color: black;
+            color: white;
+          }
+          .status {
+            height: 100%;
+            overflow: hidden;
+          }
+          .settings {
+            width: 100%;
+            height: 100%;
+          }
+          .setting-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px 20px 0px 0px;
+          }
+          .top-profile {
+            display: flex;
+            gap: 10px;
+            padding: 10px 10px;
+            justify-content: start;
+            align-items: center;
+            border-bottom: 1px solid white;
+          }
+          .top-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+          .set-options {
+            display: flex;
+            padding: 10px 10px;
+            flex-direction: column;
+          }
+          .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background-color: #ccc;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+          }
+
+          .toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+          }
+
+          .toggle-switch.active {
+            background-color: #07df0e;
+          }
+
+          .toggle-switch.active .toggle-ball {
+            transform: translateX(24px);
+          }
+          .more ul,
+          .account-settings ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+          }
+          .more,
+          .account-settings {
+            margin: 20px 0px;
+          }
+          .more ul li,
+          .account-settings ul li {
+            width: 100%;
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+          }
+          .more ul li img,
+          .account-settings ul li img {
+            opacity: 0.2;
+          }
+          .account-settings ul,
+          .more ul {
+            width: 100%;
+          }
+          .account-settings ul li,
+          .more ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .account-settings,
+          .more {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          .account-settings b,
+          .more b {
+            opacity: 0.3;
+          }
+          .range-container {
+            font-family: "Segoe UI", sans-serif;
+            padding: 10px 0;
+            padding-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+          }
+
+          .range-label {
+            font-weight: 600;
+            color: rgb(116 0 255);
+            margin-bottom: 15px;
+            font-size: 18px;
+          }
+
+          .slider-wrapper {
+            position: relative;
+            width: 300px;
+          }
+
+          input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #4caf50 0%, #ccc 0%);
+            outline: none;
+            transition: background 0.3s ease;
+            z-index: 1;
+          }
+
+          input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            background: #4caf50;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 3;
+          }
+
+          input[type="range"]::-moz-range-thumb {
+            height: 24px;
+            width: 24px;
+            background: #4caf50;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+          }
+
+          .value-bubble {
+            position: absolute;
+            top: 33px;
+            left: 0;
+            transform: translateX(-50%);
+            background: #4caf50;
+            color: #fff;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            transition: left 0.3s ease;
+            z-index: 2;
+          }
+
+          .tick-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #777;
+            width: 100%;
+            padding: 0 5px;
+          }
+          body.dark footer,
+          body.dark header {
+            background-color: black;
+            color: #ffffff;
+          }
+          body.dark footer img{
+            filter: invert(1);
+          }
+        </style>
+        <section class="status">
+          <div class="setting-container">
+            <!-- <div class="top-profile">
+              <img src="./assets/profile.png" alt="" />
+              <h3>Yennefer Doe</h3>
+            </div> -->
+
+            <div class="range-container">
+              <div class="range-label">Current Semester</div>
+
+              <div class="slider-wrapper">
+                <div class="value-bubble" id="bubble">1</div>
+                <input type="range" min="1" max="8" value="1" id="rangeInput" />
+                <div class="tick-labels">
+                  <span>1</span><span>2</span><span>3</span><span>4</span>
+                  <span>5</span><span>6</span><span>7</span><span>8</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="set-options">
+              <div class="account-settings">
+                <b>Account Settings</b>
+                <ul>
+                  <li>
+                    Dark mode
+                    <div
+                      class="toggle-switch"
+                      onclick="this.classList.toggle('active')"
+                    >
+                      <div class="toggle-ball"></div>
+                    </div>
+                  </li>
+
+                  <li>
+                    Logout
+                    <img src="./icons/right.svg" alt="" />
+                  </li>
+                </ul>
+              </div>
+              <div class="more">
+                <b>More</b>
+                <ul>
+                  <li>
+                    About us
+                    <img src="./icons/right.svg" alt="" />
+                  </li>
+                  <li>
+                    Privacy Policy
+                    <img src="./icons/right.svg" alt="" />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
       <footer>
         <ul>
           <li>
             <img src="icons/book.svg" alt="" />
-            <small>Home</small>
           </li>
           <li>
             <img src="icons/list-search.svg" alt="" />
-            <small>Search</small>
           </li>
           <li>
             <nav>
@@ -171,15 +485,45 @@
           </li>
           <li>
             <img src="icons/user.svg" alt="" />
-            <small>Profile</small>
           </li>
           <li>
             <img src="icons/category-plus.svg" alt="" />
-            <small>Status</small>
           </li>
         </ul>
       </footer>
     </div>
+    <script>
+      const range = document.getElementById("rangeInput");
+      const bubble = document.getElementById("bubble");
+
+      function updateSlider() {
+        const val = Number(range.value);
+        const min = Number(range.min);
+        const max = Number(range.max);
+        const percent = ((val - min) / (max - min)) * 100;
+
+        // Move bubble
+        const offset = percent * (range.offsetWidth / 100);
+        bubble.style.left = `${offset}px`;
+        bubble.textContent = val;
+
+        // Update slider fill gradient
+        range.style.background = `linear-gradient(to right, #4caf50 0%, #4caf50 ${percent}%, #ccc ${percent}%, #ccc 100%)`;
+      }
+
+      range.addEventListener("input", updateSlider);
+      window.addEventListener("load", updateSlider);
+
+      let theme = document.querySelector(".toggle-switch");
+
+      document.querySelector(".toggle-switch").addEventListener("click", () => {
+        if (!theme.classList.contains("active")) {
+          document.querySelector("body").classList.remove("dark");
+        } else {
+          document.querySelector("body").classList.add("dark");
+        }
+      });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
     <script type="module" src="./scanner.js"></script>
     <script type="module" src="./script.js"></script>
