@@ -18,7 +18,12 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, "Please provide a valid email"],
   },
- 
+  semester: {
+    type: Number,
+    min: 1,
+    max: 8,
+  },
+
   createdAt: {
     type: Date,
     default: Date.now,
@@ -33,7 +38,6 @@ const userSchema = new mongoose.Schema({
     default: () => `profile-${Math.floor(Math.random() * 10)}.png`,
   },
 });
-
 
 userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });

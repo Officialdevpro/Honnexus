@@ -7,6 +7,7 @@ const analysRoutes = require("./routes/analysRoutes.js");
 const morgan = require("morgan");
 const AppError = require("./utils/appError.js");
 const globalErrorHandler = require("./controllers/errorController.js");
+const bookRoutes = require("./routes/bookRoutes");
 
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
@@ -69,6 +70,9 @@ app.use(
 
 app.use(compression());
 app.use("/", express.static(path.join(__dirname, "..", "Frontend")));
+
+
+
 app.use(
   "/api/v1/users/resetPassword/:id",
   express.static(path.join(__dirname, "..", "Frontend"))
@@ -97,6 +101,8 @@ app.get("/", product, (req, res) => {
 });
 
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/books", bookRoutes);
+
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/analytics", analysRoutes);
 

@@ -32,11 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function loadBooks() {
-  let req = await fetch("./data/books.json");
-  let res = await req.json();
+  let req = await fetch("http://localhost:5500/api/v1/books");
+  let { data } = await req.json();
+  console.log(data)
   let bookContainer = document.querySelector(".books");
   bookContainer.innerHTML = "";
-  res.forEach((book) => {
+  data.forEach((book) => {
     bookContainer.innerHTML += bookTemplate(book);
   });
 }
