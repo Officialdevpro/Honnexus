@@ -18,6 +18,15 @@
         box-sizing: border-box;
       }
 
+      :root {
+        --primary-color: linear-gradient(
+          to left,
+          rgba(0, 255, 72, 0.7),
+          #24f7ff
+        );
+        --tostal-color: linear-gradient(to left, #ffb829, #ff5e00);
+      }
+
       body,
       input {
         font-family: "Poppins", sans-serif;
@@ -490,7 +499,6 @@
         background-color: #0056b3;
       }
 
-     
       #start-scan {
         display: inline-block;
       }
@@ -649,10 +657,103 @@
         gap: 5px;
         color: rgb(86, 86, 86);
       }
+      .message-box {
+        flex-grow: 1;
+      }
+      .message-box .message {
+        width: 100%;
+        font-size: 15px;
+        font-weight: 700;
+        color: #000000;
+      }
+      .message-box .text {
+        width: 100%;
+        font-size: 14px;
+        color: #000000;
+      }
+      .failure-line,
+      .success-line {
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        bottom: 0;
+        left: 0;
+        background-color: rgb(255, 119, 0);
+        transition: all 0.3s ease;
+      }
+      .failure-tostal,
+      .success-tostal {
+        background-color: rgb(249, 225, 197);
+        width: 340px;
+        height: 60px;
+        padding: 5px 5px 5px 8px;
+        display: none;
+        z-index: 10 !important;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 10px;
+        position: absolute;
+        top: 3rem;
+        opacity: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+        overflow: hidden;
+        color: inherit;
+        border-left: 5px solid rgb(255, 136, 0);
+        animation: messagebox 0.3s ease;
+        -webkit-animation: messagebox 0.3s ease;
+        animation-fill-mode: forwards;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+      }
+      @keyframes messagebox {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .x-icon {
+        width: 30px;
+        height: 30px;
+        background-color: rgb(255, 119, 0);
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .x-icon .bar-1 {
+        width: 3px;
+        height: 16px;
+        transform: rotate(-45deg) translateY(1px) translateY(1px);
+        background-color: #ffffff;
+      }
+      .x-icon .bar-2 {
+        width: 3px;
+        height: 16px;
+        transform: rotate(45deg) translateY(1px) translateY(1px);
+        background-color: #ffffff;
+      }
     </style>
   </head>
   <body>
     <div class="container">
+      <div class="failure-tostal">
+        <div class="x-icon">
+          <div class="bar-1"></div>
+          <div class="bar-2"></div>
+        </div>
+        <div class="message-box">
+          <p class="message">Error</p>
+          <p class="text">Select the requierd fields</p>
+        </div>
+        <div class="failure-line"></div>
+      </div>
       <div class="forms-container">
         <div class="signin-signup">
           <form action="#" class="sign-in-form">
@@ -714,8 +815,6 @@
                   </div>
                 </li> -->
               </div>
-
-             
             </section>
             <!-- <div class="input-field">
               <i class="fas fa-user"></i>
@@ -805,8 +904,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 
     <script>
+      let inputBoxes = document.querySelectorAll("input[type='tel']");
       const startButton = document.getElementById("start-scan");
-      
+
       const videoElement = document.getElementById("barcode-scanner");
       const scanOverlay = document.getElementById("scan-overlay");
       const scannerContainer = document.getElementById("scanner-container");
@@ -828,6 +928,28 @@
           initializeScanner();
         }
       });
+
+      function showMessage(value, time = 50) {
+        let title = document.querySelector(".message-box .message");
+        let text = document.querySelector(".message-box .text");
+        text.textContent = value.message;
+        title.textContent = "Status : " + value.status;
+        // For tostal
+        let failureWidth = 100;
+        document.querySelector(".failure-tostal").style.display = "flex";
+        const failureIntervalId = setInterval(() => {
+          document.querySelector(".failure-line").style.width =
+            failureWidth - 1 + "%";
+          if (failureWidth <= -10) {
+            clearInterval(failureIntervalId);
+            document.querySelector(".failure-tostal").style.display = "none";
+            document.querySelector(".failure-line").style.width = "100%";
+
+            failureWidth = 0;
+          }
+          failureWidth--;
+        }, time);
+      }
 
       function initializeScanner() {
         // First check if we can access the camera
@@ -930,7 +1052,7 @@
           // Display scanned data
 
           console.log("Barcode detected:", code);
-          requestOtp(code)
+          requestOtp(code);
 
           playBeepSound();
 
@@ -949,9 +1071,6 @@
           startButton.innerHTML = "<div class='spin'></div>";
 
           // Show scan again button
-         
-
-          
         });
       }
 
@@ -1000,7 +1119,6 @@
       function scanAgain() {
         // Reset UI
         scannedDataDiv.style.display = "none";
-      
 
         // Restart scanner
         initializeScanner();
@@ -1029,8 +1147,6 @@
         }
       }
 
-    
-
       window.addEventListener("beforeunload", function () {
         closeScanner();
       });
@@ -1047,52 +1163,89 @@
         container.classList.remove("sign-up-mode");
       });
 
-      async function signup(data) {
-        document.getElementById("login").innerHTML = "<div class='spin'></div>";
-        try {
-          let req = await fetch("http://localhost:5500/verifyMe", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          });
-          let res = await req.json();
-          if (res.status == "success") {
-            localStorage.setItem("email", data.email);
-          } else {
-            //
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-
-
       async function requestOtp(studentId) {
         try {
-          const response = await fetch("https://honnexus.onrender.com/verifyMe", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ studentId }),
-          });
-      
+          const response = await fetch(
+            "https://honnexus.onrender.com/verifyMe",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ studentId }),
+            }
+          );
+
           const data = await response.json();
-      
+          console.log(data);
           if (response.status == 200) {
             document.querySelector(".scanned-data").classList.add("active");
           }
-      
+
           // ✅ OTP sent successfully
-         
-          console.log("Server response:", data);
+          localStorage.setItem("studentId", JSON.stringify(data.studentId));
         } catch (error) {
           // ❌ Handle error
+          showMessage(e);
           console.error("Error requesting OTP:", error.message);
-          alert(`Error: ${error.message}`);
         }
       }
-      
+      //  document.querySelector(".scanned-data").classList.add("active");
+
+      document.querySelector(".otp-btn").addEventListener("click", () => {
+        let otp = "";
+        let data = document.querySelectorAll(".otp-input-boxs li input");
+        data.forEach((item) => {
+          otp += item.value;
+        });
+        if (otp.length < 6) {
+          return showMessage({
+            status: "Failed",
+            message: "Kindly enter your OTP!",
+          });
+        }
+        let obj = {
+          otp,
+          studentId: JSON.parse(localStorage.getItem("studentId")),
+        };
+        VerifyOTP(obj);
+      });
+
+      inputBoxes.forEach((box, i) => {
+        box.addEventListener("keydown", (e) => {
+          if (e.key >= 0 && e.key <= 10) {
+            if (i < inputBoxes.length - 1) {
+              setTimeout(() => inputBoxes[i + 1].focus(), 10);
+            }
+          } else if (e.key == "Backspace") {
+            if (i > 0) {
+              // Prevent moving before the first box
+              setTimeout(() => inputBoxes[i - 1].focus(), 10);
+            }
+          }
+        });
+      });
+
+      async function VerifyOTP(data) {
+        try {
+          let req = await fetch(
+            "https://honnexus.onrender.com/api/v1/users/signup",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            }
+          );
+          let res = await req.json();
+          if (res.status == "success") {
+            window.location.href = "/";
+          } else {
+            showMessage(res);
+          }
+        } catch (e) {
+          showMessage(e);
+        }
+      }
     </script>
   </body>
 </html>

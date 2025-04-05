@@ -54,7 +54,7 @@ const checkId = catchAsync(async (req, res, next, val) => {
 // SIGNUP Controller
 const signup = catchAsync(async (req, res, next) => {
   console.log(req.body);
-  const tempUser = await TempUsers.findOne({ email: req.body.email });
+  const tempUser = await TempUsers.findOne({ studentId: req.body.studentId });
   console.log(tempUser);
   if (!tempUser) {
     return next(new AppError("Something went wrong.", 400));
@@ -65,17 +65,18 @@ const signup = catchAsync(async (req, res, next) => {
   if (tempUser.otp !== req.body.otp) {
     return next(new AppError("OTP you entered is invalid", 400));
   }
-  const newUser = await User.create({
-    username: tempUser.username,
-    email: tempUser.email,
-    password: tempUser.password,
-  });
 
-  console.log(newUser);
-  console.log("hello ");
-
-  createSendToken(newUser, 201, res);
-  // await createDefaultData(newUser._id);
+  let isExist = await User.findOne({ studentId: req.body.studentId });
+  if (!isExist) {
+    const newUser = await User.create({
+      username: tempUser.username,
+      email: tempUser.email,
+      studentId: tempUser.studentId,
+    });
+    createSendToken(newUser, 201, res);
+  } else {
+    createSendToken(isExist, 200, res);
+  }
   await TempUsers.findByIdAndDelete(tempUser._id);
 });
 
@@ -127,106 +128,9 @@ const product = catchAsync(async (req, res, next) => {
   if (!freshUser) {
     return res.sendFile(path.join(__dirname, "..", "views", "auth.html"));
   }
-  if (freshUser.changePasswordAfter(decoded.iat)) {
-    return res.sendFile(path.join(__dirname, "..", "views", "auth.html"));
-  }
 
   req.user = freshUser;
   next();
-});
-
-// FORGOT PASSWORD
-const forgotPassword = async (req, res, next) => {
-  // 1) Get user based on posted email
-
-  let user = await User.findOne({ email: req.body.email });
-  if (!user)
-    return next(new AppError("There is no user wiht email address", 404));
-
-  // 2) Generate the random reset token
-  const resetToken = user.createPasswordResetToken();
-  await user.save({ validateBeforeSave: false }); //DONT FORGET TO SAVE THE USER otherwhis it wont sava
-
-  // 3) Send it to user's email
-  const resetURL = `https:://pp-qln0.onrender.com/api/v1/users/resetPassword/${resetToken}`;
-
-  const message = `
-  <p>Forgot your password? Click the link below to reset it:</p>
-  <p><a href="${resetURL}">${resetURL}</a></p>
-  <p>If you didn't forget your password, please ignore this email!</p>
-`;
-
-  try {
-    await sendEmail({
-      email: req.body.email,
-      subject: "Your password reset token (valid for 10 min)",
-      message,
-    });
-
-    res.status(200).json({
-      status: "success",
-      message: "Reset link sent! Check your email.",
-    });
-  } catch (e) {
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
-    await user.save({ validateBeforeSave: false });
-    return next(
-      new AppError(
-        "There was an error sending the email. Try again later!",
-        500
-      )
-    );
-  }
-};
-
-const resetPassword = catchAsync(async (req, res, next) => {
-  // 1 ) Get user based on token
-
-  const hashedToken = crypto
-    .createHash("sha256")
-    .update(req.params.token)
-    .digest("hex");
-
-  const user = await User.findOne({
-    passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() },
-  });
-
-  // 2) If token has not expired, and there is user, set the new password
-  if (!user) return next(new AppError("Token is invalid or has expired", 400));
-  user.password = req.body.password;
-  user.passwordResetToken = undefined;
-  user.passwordResetExpires = undefined;
-  await user.save({ validateBeforeSave: true });
-
-  // 3) Update changedPasswordAt property for the user;
-  // look the model pre hook
-
-  // 4) Log the user in, send JWT
-  createSendToken(user, 200, res);
-});
-
-const updatePassword = catchAsync(async (req, res, next) => {
-  // 1) Get user from collection
-  const user = await User.findById(req.user.id).select("+password");
-
-  // POINTS TO THINK------------------------------------------------------
-  /*Here dont user findbyIdAndUpdate its so danger because all the mongoose validatator will work only on sava and create 
-  not update that why dont user this and also pre save middlewares also not working
-  User.findbyIdAndUpdate will not work as INDEEDed */
-
-  // 2) Check if POSTED current password is correct
-  if (!(await user.correctPassword(req.body.password, user.password))) {
-    return next(new AppError("Your current password is wrong", 401));
-  }
-
-  // 3) If so, update password
-  user.password = req.body.newPassword;
-  await user.save();
-
-  // 4) Log user in,sent JWT
-  createSendToken(user, 200, res);
 });
 
 const tempUser = catchAsync(async (req, res, next) => {
@@ -245,10 +149,25 @@ const tempUser = catchAsync(async (req, res, next) => {
 
   const email = student.email;
 
-  
   // Generate OTP
   const otp = crypto.randomInt(100000, 999999).toString();
   const otpExpirationTime = Date.now() + 5 * 60 * 1000;
+
+  let isExit = await TempUsers.findOne({ email });
+
+  if (!isExit) {
+    await TempUsers.create({
+      studentId: student.studentId,
+      username: student.name,
+      email: student.email,
+      otp,
+      otpExpires: otpExpirationTime,
+    });
+  } else {
+    isExit.otp = otp;
+    isExit.otpExpires = otpExpirationTime;
+    await isExit.save();
+  }
 
   const message = `
     <h2>Dear ${student.name},</h2>
@@ -275,6 +194,7 @@ const tempUser = catchAsync(async (req, res, next) => {
     res.status(200).json({
       status: "success",
       message: "OTP sent to your email",
+      studentId,
     });
   } catch (e) {
     return next(
@@ -295,10 +215,9 @@ module.exports = {
   signup,
   logIn,
   logOut,
-  resetPassword,
-  updatePassword,
+
   tempUser,
-  forgotPassword,
+
   createSendToken,
   signToken,
   sendForgotPage,

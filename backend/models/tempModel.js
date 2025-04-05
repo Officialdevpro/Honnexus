@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 const tempSchema = new mongoose.Schema({
+  studentId: {
+    type: String,
+    required: [true, "Please provide the admission Number."],
+  },
   username: String,
   email: String,
-  password: String,
   otpExpires: Date,
-  otp:String,
+  otp: String,
 });
 
 const TempUsers = mongoose.model("TempUsers", tempSchema);

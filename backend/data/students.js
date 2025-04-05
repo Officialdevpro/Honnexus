@@ -30,5 +30,7 @@ exports.studentsData = [
   { studentId: "22ECEBE204", name: "Praveen J", email: "praveen.22ece@sonatech.ac.in" },
   { studentId: "22ECEBE206", name: "Jeeva S", email: "jeeva.22ece@sonatech.ac.in" },
   { studentId: null, name: "Rupika S", email: "rupika.22ece@sonatech.ac.in" },
-  { studentId: null, name: "Sree Yalini E", email: "Sreeyalini.22ece@sonatech.ac.in" }
+  { studentId: "22ECEBE168", name: "Kavinraaj S", email: "kavinraaj.22ece@sonatech.ac.in" },
+  { studentId: "22ECEBE162", name: "Pradeep K", email: "pradeep.22ece@sonatech.ac.in" }
 ];
+
