@@ -9,6 +9,7 @@ const { promisify } = require("util");
 const sendEmail = require("../utils/email.js");
 const path = require("path");
 const TempUsers = require("../models/tempModel.js");
+const { studentsData } = require("../data/students.js");
 
 // Function to generate JWT
 const signToken = (id) => {
@@ -52,7 +53,9 @@ const checkId = catchAsync(async (req, res, next, val) => {
 
 // SIGNUP Controller
 const signup = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const tempUser = await TempUsers.findOne({ email: req.body.email });
+  console.log(tempUser);
   if (!tempUser) {
     return next(new AppError("Something went wrong.", 400));
   }
@@ -67,6 +70,9 @@ const signup = catchAsync(async (req, res, next) => {
     email: tempUser.email,
     password: tempUser.password,
   });
+
+  console.log(newUser);
+  console.log("hello ");
 
   createSendToken(newUser, 201, res);
   // await createDefaultData(newUser._id);
@@ -124,7 +130,7 @@ const product = catchAsync(async (req, res, next) => {
   if (freshUser.changePasswordAfter(decoded.iat)) {
     return res.sendFile(path.join(__dirname, "..", "views", "auth.html"));
   }
- 
+
   req.user = freshUser;
   next();
 });
@@ -224,39 +230,44 @@ const updatePassword = catchAsync(async (req, res, next) => {
 });
 
 const tempUser = catchAsync(async (req, res, next) => {
-  let user = await User.findOne({ email: req.body.email });
-  if (user) {
-    return next(new AppError("Email already in use.", 400));
+  const { studentId } = req.body;
+
+  console.log(studentId);
+
+  // Find the student based on studentId
+  const student = studentsData.find(
+    (student) => student.studentId === studentId
+  );
+
+  if (!student) {
+    return next(new AppError("Invalid student ID..", 400));
   }
-  // 1 >> Generate the OTP
+
+  const email = student.email;
+
+  
+  // Generate OTP
   const otp = crypto.randomInt(100000, 999999).toString();
   const otpExpirationTime = Date.now() + 5 * 60 * 1000;
 
-  const { username, email, password } = req.body;
-
   const message = `
-  <h2>Dear ${username},</h2>
-
-<p>Thank you for using <strong>Penny Partner</strong>!</p>
-
-<p>Your One-Time Password (OTP) for verification is:</p>
-<div style="text-align: center;">
-    <h1 style="font-size: 36px; color: #000;">${otp}</h1>
-</div>
-
-<p>Please enter this OTP in <strong>Penny Partner</strong> to complete your verification process.</p>
-
-<p>If you did not request this verification, please ignore this email.</p>
-
-<p>Thank you!</p>
-
-<h3>Best regards,</h3>
-<p>Penny Partner</p>
-`;
+    <h2>Dear ${student.name},</h2>
+    <p>Thank you for using <strong>Honnexus</strong>!</p>
+    <p>Your One-Time Password (OTP) for verification is:</p>
+    <div style="text-align: center;">
+        <h1 style="font-size: 36px; color: #000;">${otp}</h1>
+    </div>
+    <p>Please enter this OTP in <strong>Honnexus</strong> to complete your verification process.</p>
+    <p>If you did not request this verification, please ignore this email.</p>
+    <p>Thank you!</p>
+    <h3>Best regards,</h3>
+    <p>Department of ECE</p>
+     <p>Sona College of Technology</p>
+  `;
 
   try {
     await sendEmail({
-      email: req.body.email,
+      email,
       subject: "OTP Verification Code (valid for 5 min)",
       message,
     });
@@ -265,28 +276,7 @@ const tempUser = catchAsync(async (req, res, next) => {
       status: "success",
       message: "OTP sent to your email",
     });
-
-    let isExit = await TempUsers.findOne({ email });
-
-    if (!isExit) {
-      await TempUsers.create({
-        username,
-        email,
-        password,
-        otp,
-        otpExpires: otpExpirationTime,
-      });
-    } else {
-      isExit.password = password;
-      isExit.username = username;
-      isExit.otp = otp;
-      isExit.otpExpires = otpExpirationTime;
-      await isExit.save();
-    }
   } catch (e) {
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
-    await user.save({ validateBeforeSave: false });
     return next(
       new AppError(
         "There was an error sending the email. Try again later!",
