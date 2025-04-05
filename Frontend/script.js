@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function loadBooks() {
-  let req = await fetch("http://localhost:5500/api/v1/books");
+  let req = await fetch("https://honnexus.onrender.com/api/v1/books");
   let { data } = await req.json();
   console.log(data)
   let bookContainer = document.querySelector(".books");
