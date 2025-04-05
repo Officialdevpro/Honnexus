@@ -1,6 +1,6 @@
 const CACHE_NAME = "voice-purifier-cache-v1";
 const urlsToCache = [
-  "./index.html",  // Use relative path
+  "./main.html",  // Use relative path
   "./style.css",
   "./script.js",
   "./icons/image.png"
