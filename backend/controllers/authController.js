@@ -73,6 +73,7 @@ const signup = catchAsync(async (req, res, next) => {
       email: tempUser.email,
       studentId: tempUser.studentId,
     });
+    newUser.save();
     createSendToken(newUser, 201, res);
   } else {
     createSendToken(isExist, 200, res);

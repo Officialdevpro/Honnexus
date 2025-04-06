@@ -45,20 +45,26 @@ userSchema.pre(/^find/, function (next) {
 });
 
 userSchema.pre("save", function (next) {
-  // Only set semester if not already set manually
   if (!this.semester && this.studentId && this.studentId.length >= 2) {
-    const currentYear = new Date().getFullYear();
-    const admissionYear = parseInt("20" + this.studentId.slice(0, 2)); // "22" -> 2022
+    const admissionDate = new Date("2022-10-28");
+    const now = new Date();
 
-    const monthDiff = (currentYear - admissionYear) * 12 + new Date().getMonth();
-    const calculatedSemester = Math.floor(monthDiff / 6) + 1;
+    const diffInMonths =
+      (now.getFullYear() - admissionDate.getFullYear()) * 12 +
+      (now.getMonth() - admissionDate.getMonth());
 
-    // Set semester between 1 and 8
+    const calculatedSemester = Math.floor(diffInMonths / 6) + 1;
+
+    // Clamp the value between 1 and 8
     this.semester = Math.min(Math.max(calculatedSemester, 1), 8);
+
+    console.log("Auto-set semester to:", this.semester);
   }
 
   next();
 });
+
+
 
 
 const User = mongoose.model("Users", userSchema);
