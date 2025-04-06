@@ -80,7 +80,7 @@ function displayResults(results) {
 }
 
 // Call the fetch function when the page loads
-fetchBooks();
+// fetchBooks();
 
 async function loadBorrowedBooks() {
   let req = await fetch("./data/books.json");
@@ -91,7 +91,7 @@ async function loadBorrowedBooks() {
     bookContainer.innerHTML += bookTemplate(book);
   });
 }
-loadBorrowedBooks();
+// loadBorrowedBooks();
 
 const nav = document.querySelector("nav"),
   toggleBtn = nav.querySelector(".toggle-btn");

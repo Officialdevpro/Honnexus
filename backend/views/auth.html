@@ -1180,13 +1180,18 @@
           console.log(data);
           if (response.status == 200) {
             document.querySelector(".scanned-data").classList.add("active");
+          } else {
+            showMessage(data);
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           }
 
           // ✅ OTP sent successfully
           localStorage.setItem("studentId", JSON.stringify(data.studentId));
         } catch (error) {
           // ❌ Handle error
-          showMessage(e);
+
           console.error("Error requesting OTP:", error.message);
         }
       }

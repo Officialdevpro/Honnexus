@@ -26,7 +26,8 @@ exports.createBook = catchAsync(async (req, res, next) => {
 // 📌 GET All Books
 exports.getAllBooks = catchAsync(async (req, res, next) => {
   const books = await Book.find();
-
+  console.log(req.user);
+  // console.log(req)
   if (books.length === 0) {
     return next(new AppError("No books found", 404));
   }

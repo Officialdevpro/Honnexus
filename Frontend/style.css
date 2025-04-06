@@ -89,6 +89,7 @@ main section.settings {
   justify-content: center;
   align-items: center;
   gap: 15px;
+  margin-bottom: 100px;
 }
 .books-container {
   display: flex;
