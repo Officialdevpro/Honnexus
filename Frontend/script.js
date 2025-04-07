@@ -155,10 +155,7 @@ function setSemesterFromData(sem) {
   updateSlider(); // reuse the same function for consistency
 }
 
-// Call this when data is ready
-window.addEventListener("load", () => {
-  setSemesterFromData(1); // example: 6th semester
-});
+
 
 async function updateSemester(semesterValue) {
   try {
