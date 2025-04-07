@@ -118,3 +118,29 @@ exports.userCount = catchAsync(async (req, res) => {
     userCount: count,
   });
 });
+
+
+exports.updateSemester = catchAsync(async (req, res, next) => {
+  
+  const { semester } = req.body;
+
+  if (!semester || semester < 1 || semester > 8) {
+    return next(new AppError("Please provide a valid semester (1–8)", 400));
+  }
+
+  const user = await User.findByIdAndUpdate(
+    req.user._id,
+    { semester },
+    { new: true, runValidators: true }
+  );
+
+  if (!user) {
+    return next(new AppError("User not found", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    message: "Semester updated successfully",
+    data: user,
+  });
+});

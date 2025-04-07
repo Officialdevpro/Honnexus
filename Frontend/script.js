@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function loadBooks() {
   let req = await fetch("https://honnexus.onrender.com/api/v1/books");
   let { data } = await req.json();
-  console.log(data)
+  console.log(data);
   let bookContainer = document.querySelector(".books");
   bookContainer.innerHTML = "";
   data.forEach((book) => {
@@ -42,6 +42,21 @@ async function loadBooks() {
   });
 }
 loadBooks();
+async function loadUser() {
+  let req = await fetch("https://honnexus.onrender.com/api/v1/users");
+  let { data } = await req.json();
+  console.log(data);
+  let profile = document
+    .querySelector(".profile-top-portion img")
+    .setAttribute("src", "images/profiles/" + data.profile);
+  let name = document.querySelector(".profile-details h2");
+  let id = document.querySelector(".profile-details small");
+  name.innerHTML = data.username;
+  id.innerHTML = data.studentId;
+  setSemesterFromData(data.semester);
+}
+
+loadUser();
 
 // Fetch books data from JSON
 async function fetchBooks() {
@@ -107,3 +122,63 @@ navItems.forEach((item) => {
     nav.classList.remove("open");
   });
 });
+
+const range = document.getElementById("rangeInput");
+const bubble = document.getElementById("bubble");
+
+function updateSlider() {
+  const val = Number(range.value);
+  const min = Number(range.min);
+  const max = Number(range.max);
+  const percent = ((val - min) / (max - min)) * 100;
+
+  // Update bubble position
+  const rangeWidth = range.offsetWidth;
+  const bubbleWidth = bubble.offsetWidth;
+  const left = (percent / 100) * rangeWidth - bubbleWidth / 2;
+  bubble.style.left = `${left}px`;
+  bubble.textContent = val;
+  console.log(val);
+  updateSemester(val);
+
+  // Update bar fill
+  range.style.background = `linear-gradient(to right, #4caf50 0%, #4caf50 ${percent}%, #ccc ${percent}%, #ccc 100%)`;
+}
+
+// Update when user moves the slider manually
+range.addEventListener("input", updateSlider);
+
+// Initial update from user data (like from API)
+function setSemesterFromData(sem) {
+  range.value = sem;
+
+  updateSlider(); // reuse the same function for consistency
+}
+
+// Call this when data is ready
+window.addEventListener("load", () => {
+  setSemesterFromData(1); // example: 6th semester
+});
+
+async function updateSemester(semesterValue) {
+  try {
+    const response = await fetch(`/api/v1/users/update-semester`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ semester: semesterValue }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to update semester");
+    }
+
+    console.log("Semester updated successfully:", data);
+    loadBooks();
+  } catch (err) {
+    console.error("Error:", err.message);
+  }
+}

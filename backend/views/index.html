@@ -493,26 +493,7 @@
       </footer>
     </div>
     <script>
-      const range = document.getElementById("rangeInput");
-      const bubble = document.getElementById("bubble");
-
-      function updateSlider() {
-        const val = Number(range.value);
-        const min = Number(range.min);
-        const max = Number(range.max);
-        const percent = ((val - min) / (max - min)) * 100;
-
-        // Move bubble
-        const offset = percent * (range.offsetWidth / 100);
-        bubble.style.left = `${offset}px`;
-        bubble.textContent = val;
-
-        // Update slider fill gradient
-        range.style.background = `linear-gradient(to right, #4caf50 0%, #4caf50 ${percent}%, #ccc ${percent}%, #ccc 100%)`;
-      }
-
-      range.addEventListener("input", updateSlider);
-      window.addEventListener("load", updateSlider);
+     
 
       let theme = document.querySelector(".toggle-switch");
 

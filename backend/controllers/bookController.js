@@ -25,11 +25,12 @@ exports.createBook = catchAsync(async (req, res, next) => {
 
 // 📌 GET All Books
 exports.getAllBooks = catchAsync(async (req, res, next) => {
-  const books = await Book.find();
-  console.log(req.user);
-  // console.log(req)
-  if (books.length === 0) {
-    return next(new AppError("No books found", 404));
+  const userSemester = req.user.semester;
+
+  const books = await Book.find({ semester: userSemester });
+
+  if (!books || books.length === 0) {
+    return next(new AppError("No books found for your semester", 404));
   }
 
   res.status(200).json({
@@ -37,6 +38,7 @@ exports.getAllBooks = catchAsync(async (req, res, next) => {
     data: books,
   });
 });
+
 
 // 📌 GET Single Book by ID
 exports.getBook = catchAsync(async (req, res, next) => {

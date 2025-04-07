@@ -38,6 +38,8 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
+
+
 // Middleware to check if ID exists
 const checkId = catchAsync(async (req, res, next, val) => {
   const isValidId = await User.findById(val);
@@ -211,8 +213,25 @@ const sendForgotPage = catchAsync(async (req, res, next) => {
   res.sendFile(path.join(__dirname, "..", "views", "resetPassword.html"));
 });
 
+
+// Controller to send current user info
+const getCurrentUser = catchAsync(async (req, res, next) => {
+  if (!req.user) {
+    return next(new AppError("No user logged in", 401));
+  }
+
+  res.status(200).json({
+    status: "success",
+   
+      user: req.user,
+   
+  });
+});
+
+
 module.exports = {
   product,
+  getCurrentUser,
   signup,
   logIn,
   logOut,
@@ -223,3 +242,5 @@ module.exports = {
   signToken,
   sendForgotPage,
 };
+
+

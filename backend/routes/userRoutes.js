@@ -8,6 +8,7 @@ const {
   deleteMe,
   userCount,
   resetApp,
+  updateSemester,
 } = require("../controllers/userController");
 
 const {
@@ -31,6 +32,7 @@ const {
 const {
   product,
   signup,
+  getCurrentUser,
   logIn,
   logOut,
 } = require("../controllers/authController");
@@ -79,6 +81,8 @@ router.route("/accounts/balance/").get(product, getAccountsBalance); //Here id i
 router.post("/signup", signup);
 router.post("/login", logIn);
 router.get("/users", getall);
+router.get("/me",product, getCurrentUser);
+router.patch("/update-semester",product, updateSemester);
 router.get("/logout", logOut);
 router.get("/count", userCount);
 router.get("/resetApp", product, resetApp);
