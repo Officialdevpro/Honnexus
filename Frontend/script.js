@@ -155,8 +155,6 @@ function setSemesterFromData(sem) {
   updateSlider(); // reuse the same function for consistency
 }
 
-
-
 async function updateSemester(semesterValue) {
   try {
     const response = await fetch(`/api/v1/users/update-semester`, {
@@ -177,5 +175,53 @@ async function updateSemester(semesterValue) {
     loadBooks();
   } catch (err) {
     console.error("Error:", err.message);
+  }
+}
+
+fetchRandomBooks();
+async function fetchRandomBooks() {
+  try {
+    const response = await fetch(
+      "https://honnexus.onrender.com/api/v1/books/random"
+    ); // adjust path if needed
+
+    if (response.ok) {
+      const { data } = await response.json();
+      console.log(data);
+      let parent = document.querySelector(".top-row");
+      function getRandomColor() {
+        const colors = [
+          "#FF6B6B",
+          "#6BCB77",
+          "#4D96FF",
+          "#FFC75F",
+          "#C34A36",
+          "#FF9671",
+          "#B76EF1",
+          "#00C9A7",
+          "#FF6F91",
+          "#845EC2",
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      data.forEach((book) => {
+        const randomColor = getRandomColor();
+        parent.innerHTML += `
+          <li>
+            <img
+              src="${book.icon}"
+              alt=""
+              style="border: 2px solid ${randomColor};"
+            />
+            <small>${book.bookName.slice(0, 5)}..</small>
+          </li>`;
+      });
+
+      throw new Error("Failed to fetch random books");
+    }
+  } catch (error) {
+    console.error("Error fetching random books:", error.message);
+    return [];
   }
 }

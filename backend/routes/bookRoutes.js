@@ -12,6 +12,7 @@ router.post(
 );
 
 router.get("/", product, bookController.getAllBooks);
+router.get("/random", product, bookController.getRandomBooks);
 // Add other routes as needed
 
 module.exports = router;

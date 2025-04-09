@@ -115,12 +115,14 @@ main section.settings {
 .top-row li img {
   width: 65px;
   height: 65px;
-  background-color: black;
+ 
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+  padding: 3px;
+  border: 2px solid red;
 }
 .book-card {
   width: 100%;
