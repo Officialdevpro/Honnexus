@@ -3,7 +3,7 @@ export function bookTemplate(book) {
   const fullStars = Math.floor(book.ratings);
   const halfStar = book.ratings % 1 >= 0.5;
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
+  
   // Generate star icons based on rating
   const starsHTML =
     '<img src="icons/filledStar.svg" alt="" class="star-icon"/>'.repeat(
