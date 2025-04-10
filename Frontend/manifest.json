@@ -3,7 +3,7 @@
     "name": "Honnexus",
     "short_name": "Honnexus",
     "description": "Smar Library Management System.",
-    "start_url": "./main.html",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000",
