@@ -1,0 +1,206 @@
+{
+  "status": "success",
+  "restult": 16,
+  "reviews": [
+    {
+      "_id": "6783cc5010cd6cda0ac01910",
+      "review": "Very awesome work",
+      "rating": 5,
+      "user": {
+        "_id": "6783cbe010cd6cda0ac0182d",
+        "username": "Jeyaraman S"
+      },
+      "createdAt": "2025-01-12T14:06:08.697Z",
+      "__v": 0,
+      "id": "6783cc5010cd6cda0ac01910"
+    },
+    {
+      "_id": "6783dac710cd6cda0ac01fd7",
+      "review": "Nice project ☺️",
+      "rating": 5,
+      "user": {
+        "_id": "6783d83610cd6cda0ac01ec4",
+        "username": "sunr"
+      },
+      "createdAt": "2025-01-12T15:07:51.359Z",
+      "__v": 0,
+      "id": "6783dac710cd6cda0ac01fd7"
+    },
+    {
+      "_id": "6783dfcf015ba015e283e606",
+      "review": "No words just Rocked It .",
+      "rating": 5,
+      "user": {
+        "_id": "6783daa110cd6cda0ac01f85",
+        "username": "KARTHI 29"
+      },
+      "createdAt": "2025-01-12T15:29:19.969Z",
+      "__v": 0,
+      "id": "6783dfcf015ba015e283e606"
+    },
+    {
+      "_id": "6783e885015ba015e283ec8a",
+      "review": "Nice",
+      "rating": 5,
+      "user": {
+        "_id": "6783e777015ba015e283ec08",
+        "username": "xreys"
+      },
+      "createdAt": "2025-01-12T16:06:29.777Z",
+      "__v": 0,
+      "id": "6783e885015ba015e283ec8a"
+    },
+    {
+      "_id": "6783f37e015ba015e283ef74",
+      "review": "Super and Worth project 🎉",
+      "rating": 5,
+      "user": {
+        "_id": "6783eebc015ba015e283edfc",
+        "username": "ARUN"
+      },
+      "createdAt": "2025-01-12T16:53:18.512Z",
+      "__v": 0,
+      "id": "6783f37e015ba015e283ef74"
+    },
+    {
+      "_id": "6783f9fc015ba015e283f13a",
+      "review": "Its such a great app ever I've been used especially the performance of the website is just awesome 👍",
+      "rating": 5,
+      "user": {
+        "_id": "6783f7d3015ba015e283f01c",
+        "username": "Mohan Dhoni"
+      },
+      "createdAt": "2025-01-12T17:21:00.128Z",
+      "__v": 0,
+      "id": "6783f9fc015ba015e283f13a"
+    },
+    {
+      "_id": "6783fa00015ba015e283f142",
+      "review": "This app is far best than other apps",
+      "rating": 5,
+      "user": {
+        "_id": "6783f5f8015ba015e283efbe",
+        "username": "Khrede X POp"
+      },
+      "createdAt": "2025-01-12T17:21:04.980Z",
+      "__v": 0,
+      "id": "6783fa00015ba015e283f142"
+    },
+    {
+      "_id": "67840181015ba015e283f23c",
+      "review": "Vera level bro🙌🔥",
+      "rating": 5,
+      "user": {
+        "_id": "67840100015ba015e283f1ec",
+        "username": "Siva M"
+      },
+      "createdAt": "2025-01-12T17:53:05.845Z",
+      "__v": 0,
+      "id": "67840181015ba015e283f23c"
+    },
+    {
+      "_id": "67847c44532045767227c633",
+      "review": "The worst experience ever!",
+      "rating": 1,
+      "user": {
+        "_id": "67847c22532045767227c603",
+        "username": "нíт- тномдs"
+      },
+      "createdAt": "2025-01-13T02:36:52.385Z",
+      "__v": 0,
+      "id": "67847c44532045767227c633"
+    },
+    {
+      "_id": "6784bca918311bba57f46bda",
+      "review": "🔥 awesome project",
+      "rating": 5,
+      "user": {
+        "_id": "6784b68118311bba57f468dd",
+        "username": "Pradeep"
+      },
+      "createdAt": "2025-01-13T07:11:37.919Z",
+      "__v": 0,
+      "id": "6784bca918311bba57f46bda"
+    },
+    {
+      "_id": "678549634279984ad1d59187",
+      "review": "Vera level la Iruku",
+      "rating": 5,
+      "user": {
+        "_id": "678548e04279984ad1d59138",
+        "username": "Sridhar"
+      },
+      "createdAt": "2025-01-13T17:12:03.344Z",
+      "__v": 0,
+      "id": "678549634279984ad1d59187"
+    },
+    {
+      "_id": "67863c30d8b667276ad48e5f",
+      "review": "Looking awesome great effort to build this hats off to the developer",
+      "rating": 5,
+      "user": {
+        "_id": "67863bb5d8b667276ad48e1e",
+        "username": "Ajai kumar"
+      },
+      "createdAt": "2025-01-14T10:28:00.405Z",
+      "__v": 0,
+      "id": "67863c30d8b667276ad48e5f"
+    },
+    {
+      "_id": "6787cac2595882881ca4872b",
+      "review": "Good",
+      "rating": 5,
+      "user": {
+        "_id": "6787ca92595882881ca486fb",
+        "username": "HARITHA DIVYASRI K S"
+      },
+      "createdAt": "2025-01-15T14:48:34.188Z",
+      "__v": 0,
+      "id": "6787cac2595882881ca4872b"
+    },
+    {
+      "_id": "678e2589f386e82c3053e36a",
+      "review": "Unbelievable Web Application Congrats For next Projects!!!..",
+      "rating": 5,
+      "user": {
+        "_id": "678e24e0f386e82c3053e326",
+        "username": "programming"
+      },
+      "createdAt": "2025-01-20T10:29:29.520Z",
+      "__v": 0,
+      "id": "678e2589f386e82c3053e36a"
+    },
+    {
+      "_id": "6799e894800a497bdf27033e",
+      "review": "Super",
+      "rating": 5,
+      "user": {
+        "_id": "6799cc75b2dbc3c424e07c27",
+        "username": "Praveen"
+      },
+      "createdAt": "2025-01-29T08:36:36.979Z",
+      "__v": 0,
+      "id": "6799e894800a497bdf27033e"
+    },
+    {
+      "_id": "67dd084176d3e93deb54b931",
+      "review": "Astonishing Application",
+      "rating": 5,
+      "user": {
+        "_id": "67dd068a76d3e93deb54b830",
+        "username": "HOMI"
+      },
+      "createdAt": "2025-03-21T06:33:37.160Z",
+      "__v": 0,
+      "id": "67dd084176d3e93deb54b931"
+    }
+  ],
+  "stats": {
+    "nRating": 16,
+    "avgRating": 4.8,
+    "percentages": {
+      "1": "6.25",
+      "5": "93.75"
+    }
+  }
+}

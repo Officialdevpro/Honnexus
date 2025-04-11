@@ -6,6 +6,7 @@
     <title>Honnexus</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./review.css" />
   </head>
   <body>
     <div class="app">
@@ -17,6 +18,131 @@
       </header>
       <main>
         <section class="home">
+          <div class="book-details">
+            <div class="detail-card">
+              <div class="book-cover">
+                <img src="" alt="" />
+              </div>
+              <div class="book-description">
+                <h2></h2>
+                <table class="info-table">
+                  <tr>
+                    <th>Edition</th>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <th class="even">Author</th>
+                    <td class="unq">Raj Kamal</td>
+                  </tr>
+                  <tr>
+                    <th>Semester</th>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <th class="even">Avalible</th>
+                    <td class="unq">20 Books</td>
+                  </tr>
+                 
+                </table>
+                <div class="rr-container active">
+                  <div class="review-input-container">
+                    <div class="review-input-body">
+                      <div class="app-logo-review">
+                        <div class="app-logo">
+                          <img src="images/app-logo.png" alt="" />
+                        </div>
+                        <p>Enjoying this app? Rate us!</p>
+                      </div>
+                      <div class="rating-star-container">
+                        <input hidden type="tel" value="0" id="rateValue" />
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                      </div>
+                      <div class="review-write">
+                        <textarea
+                          placeholder="Describe your experience"
+                          name=""
+                          id="calculate-word-len"
+                          maxlength="500"
+                        ></textarea>
+                        <div class="word-count-body">
+                          <small class="word-count">0/500</small>
+                        </div>
+                      </div>
+                      <div class="review-post-body">
+                        <button disabled class="review-post-btn">POST</button>
+                      </div>
+                    </div>
+                  </div>
+                  <header>
+                    <div class="left">
+                      <div class="app-header">
+                       
+                        <h2>Reviews & Ratings</h2>
+                      </div>
+                    </div>
+                    <img class="svg write-pen" src="icons/edit.svg" alt="" />
+                  </header>
+                  <div class="rr-body">
+                    <div class="rating-num-left">
+                      <h1></h1>
+                      <div class="obtained-star-container"></div>
+                      <div class="overall-star-container"></div>
+                      <small class="nRating">0</small>
+                    </div>
+                    <div class="rating-bar-right">
+                      <ul class="rr-bar-container">
+                        <li class="li-bar">
+                          <p>5</p>
+                          <div class="rating-review-bar bar-rating-5">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                        <li class="li-bar">
+                          <p>4</p>
+                          <div class="rating-review-bar bar-rating-4">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                        <li class="li-bar">
+                          <p>3</p>
+                          <div class="rating-review-bar bar-rating-3">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                        <li class="li-bar">
+                          <p>2</p>
+                          <div class="rating-review-bar bar-rating-2">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                        <li class="li-bar">
+                          <p>1</p>
+                          <div class="rating-review-bar bar-rating-1">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <ul class="user-feedback"></ul>
+                  <div class="review-back-btn">
+                    <img src="icons/return.svg" alt="" />
+                  </div>
+                </div>
+                
+                
+                <!-- <small
+                  >microprocessors are used in general-purpose systems for
+                  high-speed computing, while microcontrollers are optimized for
+                  specific control tasks in embedded systems.
+                </small> -->
+              </div>
+            </div>
+          </div>
           <div class="home-top-row">
             <b>Most Borrowed Books</b>
             <ul class="top-row"></ul>
