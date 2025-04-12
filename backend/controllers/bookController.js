@@ -38,6 +38,19 @@ exports.getAllBooks = catchAsync(async (req, res, next) => {
     data: books,
   });
 });
+exports.getAll = catchAsync(async (req, res, next) => {
+
+  const books = await Book.find();
+
+  if (!books || books.length === 0) {
+    return next(new AppError("No books found for your semester", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    books
+  });
+});
 
 
 // 📌 GET Single Book by ID

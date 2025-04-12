@@ -534,3 +534,7 @@ button:disabled {
 .borrowed-book-details {
   width: 100%;
 }
+
+.profile-status+h3{
+  margin-left: 10px;
+}

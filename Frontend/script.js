@@ -1,4 +1,4 @@
-import { bookTemplate } from "./templates.js";
+import { bookTemplate, borrowedBooksTemplate } from "./templates.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const sections = document.querySelectorAll("main section");
@@ -39,18 +39,34 @@ document.addEventListener("DOMContentLoaded", function () {
 async function loadBooks() {
   let req = await fetch("https://honnexus.onrender.com/api/v1/books");
   let { data } = await req.json();
-  console.log(data);
+
   let bookContainer = document.querySelector(".books");
   bookContainer.innerHTML = "";
   data.forEach((book) => {
     bookContainer.innerHTML += bookTemplate(book);
+  });
+
+  let booksCard = document.querySelectorAll("li.book-card");
+
+  booksCard.forEach((book) => {
+    book.addEventListener("click", () => {
+      document.querySelector(".book-description h2").innerHTML =
+        book.lastElementChild.firstElementChild.textContent;
+      document
+        .querySelector(".book-cover img")
+        .setAttribute(
+          "src",
+          book.firstElementChild.firstElementChild.getAttribute("src")
+        );
+      document.querySelector(".book-details").style.display = "flex";
+    });
   });
 }
 loadBooks();
 async function loadUser() {
   let req = await fetch("https://honnexus.onrender.com/api/v1/users");
   let { data } = await req.json();
-  console.log(data);
+
   let profile = document
     .querySelector(".profile-top-portion img")
     .setAttribute("src", "images/profiles/" + data.profile);
@@ -66,16 +82,17 @@ loadUser();
 // Fetch books data from JSON
 async function fetchBooks() {
   try {
-    const req = await fetch("./data/books.json");
-    const books = await req.json();
+    const req = await fetch(
+      "https://honnexus.onrender.com/api/v1/books/get-all"
+    );
+    const { books } = await req.json();
 
-    // Search functionality
     document.getElementById("search-box").addEventListener("input", (e) => {
       const query = e.target.value.toLowerCase().trim();
       const results = books.filter(
         (book) =>
-          book.BookName.toLowerCase().includes(query) ||
-          book.AuthorName.toLowerCase().includes(query)
+          book.bookName.toLowerCase().includes(query) ||
+          book.author.toLowerCase().includes(query)
       );
 
       displayResults(results);
@@ -90,7 +107,7 @@ async function fetchBooks() {
       "<li>Error loading books data.</li>";
   }
 }
-
+fetchBooks();
 // Display search results dynamically
 function displayResults(results) {
   const resultContainer = document.querySelector(".search-results");
@@ -103,15 +120,19 @@ function displayResults(results) {
 // fetchBooks();
 
 async function loadBorrowedBooks() {
-  let req = await fetch("./data/books.json");
-  let res = await req.json();
-  let bookContainer = document.querySelector(".borrowed-books");
-  bookContainer.innerHTML = "";
-  res.forEach((book) => {
-    bookContainer.innerHTML += bookTemplate(book);
-  });
+  let req = await fetch("https://honnexus.onrender.com/api/v1/borrow");
+
+  if (req.status == 200) {
+    const { books, results } = await req.json();
+
+    document.querySelector(".left-box h1").innerHTML = results;
+
+    borrowedBooksTemplate(books);
+  }
+
+  // bookContainer.innerHTML = "poda poda punnaku podatha thappu kanul"
 }
-// loadBorrowedBooks();
+loadBorrowedBooks();
 
 const nav = document.querySelector("nav"),
   toggleBtn = nav.querySelector(".toggle-btn");
@@ -143,7 +164,7 @@ function updateSlider() {
   const left = (percent / 100) * rangeWidth - bubbleWidth / 2;
   bubble.style.left = `${left}px`;
   bubble.textContent = val;
-  console.log(val);
+
   updateSemester(val);
 
   // Update bar fill
@@ -176,7 +197,6 @@ async function updateSemester(semesterValue) {
       throw new Error(data.message || "Failed to update semester");
     }
 
-    console.log("Semester updated successfully:", data);
     loadBooks();
   } catch (err) {
     console.error("Error:", err.message);
@@ -192,7 +212,7 @@ async function fetchRandomBooks() {
 
     if (response.ok) {
       const { data } = await response.json();
-      console.log(data);
+
       let parent = document.querySelector(".top-row");
       function getRandomColor() {
         const colors = [
@@ -560,21 +580,4 @@ async function updateReviewFromServer(reviewId, data) {
   }
 }
 
-setTimeout(() => {
-  let booksCard = document.querySelectorAll("li.book-card");
-  console.log(booksCard);
-  booksCard.forEach((book) => {
-    book.addEventListener("click", () => {
-      console.log(book);
-      document.querySelector(".book-description h2").innerHTML =
-        book.lastElementChild.firstElementChild.textContent;
-      document
-        .querySelector(".book-cover img")
-        .setAttribute(
-          "src",
-          book.firstElementChild.firstElementChild.getAttribute("src")
-        );
-      document.querySelector(".book-details").style.display = "flex";
-    });
-  });
-}, 1000);
+setTimeout(() => {}, 1000);

@@ -29,6 +29,7 @@ const User = require("./models/userModel.js");
 const { createDefaultData } = require("./utils/defaultData.js");
 const TempUsers = require("./models/tempModel.js");
 
+const borrowroutes = require("./routes/borrowRoutes.js");
 // 1) GLOBAL MIDDLEWARES
 
 // Set security  HTTP headers
@@ -71,8 +72,6 @@ app.use(
 app.use(compression());
 app.use("/", express.static(path.join(__dirname, "..", "Frontend")));
 
-
-
 app.use(
   "/api/v1/users/resetPassword/:id",
   express.static(path.join(__dirname, "..", "Frontend"))
@@ -102,6 +101,7 @@ app.get("/", product, (req, res) => {
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/books", bookRoutes);
+app.use("/api/v1/borrow", borrowroutes);
 
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/analytics", analysRoutes);

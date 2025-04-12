@@ -37,7 +37,7 @@ export function bookTemplate(book) {
                 </li>`;
 }
 export function borrowedBooksTemplate(borrowedBooks) {
-  let container = document.querySelector(".borrowed-book-details");
+  let container = document.getElementById("borrow")
   container.innerHTML = "";
   borrowedBooks.forEach((book) => {
    
@@ -48,12 +48,12 @@ export function borrowedBooksTemplate(borrowedBooks) {
       <li class="book-card column">
         <div class="left-portion">
           <b class="label" style="background-color: ${randomColor}; color: white; padding: 5px 10px; border-radius: 5px;">
-            ${book.DaysLeft} days ago
+            ${book.createdAt}
           </b>
-          <img src="${book.BookImage}" alt="Book cover" />
+          <img src="${book.icon}" alt="Book cover" />
         </div>
         <div class="right-portion">
-          <p>${book.BookName}</p>
+          <p>${book.bookName}</p>
         </div>
       </li>`;
   });
