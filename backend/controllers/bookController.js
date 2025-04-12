@@ -40,8 +40,8 @@ exports.getAllBooks = catchAsync(async (req, res, next) => {
 });
 exports.getAll = catchAsync(async (req, res, next) => {
 
-  const books = await Book.find();
-
+  const books = await Book.find({});
+  
   if (!books || books.length === 0) {
     return next(new AppError("No books found for your semester", 404));
   }
@@ -55,7 +55,8 @@ exports.getAll = catchAsync(async (req, res, next) => {
 
 // 📌 GET Single Book by ID
 exports.getBook = catchAsync(async (req, res, next) => {
-  const book = await Book.findById(req.params.id);
+  let book = await Book.findOne({bookId:req.params.bookId});
+  
 
   if (!book) {
     return next(new AppError("Book not found", 404));
@@ -63,7 +64,7 @@ exports.getBook = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    data: book,
+    book
   });
 });
 

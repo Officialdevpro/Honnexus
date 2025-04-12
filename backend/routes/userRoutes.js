@@ -9,6 +9,7 @@ const {
   userCount,
   resetApp,
   updateSemester,
+  getStudent,
 } = require("../controllers/userController");
 
 const {
@@ -92,7 +93,7 @@ router.get("/transactions/summary", product, cumulativeSummary);
 router.patch("/updateMe", product, updateMe);
 router.delete("/deleteMe", product, deleteMe);
 
-router.route("/").get(product, getUser);
+router.route("/:studentId").get( getStudent);
 
 //CATEGORY ROUTES
 router

@@ -7,6 +7,7 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./review.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
   </head>
   <body>
     <div class="app">
@@ -184,34 +185,250 @@
           </div>
         </section>
         <section class="admin">
+          <!-- <button id="scan-btn">Start Barcode Scan</button> -->
+          <div class="backdrop"></div>
+
           <div id="scanner-container">
+            <div class="loading"></div>
             <video id="barcode-scanner" autoplay playsinline></video>
             <div id="scan-overlay">
               <div id="scan-line"></div>
             </div>
           </div>
 
-          <div id="scanned-data" class="scanned-data">
-            <h3>Scanned Data:</h3>
-            <p id="scanned-content"></p>
-          </div>
-          <div class="borrowed-book-details">
-            <!-- <li class="book-card column">
+          <style>
+            .student-data {
+              display: flex;
+              justify-content: start;
+              align-items: start;
+              width: 100%;
+              gap: 25px;
+              height: 100%;
+
+              flex-direction: column;
+            }
+            .student-data .student-img img {
+              width: 70px;
+              height: 70px;
+              border-radius: 50%;
+            }
+            .student-data .student-details {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+            .student-content {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              flex-direction: column;
+              width: 100%;
+            }
+            .modern-btn {
+              background: linear-gradient(
+                135deg,
+                #6a11cb,
+                #2575fc
+              ); /* Gradient magic */
+              color: #fff;
+              padding: 12px 28px;
+              font-size: 16px;
+              font-weight: 600;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+              box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+              transition: all 0.3s ease;
+              letter-spacing: 0.5px;
+              margin-top: 19px;
+            }
+
+            .modern-btn:hover {
+              transform: translateY(-3px);
+              box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            }
+
+            .modern-btn:active {
+              transform: translateY(0);
+              box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+            .button-assign {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            .padding {
+              padding: 0px 10px;
+            }
+            .clean-btn {
+              width: 170px;
+              z-index: 1;
+              background-color: #da5f1f; /* Elegant navy blue */
+              color: #ffffff;
+              padding: 12px 24px;
+              font-size: 15px;
+              font-weight: 500;
+              border: 1px solid transparent;
+              border-radius: 10px;
+              cursor: pointer;
+              transition: all 0.25s ease-in-out;
+              box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+            }
+
+            .clean-btn:hover {
+              background-color: #fe8849;
+              box-shadow: 0 6px 18px rgba(30, 64, 175, 0.3);
+            }
+            .student-content.active .student-img img {
+              visibility: hidden;
+              position: relative;
+            }
+
+            .student-content.active .student-img::before {
+              content: "";
+              position: absolute;
+              width: 70px;
+              height: 70px;
+              border-radius: 50%;
+              background: #e0e0e0;
+              animation: shimmer 1.5s infinite linear;
+            }
+
+            .student-content.active :is(h2, small) {
+              position: relative;
+              color: transparent !important;
+            }
+            .book-card.active :is(p, .author-details, .ratings) {
+              position: relative;
+              color: transparent !important;
+            }
+
+            .student-content.active :is(h2, small)::after {
+              content: "";
+              position: absolute;
+              top: 50%;
+              left: 0;
+              transform: translateY(-50%);
+              width: 100%;
+              height: 1em;
+              background: #e0e0e0;
+              border-radius: 4px;
+              animation: shimmer 1.5s infinite linear;
+            }
+            .book-card.active :is(p, .author-details, .ratings)::after {
+              content: "";
+              position: absolute;
+              top: 50%;
+              left: 0;
+              transform: translateY(-50%);
+              width: 100%;
+              height: 1em;
+              background: #e0e0e0;
+              border-radius: 4px;
+              animation: shimmer 1.5s infinite linear;
+            }
+
+            .book-card.active img {
+              visibility: hidden;
+              position: relative;
+            }
+
+            .book-card.active::before {
+              content: "";
+              position: absolute;
+              width: 31%;
+              height: 19%;
+              background: #e0e0e0;
+              animation: shimmer 1.5s infinite linear;
+            }
+
+            @keyframes shimmer {
+              0% {
+                background-position: -200% 0;
+              }
+              100% {
+                background-position: 200% 0;
+              }
+            }
+
+            .student-content.active
+              :is(h2, small)::after,
+              .book-card.active
+              :is(p,.author-details, .ratings)::after,
+            .student-content.active .student-img::before,
+            .book-card.active::before {
+              background-image: linear-gradient(
+                90deg,
+                #e0e0e0 25%,
+                #f0f0f0 50%,
+                #e0e0e0 75%
+              );
+              background-size: 200% 100%;
+            }
+          </style>
+          <div class="student-data">
+            <div class="student-content active">
+              <div class="student-img">
+                <img class="student-img" src="./icons/image.png" alt="" />
+              </div>
+              <div class="student-details">
+                <h2 class="student-name">Student Name</h2>
+                <small class="student-id">StudentId</small>
+              </div>
+            </div>
+            <div class="button-assign">
+              <button class="clean-btn">Scan StudentId</button>
+            </div>
+
+            <li class="book-card padding active">
               <div class="left-portion">
-                <b class="label">10 days ago</b>
-                <img src="./assets/images/image.png" alt="Book cover" />
+                <img class="book-img"
+                  src=""
+                  alt="Book cover"
+                />
               </div>
               <div class="right-portion">
-                <p>Basic Electrical and Electronics Engineering</p>
+                <p class="book-name"></p>
+                <div class="author-details">
+                  <small>Edition - <span class="edition"></span></small>
+                  <small>Author : <span class="author-name"></span></small>
+                </div>
+                <div class="">
+                  <p>Available Books : <b class="stock"></b></p>
+                </div>
+                <div class="ratings">
+                  <div class="stars">
+                    <img
+                      src="icons/filledStar.svg"
+                      alt=""
+                      class="star-icon"
+                    /><img
+                      src="icons/filledStar.svg"
+                      alt=""
+                      class="star-icon"
+                    /><img
+                      src="icons/filledStar.svg"
+                      alt=""
+                      class="star-icon"
+                    /><img
+                      src="icons/filledStar.svg"
+                      alt=""
+                      class="star-icon"
+                    /><img src="icons/star.svg" alt="" class="star-icon" />
+                    <p style="color: darkolivegreen">(29)</p>
+                  </div>
+                </div>
               </div>
-            </li> -->
-          </div>
-
-          <div id="controls">
-            <!-- <button id="start-scan">Start Scanner</button> -->
-            <button id="toggle-scan" class="hidden">Pause Scan</button>
-            <button id="switch-camera" class="hidden">Switch Camera</button>
-            <button id="scan-again" class="hidden">Scan Again</button>
+            </li>
+            <div class="button-assign width">
+              <button class="clean-btn">Scan BookId</button>
+            </div>
+            <div class="button-assign">
+              <button class="modern-btn">Link Student & Book</button>
+            </div>
           </div>
         </section>
         <section class="profile">

@@ -78,11 +78,11 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.getUser = catchAsync(async (req, res) => {
-  let user = await User.findById(req.user._id);
+exports.getStudent = catchAsync(async (req, res) => {
+  let student = await User.findOne({studentId:req.params.studentId});
   res.status(200).json({
     status: "success",
-    data: user,
+    student
   });
 });
 

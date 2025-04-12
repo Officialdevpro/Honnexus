@@ -1,5 +1,5 @@
 import { bookTemplate, borrowedBooksTemplate } from "./templates.js";
-
+document.querySelector(".student-data").classList.add("active");
 document.addEventListener("DOMContentLoaded", function () {
   const sections = document.querySelectorAll("main section");
   const footerLinks = document.querySelectorAll("footer ul li");
@@ -119,7 +119,7 @@ function displayResults(results) {
 // Call the fetch function when the page loads
 // fetchBooks();
 
-async function loadBorrowedBooks() {
+export default async function loadBorrowedBooks() {
   let req = await fetch("https://honnexus.onrender.com/api/v1/borrow");
 
   if (req.status == 200) {

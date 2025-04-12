@@ -433,67 +433,12 @@ nav.open .nav-content span {
   opacity: 1;
 }
 
-#scanner-container {
-  position: relative;
-  max-width: 500px;
-  margin: 20px auto;
-  display: none;
-}
-#barcode-scanner {
-  width: 100%;
-  height: auto;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  background-color: #000;
-}
-#scan-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#scan-line {
-  width: 100%;
-  height: 2px;
-  background-color: rgba(255, 0, 0, 0.7);
-  position: relative;
-  animation: scan 2s infinite linear;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-}
-@keyframes scan {
-  0% {
-    top: 0;
-  }
-  100% {
-    top: 100%;
-  }
-}
-#controls {
-  margin-top: 20px;
-}
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 5px;
-  transition: background-color 0.3s;
-}
-button:hover {
-  background-color: #0056b3;
-}
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
+
+
+
+
+
+
 #scan-again {
   background-color: #28a745;
 }
@@ -522,19 +467,166 @@ button:disabled {
   color: red;
   font-weight: bold;
 }
-.scanned-data {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
-  padding: 15px;
-  margin-top: 20px;
-  text-align: left;
-  display: none;
-}
+
 .borrowed-book-details {
   width: 100%;
 }
 
 .profile-status+h3{
   margin-left: 10px;
+}
+
+
+/* ============================================= */
+/* Add these CSS styles */
+#scan-btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#scan-btn:hover {
+  background: #1976d2;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Scanner Container */
+#scan-btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#scan-btn:hover {
+  background: #1976d2;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Scanner Container */
+#scanner-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1.5;
+  background: black;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+#scanner-container.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Video Element */
+#barcode-scanner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scan Overlay */
+#scan-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Scan Line Animation */
+#scan-line {
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #00ff00;
+  box-shadow: 0 0 10px #00ff00;
+  animation: scan 2.5s infinite ease-in-out;
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    top: 5%;
+  }
+  50% {
+    top: 95%;
+  }
+}
+
+/* Scanned Data Display */
+#scanned-data {
+ 
+  
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+ 
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  max-width: 600px;
+  width: 80%;
+}
+
+#scanned-data.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Loading Spinner */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Backdrop */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: none;
+}
+
+.backdrop.active {
+  display: block;
 }

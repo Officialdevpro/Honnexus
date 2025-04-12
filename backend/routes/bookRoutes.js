@@ -11,8 +11,9 @@ router.post(
   bookController.createBook
 );
 
-router.get("/", product, bookController.getAllBooks);
 router.get("/get-all", product, bookController.getAll);
+router.get("/", product, bookController.getAllBooks);
+router.get("/:bookId", bookController.getBook);
 router.get("/random", product, bookController.getRandomBooks);
 // Add other routes as needed
 

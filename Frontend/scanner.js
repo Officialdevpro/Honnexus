@@ -1,74 +1,70 @@
-import { getStudentById } from "./main.js";
+import loadBorrowedBooks from "./script.js";
 
-const startButton = document.getElementById("start-scan");
-const toggleButton = document.getElementById("toggle-scan");
-const switchButton = document.getElementById("switch-camera");
-const scanAgainButton = document.getElementById("scan-again");
-
-const videoElement = document.getElementById("barcode-scanner");
-const scanOverlay = document.getElementById("scan-overlay");
+const scanBtn = document.getElementById("scan-btn");
 const scannerContainer = document.getElementById("scanner-container");
-const scannedDataDiv = document.getElementById("scanned-data");
+const videoElement = document.getElementById("barcode-scanner");
+const scannedData = document.getElementById("scanned-data");
 const scannedContent = document.getElementById("scanned-content");
+const backdrop = document.querySelector(".backdrop");
+const loading = document.querySelector(".loading");
+const sections = document.querySelectorAll("main section");
+let studentId = "";
+let bookId = "";
+let scannerActive = false;
+let currentStream = null;
+let scanResolver = null;
 
-let isScanning = false;
-let lastScannedCode = null;
-let lastScannedTime = 0;
-let currentFacingMode = "environment"; // Start with rear camera
-let stream = null;
-let hasUserInteracted = false;
+document
+  .querySelectorAll(".clean-btn")[0]
+  .addEventListener("click", async () => {
+    try {
+      const data = await initScanner();
+      console.log("Scanned data:", data);
+      // Use the scanned data here
+      fetchData("users", data);
+    } catch (error) {
+      console.error("Scanning failed:", error);
+    }
+  });
+document
+  .querySelectorAll(".clean-btn")[1]
+  .addEventListener("click", async () => {
+    try {
+      const data = await initScanner();
+      console.log("Scanned data:", data);
+      fetchData("books", data);
+      // Use the scanned data here
+    } catch (error) {
+      console.error("Scanning failed:", error);
+    }
+  });
 
-// Only initialize after user interaction
-startButton.addEventListener("click", function () {
-  if (!hasUserInteracted) {
-    hasUserInteracted = true;
+async function initScanner() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      loading.style.display = "block";
+      backdrop.classList.add("active");
 
-    startButton.disabled = true;
-    initializeScanner();
-  }
-});
-
-function initializeScanner() {
-  // First check if we can access the camera
-  checkCameraAccess()
-    .then(() => {
-      // Camera access granted, initialize Quagga
-      initQuagga();
-      scannerContainer.style.display = "block";
-      startButton.classList.add("hidden");
-      toggleButton.classList.remove("hidden");
-      switchButton.classList.remove("hidden");
-    })
-    .catch((err) => {
-      console.error("Camera access error:", err);
-
-      startButton.disabled = false;
-    });
-}
-
-function checkCameraAccess() {
-  return navigator.mediaDevices
-    .getUserMedia({
-      video: {
-        facingMode: currentFacingMode,
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
-      },
-    })
-    .then((mediaStream) => {
-      // Show camera feed in the video element
-      videoElement.srcObject = mediaStream;
-      stream = mediaStream;
-      return new Promise((resolve) => {
-        videoElement.onloadedmetadata = () => {
-          videoElement.play();
-          resolve();
-        };
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" },
       });
-    });
+
+      currentStream = stream;
+      videoElement.srcObject = stream;
+
+      videoElement.onloadedmetadata = () => {
+        videoElement.play();
+        initQuagga(resolve, reject);
+        scannerContainer.classList.add("active");
+      };
+    } catch (error) {
+      hideScanner();
+      reject(error);
+    }
+  });
 }
 
-function initQuagga() {
+function initQuagga(resolve, reject) {
   Quagga.init(
     {
       inputStream: {
@@ -78,165 +74,121 @@ function initQuagga() {
         constraints: {
           width: { min: 640 },
           height: { min: 480 },
-          facingMode: currentFacingMode,
-          aspectRatio: { ideal: 1.3333333 },
+          aspectRatio: { ideal: 1.333 },
         },
       },
-      decoder: {
-        readers: [
-          "code_128_reader",
-          "ean_reader",
-          "ean_8_reader",
-          "code_39_reader",
-          "code_39_vin_reader",
-          "codabar_reader",
-          "upc_reader",
-          "upc_e_reader",
-        ],
-        multiple: false,
-      },
-      locate: true,
-      frequency: 10,
-      halfSample: true,
-      patchSize: "medium",
+      decoder: { readers: ["code_128_reader", "ean_reader", "upc_reader"] },
     },
-    function (err) {
+    (err) => {
       if (err) {
-        console.error("Error initializing scanner:", err);
-
-        startButton.disabled = false;
-        startButton.classList.remove("hidden");
+        hideScanner();
+        reject(err);
         return;
       }
-      console.log("Barcode scanner initialized successfully");
-      isScanning = true;
       Quagga.start();
+      loading.style.display = "none";
+
+      // Set timeout to handle case where no barcode is scanned
+      const timeout = setTimeout(() => {
+        hideScanner();
+        reject(new Error("Scan timed out"));
+      }, 30000); // 30 seconds timeout
+
+      Quagga.onDetected((result) => {
+        clearTimeout(timeout);
+        const code = result.codeResult.code;
+        hideScanner();
+        resolve(code);
+      });
     }
   );
+}
 
-  Quagga.onDetected(function (result) {
-    const code = result.codeResult.code;
-    const now = Date.now();
+function hideScanner() {
+  scannerContainer.classList.remove("active");
+  backdrop.classList.remove("active");
 
-    // Prevent duplicate scans within 2 seconds
-    if (code === lastScannedCode && now - lastScannedTime < 2000) {
+  if (currentStream) {
+    currentStream.getTracks().forEach((track) => track.stop());
+  }
+  if (Quagga && scannerActive) {
+    Quagga.stop();
+    scannerActive = false;
+  }
+}
+
+window.addEventListener("beforeunload", hideScanner);
+
+async function fetchData(purpose, id) {
+  let req = await fetch(
+    `https://honnexus.onrender.com/api/v1/${purpose}/${id}`
+  );
+
+  if (purpose == "books") {
+    let { book } = await req.json();
+    bookId = book.bookId;
+
+    document.querySelector(".book-img").setAttribute("src", book.icon);
+    document.querySelector(".book-name").innerHTML = book.bookName;
+    document.querySelector(".author-name").innerHTML = book.author;
+    document.querySelector(".stock").innerHTML = book.stock;
+    document.querySelector(".edition").innerHTML = book.edition;
+    document.querySelector("li.book-card.padding").classList.remove("active");
+    hideScanner();
+  } else if (purpose == "users") {
+    let { student } = await req.json();
+    studentId = student.studentId;
+    console.log(student);
+    document
+      .querySelector(".student-img img")
+      .setAttribute("src", "images/profiles/" + student.profile);
+    let name = document.querySelector(".student-name");
+    let id = document.querySelector(".student-id");
+    name.innerHTML = student.username;
+    id.innerHTML = student.studentId;
+    document.querySelector(".student-content").classList.remove("active");
+    hideScanner();
+  }
+}
+
+document.querySelector(".modern-btn").addEventListener("click", () => {
+  if (!studentId || !bookId) {
+    console.warn("Student ID or Book ID is missing.");
+    return;
+  }
+  linkTogether({ studentId, bookId });
+});
+
+async function linkTogether(data) {
+  try {
+    const response = await fetch(
+      "https://honnexus.onrender.com/api/v1/borrow",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error("Error:", result.message || "Something went wrong");
       return;
     }
 
-    lastScannedCode = code;
-    lastScannedTime = now;
+    console.log("Success:", result);
+    document.querySelector("li.book-card.padding").classList.add("active");
+    document.querySelector(".student-content").classList.add("active");
+    sections.forEach((section) => (section.style.display = "none"));
+    loadBorrowedBooks();
+    sections[3].style.display = "flex";
 
-    // Visual feedback
-
-    // Display scanned data
-    scannedContent.textContent = code;
-    
-    scannedDataDiv.style.display = "block";
-
-    console.log("Barcode detected:", code);
-    getStudentById(code)
-    playBeepSound();
-
-    // Try to vibrate - will only work if user has interacted
-    try {
-      if (navigator.vibrate && hasUserInteracted) {
-        navigator.vibrate(200);
-      }
-    } catch (e) {
-      console.log("Vibration not supported or not allowed yet");
-    }
-
-    // Automatically close camera after successful scan
-    closeScanner();
-
-    // Show scan again button
-    scanAgainButton.classList.remove("hidden");
-    toggleButton.classList.add("hidden");
-    switchButton.classList.add("hidden");
-  });
-}
-
-function closeScanner() {
-  // Stop Quagga and camera stream
-  if (Quagga && isScanning) {
-    Quagga.stop();
-    isScanning = false;
-  }
-  if (stream) {
-    stream.getTracks().forEach((track) => track.stop());
-    videoElement.srcObject = null;
-  }
-
-  // Hide scanner elements
-  scanOverlay.classList.add("hidden");
-  scannerContainer.style.display = "none";
-}
-
-function toggleScanner() {
-  if (isScanning) {
-    Quagga.stop();
-    scanOverlay.classList.add("hidden");
-    toggleButton.textContent = "Resume Scan";
-
-    isScanning = false;
-  } else {
-    Quagga.start();
-    scanOverlay.classList.remove("hidden");
-    toggleButton.textContent = "Pause Scan";
-
-    isScanning = true;
+    // You can add a success UI feedback here
+  } catch (error) {
+    console.error("Network error:", error.message);
+    // Handle network errors or show error UI
   }
 }
-
-function switchCamera() {
-  // Stop current stream and Quagga
-  closeScanner();
-
-  // Toggle between front and back camera
-  currentFacingMode =
-    currentFacingMode === "environment" ? "user" : "environment";
-
-  // Reinitialize with the other camera
-  initializeScanner();
-}
-
-function scanAgain() {
-  // Reset UI
-  scannedDataDiv.style.display = "none";
-  scanAgainButton.classList.add("hidden");
-  toggleButton.classList.remove("hidden");
-  switchButton.classList.remove("hidden");
-
-  // Restart scanner
-  initializeScanner();
-}
-
-function playBeepSound() {
-  try {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    oscillator.type = "sine";
-    oscillator.frequency.value = 800;
-    gainNode.gain.value = 0.1;
-
-    oscillator.start();
-    setTimeout(() => {
-      oscillator.stop();
-    }, 200);
-  } catch (e) {
-    console.log("Couldn't play sound:", e);
-  }
-}
-
-toggleButton.addEventListener("click", toggleScanner);
-switchButton.addEventListener("click", switchCamera);
-scanAgainButton.addEventListener("click", scanAgain);
-
-window.addEventListener("beforeunload", function () {
-  closeScanner();
-});
