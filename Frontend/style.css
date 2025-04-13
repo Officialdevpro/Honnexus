@@ -7,6 +7,8 @@
   list-style: none;
   text-decoration: none;
   box-sizing: border-box;
+  user-select: none;
+  -webkit-user-drag: none;
   scrollbar-width: none;
 }
 .app {
@@ -58,7 +60,7 @@ main {
   align-items: center;
 }
 main section {
-  width: 100%;
+ 
   height: 100%;
   display: none;
   flex-direction: column;
@@ -479,7 +481,7 @@ nav.open .nav-content span {
 
 /* ============================================= */
 /* Add these CSS styles */
-#scan-btn {
+/* #scan-btn {
   padding: 15px 30px;
   font-size: 18px;
   background: #2196f3;
@@ -495,10 +497,10 @@ nav.open .nav-content span {
   background: #1976d2;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
+} */
 
 /* Scanner Container */
-#scan-btn {
+/* #scan-btn {
   padding: 15px 30px;
   font-size: 18px;
   background: #2196f3;
@@ -514,7 +516,7 @@ nav.open .nav-content span {
   background: #1976d2;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
+} */
 
 /* Scanner Container */
 #scanner-container {
@@ -629,4 +631,292 @@ nav.open .nav-content span {
 
 .backdrop.active {
   display: block;
+}
+
+
+
+.text-msg {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 5px;
+  color: rgb(86, 86, 86);
+}
+.message-box {
+  flex-grow: 1;
+}
+.message-box .message {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 700;
+  color: #000000;
+}
+.message-box .text {
+  width: 100%;
+  font-size: 14px;
+  color: #000000;
+}
+.failure-line,
+.success-line {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(255, 119, 0);
+  transition: all 0.3s ease;
+}
+.failure-tostal,
+.success-tostal {
+  background-color: rgb(249, 225, 197);
+  width: 340px;
+  height: 60px;
+  padding: 5px 5px 5px 8px;
+  display: none;
+  z-index: 10 !important;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: 3rem;
+  opacity: ;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  overflow: hidden;
+  color: inherit;
+  border-left: 5px solid rgb(255, 136, 0);
+  animation: messagebox 0.3s ease;
+  -webkit-animation: messagebox 0.3s ease;
+  animation-fill-mode: forwards;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+@keyframes messagebox {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.x-icon {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 119, 0);
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.x-icon .bar-1 {
+  width: 3px;
+  height: 16px;
+  transform: rotate(-45deg) translateY(1px) translateY(1px);
+  background-color: #ffffff;
+}
+.x-icon .bar-2 {
+  width: 3px;
+  height: 16px;
+  transform: rotate(45deg) translateY(1px) translateY(1px);
+  background-color: #ffffff;
+}
+
+
+.student-data {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  width: 100vw !important;
+  gap: 25px;
+  height: 100%;
+
+  flex-direction: column;
+}
+.student-img {
+  border: 3px dotted rgb(0, 0, 0);
+  border-radius: 50%;
+  padding: 3px;
+}
+.student-data .student-img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.student-data .student-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.student-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+  width: 100%;
+}
+.modern-btn {
+  background: linear-gradient(
+    135deg,
+    #6a11cb,
+    #2575fc
+  ); /* Gradient magic */
+  color: #fff;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 95%;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  margin-top: 19px;
+}
+
+.modern-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modern-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+.button-assign {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.padding {
+  padding: 0px 10px;
+}
+.clean-btn {
+  width: 95%;
+  height: 45px;
+  z-index: 1;
+  background-color: #212121; /* Elegant navy blue */
+  color: #ffffff;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid transparent;
+
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+}
+
+.clean-btn:hover {
+  background-color: #fe8849;
+  box-shadow: 0 6px 18px rgba(30, 64, 175, 0.3);
+}
+.student-content.active .student-img img {
+  visibility: hidden;
+  position: relative;
+}
+
+.student-content.active .student-img::before {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.student-content.active :is(h2, small) {
+  position: relative;
+  color: transparent !important;
+}
+.book-card.active :is(p, .author-details, .ratings) {
+  position: relative;
+  color: transparent !important;
+}
+
+.student-content.active :is(h2, small)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 1em;
+  background: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite linear;
+}
+.book-card.active :is(p, .author-details, .ratings)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 1em;
+  background: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.book-card.active img {
+  visibility: hidden;
+  position: relative;
+}
+
+.book-card.active::before {
+  content: "";
+  position: absolute;
+  width: 31%;
+  height: 19%;
+  background: #e0e0e0;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.student-content.active :is(h2, small)::after,
+.book-card.active :is(p, .author-details, .ratings)::after,
+.student-content.active .student-img::before,
+.book-card.active::before {
+  background-image: linear-gradient(
+    90deg,
+    #e0e0e0 25%,
+    #f0f0f0 50%,
+    #e0e0e0 75%
+  );
+  background-size: 200% 100%;
+}
+
+
+.hidden {
+  display: none !important;
+}
+
+.container-2 {
+  height: 100%;
+    width: 100vw !important;
+  background-color: darkred;
+}
+.container-3 {
+  height: 100%;
+    width: 100vw !important;
+  background-color: rgb(12, 139, 0);
 }

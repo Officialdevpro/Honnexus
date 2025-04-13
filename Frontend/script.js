@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   footerLinks.forEach((link, index) => {
     link.addEventListener("click", function () {
+      if (index == 2) {
+        sections.forEach((section) => (section.style.display = "none"));
+        sections[index].style.display = "flex";
+        return;
+      }
       sections.forEach((section) => (section.style.display = "none"));
       sections[index].style.display = "flex";
       const nav = document.querySelector("nav");
@@ -209,7 +214,7 @@ async function fetchRandomBooks() {
     const response = await fetch(
       "https://honnexus.onrender.com/api/v1/books/random"
     ); // adjust path if needed
-
+    console.log(response);
     if (response.ok) {
       const { data } = await response.json();
 
@@ -581,3 +586,19 @@ async function updateReviewFromServer(reviewId, data) {
 }
 
 setTimeout(() => {}, 1000);
+
+let navBtn = document.querySelectorAll(".nav-content span");
+let adminPages = document.querySelectorAll("section.admin > div");
+
+navBtn.forEach((btn, index) => {
+  btn.addEventListener("click", () => {
+    document.querySelector(".admin").style.display = "flex !important";
+    // Hide all pages
+    adminPages.forEach((page) => page.classList.add("hidden"));
+
+    // Show the selected one
+    if (adminPages[index]) {
+      adminPages[index].classList.remove("hidden");
+    }
+  });
+});
