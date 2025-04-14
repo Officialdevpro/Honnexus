@@ -522,7 +522,7 @@ nav.open .nav-content span {
 } */
 
 /* Scanner Container */
-#scanner-container {
+#scanner-container,#scanner-container-1 {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -539,20 +539,20 @@ nav.open .nav-content span {
   z-index: 1000;
 }
 
-#scanner-container.active {
+#scanner-container.active,#scanner-container-1.active {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
 }
 
 /* Video Element */
-#barcode-scanner {
+#barcode-scanner,#barcode-scanner-1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 /* Scan Overlay */
-#scan-overlay {
+#scan-overlay,#scan-overlay-1 {
   position: absolute;
   top: 0;
   left: 0;
@@ -562,7 +562,7 @@ nav.open .nav-content span {
 }
 
 /* Scan Line Animation */
-#scan-line {
+#scan-line,#scan-line-1 {
   position: absolute;
   height: 3px;
   width: 100%;
@@ -598,7 +598,7 @@ nav.open .nav-content span {
 }
 
 /* Loading Spinner */
-.loading {
+.loading,.loading-1 {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -619,7 +619,7 @@ nav.open .nav-content span {
 }
 
 /* Backdrop */
-.backdrop {
+.backdrop,.backdrop-1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -630,7 +630,7 @@ nav.open .nav-content span {
   display: none;
 }
 
-.backdrop.active {
+.backdrop.active,.backdrop-1.active {
   display: block;
 }
 

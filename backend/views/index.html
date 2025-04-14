@@ -260,96 +260,16 @@
             </div>
           </div>
           <div class="container-2 hidden">
-            <div class="profile-top-portion">
-              <img src="./assets/profile.png" alt="" />
-              <div class="profile-details">
-                <h2>22ECEBE175</h2>
-                <small>Naveen V</small>
+            <div class="backdrop-1"></div>
+
+            <div id="scanner-container-1">
+              <div class="loading-1"></div>
+              <video id="barcode-scanner-1" autoplay playsinline></video>
+              <div id="scan-overlay-1">
+                <div id="scan-line-1"></div>
               </div>
             </div>
-            <div class="profile-status">
-              <div class="left-box">
-                <b>Borrowed</b>
-                <h1>0</h1>
-              </div>
-              <div class="right-box">
-                <b>Returned</b>
-                <h1>0</h1>
-              </div>
-            </div>
-            <h3>Borrowed Books</h3>
-            <div class="borrowed-book-details">
-              <li class="book-card column">
-                <div class="left-portion">
-                  <b
-                    class="label"
-                    style="
-                      background-color: hsl(256, 70%, 60%);
-                      color: white;
-                      padding: 5px 10px;
-                      border-radius: 5px;
-                    "
-                  >
-                    1 day ago
-                  </b>
-                  <img
-                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
-                    alt="Book cover"
-                  />
-                </div>
-                <div class="right-portion">
-                  <p>Programming in Java</p>
-                </div>
-                <button class="clean">Return</button>
-              </li>
-              <li class="book-card column">
-                <div class="left-portion">
-                  <b
-                    class="label"
-                    style="
-                      background-color: hsl(256, 70%, 60%);
-                      color: white;
-                      padding: 5px 10px;
-                      border-radius: 5px;
-                    "
-                  >
-                    1 day ago
-                  </b>
-                  <img
-                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
-                    alt="Book cover"
-                  />
-                </div>
-                <div class="right-portion">
-                  <p>Programming in Java</p>
-                </div>
-                <button class="clean" onclick="showConfirmation()">
-                  Return
-                </button>
-              </li>
-              <li class="book-card column">
-                <div class="left-portion">
-                  <b
-                    class="label"
-                    style="
-                      background-color: hsl(256, 70%, 60%);
-                      color: white;
-                      padding: 5px 10px;
-                      border-radius: 5px;
-                    "
-                  >
-                    1 day ago
-                  </b>
-                  <img
-                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
-                    alt="Book cover"
-                  />
-                </div>
-                <div class="right-portion">
-                  <p>Programming in Java</p>
-                </div>
-                <button class="clean">Return</button>
-              </li>
+            <div class="scanned-result">
               
             </div>
           </div>
@@ -816,6 +736,7 @@
     <script type="module" src="./scanner.js"></script>
     <script type="module" src="./script.js"></script>
     <script type="module" src="./main.js"></script>
+    <script type="module" src="./scan.js"></script>
 
     <script src="./service-worker.js"></script>
   </body>

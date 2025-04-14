@@ -55,6 +55,8 @@ exports.borrowBook = catchAsync(async (req, res, next) => {
 // 📌 GET Borrow Records by Student ID with Manual Book Population
 exports.getBorrowsByStudentId = catchAsync(async (req, res, next) => {
   const studentId = "22ECEBE175";
+  let data = req.query.studentId;
+  console.log(req.query);
   const user = await User.findOne({ studentId });
   const result = await Borrow.aggregate([
     { $match: { studentId } },
