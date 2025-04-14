@@ -144,3 +144,13 @@ exports.updateSemester = catchAsync(async (req, res, next) => {
     data: user,
   });
 });
+
+
+exports.studentInfo = catchAsync(async (req, res) => {
+  let student = await User.findOne({studentId:req.body.studentId});
+  let borrowedBooks = await Book.find({studentId: req.body.studentId });
+  res.status(200).json({
+    status: "success",
+    student
+  });
+});

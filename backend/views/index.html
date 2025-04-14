@@ -43,7 +43,6 @@
                     <th class="even">Avalible</th>
                     <td class="unq">20 Books</td>
                   </tr>
-                 
                 </table>
                 <div class="rr-container active">
                   <div class="review-input-container">
@@ -81,7 +80,6 @@
                   <header>
                     <div class="left">
                       <div class="app-header">
-                       
                         <h2>Reviews & Ratings</h2>
                       </div>
                     </div>
@@ -134,8 +132,7 @@
                     <img src="icons/return.svg" alt="" />
                   </div>
                 </div>
-                
-                
+
                 <!-- <small
                   >microprocessors are used in general-purpose systems for
                   high-speed computing, while microcontrollers are optimized for
@@ -188,86 +185,175 @@
           <div class="container-1 hidden">
             <div class="student-data">
               <!-- <button id="scan-btn">Start Barcode Scan</button> -->
- <div class="backdrop"></div>
+              <div class="backdrop"></div>
 
- <div id="scanner-container">
-   <div class="loading"></div>
-   <video id="barcode-scanner" autoplay playsinline></video>
-   <div id="scan-overlay">
-     <div id="scan-line"></div>
-   </div>
- </div>
+              <div id="scanner-container">
+                <div class="loading"></div>
+                <video id="barcode-scanner" autoplay playsinline></video>
+                <div id="scan-overlay">
+                  <div id="scan-line"></div>
+                </div>
+              </div>
 
- <div class="student-data">
-   <div class="student-content active">
-     <div class="student-img">
-       <img class="student-img" src="./icons/image.png" alt="" />
-     </div>
-     <div class="student-details">
-       <h2 class="student-name">Student Name</h2>
-       <small class="student-id">StudentId</small>
-     </div>
-   </div>
-   <div class="button-assign">
-     <button class="clean-btn">Scan StudentId</button>
-   </div>
-   
-   <li class="book-card padding active">
-     <div class="left-portion">
-       <img
-         class="book-img"
-         src="../Frontend/assets/images/image.png"
-         alt="Book cover"
-       />
-     </div>
-     <div class="right-portion">
-       <p class="book-name"></p>
-       <div class="author-details">
-         <small>Edition - <span class="edition"></span></small>
-         <small>Author : <span class="author-name"></span></small>
-       </div>
-       <div class="">
-         <p>Available Books : <b class="stock"></b></p>
-       </div>
-       <div class="ratings">
-         <div class="stars">
-           <img
-             src="icons/filledStar.svg"
-             alt=""
-             class="star-icon"
-           /><img
-             src="icons/filledStar.svg"
-             alt=""
-             class="star-icon"
-           /><img
-             src="icons/filledStar.svg"
-             alt=""
-             class="star-icon"
-           /><img
-             src="icons/filledStar.svg"
-             alt=""
-             class="star-icon"
-           /><img src="icons/star.svg" alt="" class="star-icon" />
-           <p style="color: darkolivegreen">(29)</p>
-         </div>
-       </div>
-     </div>
-   </li>
-   <div class="button-assign width">
-     <button class="clean-btn">Scan BookId</button>
-   </div>
-   <div class="button-assign">
-     <button class="modern-btn">Link Student & Book</button>
-   </div>
- </div>
+              <div class="student-data">
+                <div class="student-content active">
+                  <div class="student-img">
+                    <img class="student-img" src="./icons/image.png" alt="" />
+                  </div>
+                  <div class="student-details">
+                    <h2 class="student-name">Student Name</h2>
+                    <small class="student-id">StudentId</small>
+                  </div>
+                </div>
+                <div class="button-assign">
+                  <button class="clean-btn">Scan StudentId</button>
+                </div>
+
+                <li class="book-card padding active">
+                  <div class="left-portion">
+                    <img
+                      class="book-img"
+                      src="../Frontend/assets/images/image.png"
+                      alt="Book cover"
+                    />
+                  </div>
+                  <div class="right-portion">
+                    <p class="book-name"></p>
+                    <div class="author-details">
+                      <small>Edition - <span class="edition"></span></small>
+                      <small>Author : <span class="author-name"></span></small>
+                    </div>
+                    <div class="">
+                      <p>Available Books : <b class="stock"></b></p>
+                    </div>
+                    <div class="ratings">
+                      <div class="stars">
+                        <img
+                          src="icons/filledStar.svg"
+                          alt=""
+                          class="star-icon"
+                        /><img
+                          src="icons/filledStar.svg"
+                          alt=""
+                          class="star-icon"
+                        /><img
+                          src="icons/filledStar.svg"
+                          alt=""
+                          class="star-icon"
+                        /><img
+                          src="icons/filledStar.svg"
+                          alt=""
+                          class="star-icon"
+                        /><img src="icons/star.svg" alt="" class="star-icon" />
+                        <p style="color: darkolivegreen">(29)</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <div class="button-assign width">
+                  <button class="clean-btn">Scan BookId</button>
+                </div>
+                <div class="button-assign">
+                  <button class="modern-btn">Link Student & Book</button>
+                </div>
+              </div>
             </div>
           </div>
           <div class="container-2 hidden">
-           
+            <div class="profile-top-portion">
+              <img src="./assets/profile.png" alt="" />
+              <div class="profile-details">
+                <h2>22ECEBE175</h2>
+                <small>Naveen V</small>
+              </div>
+            </div>
+            <div class="profile-status">
+              <div class="left-box">
+                <b>Borrowed</b>
+                <h1>0</h1>
+              </div>
+              <div class="right-box">
+                <b>Returned</b>
+                <h1>0</h1>
+              </div>
+            </div>
+            <h3>Borrowed Books</h3>
+            <div class="borrowed-book-details">
+              <li class="book-card column">
+                <div class="left-portion">
+                  <b
+                    class="label"
+                    style="
+                      background-color: hsl(256, 70%, 60%);
+                      color: white;
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                    "
+                  >
+                    1 day ago
+                  </b>
+                  <img
+                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
+                    alt="Book cover"
+                  />
+                </div>
+                <div class="right-portion">
+                  <p>Programming in Java</p>
+                </div>
+                <button class="clean">Return</button>
+              </li>
+              <li class="book-card column">
+                <div class="left-portion">
+                  <b
+                    class="label"
+                    style="
+                      background-color: hsl(256, 70%, 60%);
+                      color: white;
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                    "
+                  >
+                    1 day ago
+                  </b>
+                  <img
+                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
+                    alt="Book cover"
+                  />
+                </div>
+                <div class="right-portion">
+                  <p>Programming in Java</p>
+                </div>
+                <button class="clean" onclick="showConfirmation()">
+                  Return
+                </button>
+              </li>
+              <li class="book-card column">
+                <div class="left-portion">
+                  <b
+                    class="label"
+                    style="
+                      background-color: hsl(256, 70%, 60%);
+                      color: white;
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                    "
+                  >
+                    1 day ago
+                  </b>
+                  <img
+                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
+                    alt="Book cover"
+                  />
+                </div>
+                <div class="right-portion">
+                  <p>Programming in Java</p>
+                </div>
+                <button class="clean">Return</button>
+              </li>
+              
+            </div>
           </div>
-          <div class="container-3 hidden">
-            
-          </div>
+          <div class="container-3 hidden"></div>
         </section>
         <section class="profile">
           <div class="profile-top-portion">
@@ -288,10 +374,7 @@
             </div>
           </div>
           <h3>Borrowed Books</h3>
-          <div class="borrowed-book-details" id="borrow">
-            
-            
-          </div>
+          <div class="borrowed-book-details" id="borrow"></div>
         </section>
         <style>
           body.dark {
@@ -577,8 +660,8 @@
                 </span>
                 <span style="--i: 4" id="refresh">
                   <a href="#" data-file-type="video"
-                  ><img src="icons/menu-4.svg" alt=""
-                /></a>
+                    ><img src="icons/menu-4.svg" alt=""
+                  /></a>
                 </span>
               </div>
             </nav>
@@ -592,6 +675,132 @@
         </ul>
       </footer>
     </div>
+    <!-- Add this modal at the bottom of your body -->
+    <div class="confirmation-modal">
+      <div class="modal-content">
+        <h3>Confirm Return</h3>
+        <p>Are you sure you want to return this book?</p>
+        <div class="modal-buttons">
+          <button class="confirm-btn">Confirm</button>
+          <button class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .confirmation-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s;
+      }
+
+      .confirmation-modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 20px 5px;
+        border-radius: 8px;
+        text-align: center;
+        transform: translateY(-20px);
+        opacity: 0;
+        animation: slideUp 0.3s forwards;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-buttons {
+        width: 100%;
+        margin-top: 0.5rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .confirm-btn,
+      .cancel-btn {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .confirm-btn {
+        background: #0079dc;
+        color: white;
+        width: 100%;
+        height: 45px;
+      }
+
+      .cancel-btn {
+        background: #2ba62b;
+        color: white;
+        width: 100%;
+        height: 45px;
+      }
+
+      .confirm-btn:hover,
+      .cancel-btn:hover {
+        transform: scale(1.05);
+      }
+    </style>
+
+    <script>
+      function showConfirmation() {
+        const modal = document.querySelector(".confirmation-modal");
+        modal.classList.add("active");
+      }
+
+      function hideConfirmation() {
+        const modal = document.querySelector(".confirmation-modal");
+        modal.classList.remove("active");
+      }
+
+      function confirmReturn() {
+        // Add your return logic/API call here
+        hideConfirmation();
+      }
+
+      // Add this to your existing return button
+      document
+        .querySelector(".clean")
+        .addEventListener("click", showConfirmation);
+      document
+        .querySelector(".confirm-btn")
+        .addEventListener("click", confirmReturn);
+      document
+        .querySelector(".cancel-btn")
+        .addEventListener("click", hideConfirmation);
+    </script>
     <script>
       let theme = document.querySelector(".toggle-switch");
 

@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Honnexus</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./review.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h2>Honnexus</h2>
+        <div class="header-left">
+          <img src="./icons/bell.svg" alt="" />
+        </div>
+      </header>
+      <main>
+        <section class="home">
+          <div class="book-details">
+            <div class="detail-card">
+              <div class="book-cover">
+                <img src="" alt="" />
+              </div>
+              <div class="book-description">
+                <h2></h2>
+                <table class="info-table">
+                  <tr>
+                    <th>Edition</th>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <th class="even">Author</th>
+                    <td class="unq">Raj Kamal</td>
+                  </tr>
+                  <tr>
+                    <th>Semester</th>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <th class="even">Avalible</th>
+                    <td class="unq">20 Books</td>
+                  </tr>
+                </table>
+                <div class="rr-container active">
+                  <div class="review-input-container">
+                    <div class="review-input-body">
+                      <div class="app-logo-review">
+                        <div class="app-logo">
+                          <img src="images/app-logo.png" alt="" />
+                        </div>
+                        <p>Enjoying this app? Rate us!</p>
+                      </div>
+                      <div class="rating-star-container">
+                        <input hidden type="tel" value="0" id="rateValue" />
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                      </div>
+                      <div class="review-write">
+                        <textarea
+                          placeholder="Describe your experience"
+                          name=""
+                          id="calculate-word-len"
+                          maxlength="500"
+                        ></textarea>
+                        <div class="word-count-body">
+                          <small class="word-count">0/500</small>
+                        </div>
+                      </div>
+                      <div class="review-post-body">
+                        <button disabled class="review-post-btn">POST</button>
+                      </div>
+                    </div>
+                  </div>
+                  <header>
+                    <div class="left">
+                      <div class="app-header">
+                        <h2>Reviews & Ratings</h2>
+                      </div>
+                    </div>
+                    <img class="svg write-pen" src="icons/edit.svg" alt="" />
+                  </header>
+                  <div class="rr-body">
+                    <div class="rating-num-left">
+                      <h1></h1>
+                      <div class="obtained-star-container"></div>
+                      <div class="overall-star-container"></div>
+                      <small class="nRating">0</small>
+                    </div>
+                    <div class="rating-bar-right">
+                      <ul class="rr-bar-container">
+                        <li class="li-bar">
+                          <p>5</p>
+                          <div class="rating-review-bar bar-rating-5">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                        <li class="li-bar">
+                          <p>4</p>
+                          <div class="rating-review-bar bar-rating-4">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                        <li class="li-bar">
+                          <p>3</p>
+                          <div class="rating-review-bar bar-rating-3">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                        <li class="li-bar">
+                          <p>2</p>
+                          <div class="rating-review-bar bar-rating-2">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                        <li class="li-bar">
+                          <p>1</p>
+                          <div class="rating-review-bar bar-rating-1">
+                            <div class="child-bar-line"></div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <ul class="user-feedback"></ul>
+                  <div class="review-back-btn">
+                    <img src="icons/return.svg" alt="" />
+                  </div>
+                </div>
+
+                <!-- <small
+                  >microprocessors are used in general-purpose systems for
+                  high-speed computing, while microcontrollers are optimized for
+                  specific control tasks in embedded systems.
+                </small> -->
+              </div>
+            </div>
+          </div>
+          <div class="home-top-row">
+            <b>Most Borrowed Books</b>
+            <ul class="top-row"></ul>
+          </div>
+          <div class="books-container">
+            <b>Recommended for You</b>
+            <ul class="books"></ul>
+          </div>
+        </section>
+        <section class="search">
+          <div class="search-header">
+            <div class="search-container">
+              <div class="search-bar">
+                <input
+                  id="search-box"
+                  type="text"
+                  required
+                  placeholder="Search Your Books.."
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                  <path d="M21 21l-6 -6" />
+                </svg>
+              </div>
+            </div>
+            <div class="search-results"></div>
+          </div>
+        </section>
+        <section class="admin" style="display: flex">
+          <div class="container-1 hidden">
+            <div class="student-data">
+              <!-- <button id="scan-btn">Start Barcode Scan</button> -->
+              <div class="backdrop"></div>
+
+              <div id="scanner-container">
+                <div class="loading"></div>
+                <video id="barcode-scanner" autoplay playsinline></video>
+                <div id="scan-overlay">
+                  <div id="scan-line"></div>
+                </div>
+              </div>
+
+              <div class="student-data">
+                <div class="student-content active">
+                  <div class="student-img">
+                    <img class="student-img" src="./icons/image.png" alt="" />
+                  </div>
+                  <div class="student-details">
+                    <h2 class="student-name">Student Name</h2>
+                    <small class="student-id">StudentId</small>
+                  </div>
+                </div>
+                <div class="button-assign">
+                  <button class="clean-btn">Scan StudentId</button>
+                </div>
+
+                <li class="book-card padding active">
+                  <div class="left-portion">
+                    <img
+                      class="book-img"
+                      src="../Frontend/assets/images/image.png"
+                      alt="Book cover"
+                    />
+                  </div>
+                  <div class="right-portion">
+                    <p class="book-name"></p>
+                    <div class="author-details">
+                      <small>Edition - <span class="edition"></span></small>
+                      <small>Author : <span class="author-name"></span></small>
+                    </div>
+                    <div class="">
+                      <p>Available Books : <b class="stock"></b></p>
+                    </div>
+                    <div class="ratings">
+                      <div class="stars">
+                        <img
+                          src="icons/filledStar.svg"
+                          alt=""
+                          class="star-icon"
+                        /><img
+                          src="icons/filledStar.svg"
+                          alt=""
+                          class="star-icon"
+                        /><img
+                          src="icons/filledStar.svg"
+                          alt=""
+                          class="star-icon"
+                        /><img
+                          src="icons/filledStar.svg"
+                          alt=""
+                          class="star-icon"
+                        /><img src="icons/star.svg" alt="" class="star-icon" />
+                        <p style="color: darkolivegreen">(29)</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <div class="button-assign width">
+                  <button class="clean-btn">Scan BookId</button>
+                </div>
+                <div class="button-assign">
+                  <button class="modern-btn">Link Student & Book</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-2 hidden">
+            <div class="profile-top-portion">
+              <img src="./assets/profile.png" alt="" />
+              <div class="profile-details">
+                <h2>22ECEBE175</h2>
+                <small>Naveen V</small>
+              </div>
+            </div>
+            <div class="profile-status">
+              <div class="left-box">
+                <b>Borrowed</b>
+                <h1>0</h1>
+              </div>
+              <div class="right-box">
+                <b>Returned</b>
+                <h1>0</h1>
+              </div>
+            </div>
+            <h3>Borrowed Books</h3>
+            <div class="borrowed-book-details">
+              <li class="book-card column">
+                <div class="left-portion">
+                  <b
+                    class="label"
+                    style="
+                      background-color: hsl(256, 70%, 60%);
+                      color: white;
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                    "
+                  >
+                    1 day ago
+                  </b>
+                  <img
+                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
+                    alt="Book cover"
+                  />
+                </div>
+                <div class="right-portion">
+                  <p>Programming in Java</p>
+                </div>
+                <button class="clean">Return</button>
+              </li>
+              <li class="book-card column">
+                <div class="left-portion">
+                  <b
+                    class="label"
+                    style="
+                      background-color: hsl(256, 70%, 60%);
+                      color: white;
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                    "
+                  >
+                    1 day ago
+                  </b>
+                  <img
+                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
+                    alt="Book cover"
+                  />
+                </div>
+                <div class="right-portion">
+                  <p>Programming in Java</p>
+                </div>
+                <button class="clean" onclick="showConfirmation()">
+                  Return
+                </button>
+              </li>
+              <li class="book-card column">
+                <div class="left-portion">
+                  <b
+                    class="label"
+                    style="
+                      background-color: hsl(256, 70%, 60%);
+                      color: white;
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                    "
+                  >
+                    1 day ago
+                  </b>
+                  <img
+                    src="https://m.media-amazon.com/images/I/51xe6s8vSAL.jpg"
+                    alt="Book cover"
+                  />
+                </div>
+                <div class="right-portion">
+                  <p>Programming in Java</p>
+                </div>
+                <button class="clean">Return</button>
+              </li>
+              
+            </div>
+          </div>
+          <div class="container-3 hidden"></div>
+        </section>
+        <section class="profile">
+          <div class="profile-top-portion">
+            <img src="./assets/profile.png" alt="" />
+            <div class="profile-details">
+              <h2>22ECEBE175</h2>
+              <small>Naveen V</small>
+            </div>
+          </div>
+          <div class="profile-status">
+            <div class="left-box">
+              <b>Borrowed</b>
+              <h1>0</h1>
+            </div>
+            <div class="right-box">
+              <b>Returned</b>
+              <h1>0</h1>
+            </div>
+          </div>
+          <h3>Borrowed Books</h3>
+          <div class="borrowed-book-details" id="borrow"></div>
+        </section>
+        <style>
+          body.dark {
+            background-color: black;
+            color: white;
+          }
+          .status {
+            width: 100vw;
+            height: 100%;
+            overflow: hidden;
+          }
+          .settings {
+            width: 100%;
+            height: 100%;
+          }
+          .setting-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px 20px 0px 0px;
+          }
+          .top-profile {
+            display: flex;
+            gap: 10px;
+            padding: 10px 10px;
+            justify-content: start;
+            align-items: center;
+            border-bottom: 1px solid white;
+          }
+          .top-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+          .set-options {
+            display: flex;
+            padding: 10px 10px;
+            flex-direction: column;
+          }
+          .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background-color: #ccc;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+          }
+
+          .toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+          }
+
+          .toggle-switch.active {
+            background-color: #07df0e;
+          }
+
+          .toggle-switch.active .toggle-ball {
+            transform: translateX(24px);
+          }
+          .more ul,
+          .account-settings ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+          }
+          .more,
+          .account-settings {
+            margin: 20px 0px;
+          }
+          .more ul li,
+          .account-settings ul li {
+            width: 100%;
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+          }
+          .more ul li img,
+          .account-settings ul li img {
+            opacity: 0.2;
+          }
+          .account-settings ul,
+          .more ul {
+            width: 100%;
+          }
+          .account-settings ul li,
+          .more ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .account-settings,
+          .more {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          .account-settings b,
+          .more b {
+            opacity: 0.3;
+          }
+          .range-container {
+            font-family: "Segoe UI", sans-serif;
+            padding: 10px 0;
+            padding-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+          }
+
+          .range-label {
+            font-weight: 600;
+            color: rgb(116 0 255);
+            margin-bottom: 15px;
+            font-size: 18px;
+          }
+
+          .slider-wrapper {
+            position: relative;
+            width: 300px;
+          }
+
+          input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #4caf50 0%, #ccc 0%);
+            outline: none;
+            transition: background 0.3s ease;
+            z-index: 1;
+          }
+
+          input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            background: #4caf50;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 3;
+          }
+
+          input[type="range"]::-moz-range-thumb {
+            height: 24px;
+            width: 24px;
+            background: #4caf50;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+          }
+
+          .value-bubble {
+            position: absolute;
+            top: 33px;
+            left: 0;
+            transform: translateX(-50%);
+            background: #4caf50;
+            color: #fff;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            transition: left 0.3s ease;
+            z-index: 2;
+          }
+
+          .tick-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #777;
+            width: 100%;
+            padding: 0 5px;
+          }
+          body.dark footer,
+          body.dark header {
+            background-color: black;
+            color: #ffffff;
+          }
+          body.dark footer img {
+            filter: invert(1);
+          }
+        </style>
+        <section class="status">
+          <div class="setting-container">
+            <!-- <div class="top-profile">
+              <img src="./assets/profile.png" alt="" />
+              <h3>Yennefer Doe</h3>
+            </div> -->
+
+            <div class="range-container">
+              <div class="range-label">Current Semester</div>
+
+              <div class="slider-wrapper">
+                <div class="value-bubble" id="bubble">1</div>
+                <input type="range" min="1" max="8" value="1" id="rangeInput" />
+                <div class="tick-labels">
+                  <span>1</span><span>2</span><span>3</span><span>4</span>
+                  <span>5</span><span>6</span><span>7</span><span>8</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="set-options">
+              <div class="account-settings">
+                <b>Account Settings</b>
+                <ul>
+                  <li>
+                    Dark mode
+                    <div
+                      class="toggle-switch"
+                      onclick="this.classList.toggle('active')"
+                    >
+                      <div class="toggle-ball"></div>
+                    </div>
+                  </li>
+
+                  <li>
+                    Logout
+                    <img src="./icons/right.svg" alt="" />
+                  </li>
+                </ul>
+              </div>
+              <div class="more">
+                <b>More</b>
+                <ul>
+                  <li>
+                    About us
+                    <img src="./icons/right.svg" alt="" />
+                  </li>
+                  <li>
+                    Privacy Policy
+                    <img src="./icons/right.svg" alt="" />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <ul>
+          <li>
+            <img src="icons/book.svg" alt="" />
+          </li>
+          <li>
+            <img src="icons/list-search.svg" alt="" />
+          </li>
+          <li>
+            <nav>
+              <div class="nav-content">
+                <div class="toggle-btn">
+                  <img src="icons/plus.svg" alt="" />
+                </div>
+                <span style="--i: 2" id="scan-btn">
+                  <a href="#" data-file-type="audio"
+                    ><img src="icons/scan.svg" alt=""
+                  /></a>
+                </span>
+
+                <span style="--i: 3" id="recordBtn">
+                  <a href="#" data-file-type="video"
+                    ><img src="icons/server-bolt.svg" alt=""
+                  /></a>
+                </span>
+                <span style="--i: 4" id="refresh">
+                  <a href="#" data-file-type="video"
+                    ><img src="icons/menu-4.svg" alt=""
+                  /></a>
+                </span>
+              </div>
+            </nav>
+          </li>
+          <li>
+            <img src="icons/user.svg" alt="" />
+          </li>
+          <li>
+            <img src="icons/category-plus.svg" alt="" />
+          </li>
+        </ul>
+      </footer>
+    </div>
+    <!-- Add this modal at the bottom of your body -->
+    <div class="confirmation-modal">
+      <div class="modal-content">
+        <h3>Confirm Return</h3>
+        <p>Are you sure you want to return this book?</p>
+        <div class="modal-buttons">
+          <button class="confirm-btn">Confirm</button>
+          <button class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .confirmation-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s;
+      }
+
+      .confirmation-modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 20px 5px;
+        border-radius: 8px;
+        text-align: center;
+        transform: translateY(-20px);
+        opacity: 0;
+        animation: slideUp 0.3s forwards;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-buttons {
+        width: 100%;
+        margin-top: 0.5rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .confirm-btn,
+      .cancel-btn {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .confirm-btn {
+        background: #0079dc;
+        color: white;
+        width: 100%;
+        height: 45px;
+      }
+
+      .cancel-btn {
+        background: #2ba62b;
+        color: white;
+        width: 100%;
+        height: 45px;
+      }
+
+      .confirm-btn:hover,
+      .cancel-btn:hover {
+        transform: scale(1.05);
+      }
+    </style>
+
+    <script>
+      function showConfirmation() {
+        const modal = document.querySelector(".confirmation-modal");
+        modal.classList.add("active");
+      }
+
+      function hideConfirmation() {
+        const modal = document.querySelector(".confirmation-modal");
+        modal.classList.remove("active");
+      }
+
+      function confirmReturn() {
+        // Add your return logic/API call here
+        hideConfirmation();
+      }
+
+      // Add this to your existing return button
+      document
+        .querySelector(".clean")
+        .addEventListener("click", showConfirmation);
+      document
+        .querySelector(".confirm-btn")
+        .addEventListener("click", confirmReturn);
+      document
+        .querySelector(".cancel-btn")
+        .addEventListener("click", hideConfirmation);
+    </script>
+    <script>
+      let theme = document.querySelector(".toggle-switch");
+
+      document.querySelector(".toggle-switch").addEventListener("click", () => {
+        if (!theme.classList.contains("active")) {
+          document.querySelector("body").classList.remove("dark");
+        } else {
+          document.querySelector("body").classList.add("dark");
+        }
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script type="module" src="./scanner.js"></script>
+    <script type="module" src="./script.js"></script>
+    <script type="module" src="./main.js"></script>
+
+    <script src="./service-worker.js"></script>
+  </body>
+</html>

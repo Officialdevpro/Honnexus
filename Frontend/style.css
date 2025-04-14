@@ -60,7 +60,6 @@ main {
   align-items: center;
 }
 main section {
- 
   height: 100%;
   display: none;
   flex-direction: column;
@@ -117,7 +116,7 @@ main section.settings {
 .top-row li img {
   width: 65px;
   height: 65px;
- 
+
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -149,9 +148,8 @@ main section.settings {
   width: 100%;
   overflow: hidden;
   padding: 10px;
- 
+
   position: relative;
-  
 }
 .book-card.column .left-portion img {
   width: 100%;
@@ -167,11 +165,10 @@ main section.settings {
   text-align: center;
 }
 .book-card.column {
- 
   display: flex; /* Switch to flexbox for column layout */
   flex-direction: column;
   justify-content: center;
- 
+
   align-items: center;
 }
 /* .book-card .left-portion{
@@ -278,7 +275,7 @@ input:focus {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 .profile-top-portion img {
   width: 150px;
@@ -309,21 +306,34 @@ input:focus {
 }
 .profile-status .left-box,
 .profile-status .right-box {
-  background-color: rgba(0, 64, 255, 0.701);
+  /* background-color: rgba(0, 64, 255, 0.701); */
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  /* height: 130px; */
+  aspect-ratio: 1.8;
+  mask: radial-gradient(
+        22.32px at 50% calc(100% - 106px),
+        #000 107%,
+        #0000 131%
+      )
+      calc(78% - 57px) 0 / 71px 36%,
+    radial-gradient(29.32px at 50% calc(100% + 13px), #0000 99%, #000 101%) 50%
+      calc(100% - 20px) / 51px 100% repeat-x;
+  background: #008c9e;
   align-items: center;
   flex-direction: column;
   color: #fff;
   gap: 10px;
   border-radius: 5px;
   width: 150px;
-  height: 100px;
+  height: 123px;
+  padding: 3px 0px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
 }
+
 .profile-status .left-box h1,
 .profile-status .right-box h1 {
   font-size: 30px;
@@ -435,12 +445,6 @@ nav.open .nav-content span {
   opacity: 1;
 }
 
-
-
-
-
-
-
 #scan-again {
   background-color: #28a745;
 }
@@ -474,10 +478,9 @@ nav.open .nav-content span {
   width: 100%;
 }
 
-.profile-status+h3{
+.profile-status + h3 {
   margin-left: 10px;
 }
-
 
 /* ============================================= */
 /* Add these CSS styles */
@@ -580,11 +583,9 @@ nav.open .nav-content span {
 
 /* Scanned Data Display */
 #scanned-data {
- 
-  
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
- 
+
   transform: translateY(20px);
   transition: all 0.3s ease;
   max-width: 600px;
@@ -632,8 +633,6 @@ nav.open .nav-content span {
 .backdrop.active {
   display: block;
 }
-
-
 
 .text-msg {
   display: flex;
@@ -725,7 +724,6 @@ nav.open .nav-content span {
   background-color: #ffffff;
 }
 
-
 .student-data {
   display: flex;
   justify-content: start;
@@ -762,11 +760,7 @@ nav.open .nav-content span {
   width: 100%;
 }
 .modern-btn {
-  background: linear-gradient(
-    135deg,
-    #6a11cb,
-    #2575fc
-  ); /* Gradient magic */
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient magic */
   color: #fff;
   padding: 12px 28px;
   font-size: 16px;
@@ -905,18 +899,27 @@ nav.open .nav-content span {
   background-size: 200% 100%;
 }
 
-
 .hidden {
   display: none !important;
 }
 
 .container-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   height: 100%;
-    width: 100vw !important;
-  background-color: darkred;
+  width: 100vw !important;
 }
 .container-3 {
   height: 100%;
-    width: 100vw !important;
+  width: 100vw !important;
   background-color: rgb(12, 139, 0);
+}
+.clean {
+  width: 85%;
+  margin-top: 10px;
+  height: 35px;
+  border: none;
+  font-weight: 800;
+  background-color: rgb(205 205 205);
 }

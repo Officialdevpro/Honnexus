@@ -55,7 +55,7 @@ exports.borrowBook = catchAsync(async (req, res, next) => {
 // 📌 GET Borrow Records by Student ID with Manual Book Population
 exports.getBorrowsByStudentId = catchAsync(async (req, res, next) => {
   const studentId = "22ECEBE175";
-
+  const user = await User.findOne({ studentId });
   const result = await Borrow.aggregate([
     { $match: { studentId } },
     {
@@ -63,30 +63,32 @@ exports.getBorrowsByStudentId = catchAsync(async (req, res, next) => {
         from: "books",
         localField: "bookId",
         foreignField: "bookId",
-        as: "bookDetails"
-      }
+        as: "bookDetails",
+      },
     },
     { $unwind: "$bookDetails" },
     {
       $project: {
-        "_id": "$bookDetails._id",
-        "icon": "$bookDetails.icon",
-        "bookName": "$bookDetails.bookName",
-        "createdAt": 1
-      }
-    }
+        _id: "$bookDetails._id",
+        icon: "$bookDetails.icon",
+        bookName: "$bookDetails.bookName",
+        createdAt: 1,
+      },
+    },
   ]);
 
   // Add time-ago calculation
-  const booksWithTimeAgo = result.map(book => ({
+  const booksWithTimeAgo = result.map((book) => ({
     ...book,
-    createdAt: getTimeAgo(book.createdAt)
+    createdAt: getTimeAgo(book.createdAt),
   }));
 
   res.status(200).json({
     status: "success",
     results: booksWithTimeAgo.length,
-    books: booksWithTimeAgo
+
+    books: booksWithTimeAgo,
+    user,
   });
 });
 
@@ -97,22 +99,22 @@ const getTimeAgo = (isoString) => {
   const seconds = Math.floor((now - date) / 1000);
 
   const intervals = [
-    { label: 'year', seconds: 31536000 },
-    { label: 'month', seconds: 2592000 },
-    { label: 'day', seconds: 86400 },
-    { label: 'hour', seconds: 3600 },
-    { label: 'minute', seconds: 60 },
-    { label: 'second', seconds: 1 }
+    { label: "year", seconds: 31536000 },
+    { label: "month", seconds: 2592000 },
+    { label: "day", seconds: 86400 },
+    { label: "hour", seconds: 3600 },
+    { label: "minute", seconds: 60 },
+    { label: "second", seconds: 1 },
   ];
 
   for (const interval of intervals) {
     const count = Math.floor(seconds / interval.seconds);
     if (count >= 1) {
-      return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
+      return `${count} ${interval.label}${count !== 1 ? "s" : ""} ago`;
     }
   }
-  
-  return 'Just now';
+
+  return "Just now";
 };
 
 // 📌 GET Borrow by ID
