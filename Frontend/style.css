@@ -17,7 +17,7 @@
 
 header {
   height: 50px;
-  z-index: 1;
+  z-index: 3;
   background-color: #fff;
   display: flex;
   justify-content: space-between;
@@ -25,6 +25,10 @@ header {
   padding: 0px 10px;
   position: sticky;
   top: 0;
+}
+.issue {
+  width: 100%;
+  text-align: left;
 }
 footer {
   background-color: #fff;
@@ -209,7 +213,7 @@ main section.settings {
   position: absolute;
   top: 0px;
   left: 0;
-  z-index: 2;
+  z-index: 4;
   width: 100%;
 }
 svg {
@@ -270,25 +274,12 @@ input:focus {
 }
 
 .profile-top-portion {
-  margin-top: 15px;
+ 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 15px;
-}
-.profile-top-portion img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  object-fit: cover;
-  padding: 10px;
-  border: 5px solid #6920c3; /* Outer circle color */
 }
 
 .profile-top-portion .profile-details {
@@ -476,6 +467,7 @@ nav.open .nav-content span {
 
 .borrowed-book-details {
   width: 100%;
+  padding-bottom: 100px;
 }
 
 .profile-status + h3 {
@@ -522,7 +514,8 @@ nav.open .nav-content span {
 } */
 
 /* Scanner Container */
-#scanner-container,#scanner-container-1 {
+#scanner-container,
+#scanner-container-1 {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -539,20 +532,23 @@ nav.open .nav-content span {
   z-index: 1000;
 }
 
-#scanner-container.active,#scanner-container-1.active {
+#scanner-container.active,
+#scanner-container-1.active {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
 }
 
 /* Video Element */
-#barcode-scanner,#barcode-scanner-1 {
+#barcode-scanner,
+#barcode-scanner-1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 /* Scan Overlay */
-#scan-overlay,#scan-overlay-1 {
+#scan-overlay,
+#scan-overlay-1 {
   position: absolute;
   top: 0;
   left: 0;
@@ -562,7 +558,8 @@ nav.open .nav-content span {
 }
 
 /* Scan Line Animation */
-#scan-line,#scan-line-1 {
+#scan-line,
+#scan-line-1 {
   position: absolute;
   height: 3px;
   width: 100%;
@@ -598,7 +595,8 @@ nav.open .nav-content span {
 }
 
 /* Loading Spinner */
-.loading,.loading-1 {
+.loading,
+.loading-1 {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -619,7 +617,8 @@ nav.open .nav-content span {
 }
 
 /* Backdrop */
-.backdrop,.backdrop-1 {
+.backdrop,
+.backdrop-1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -630,7 +629,8 @@ nav.open .nav-content span {
   display: none;
 }
 
-.backdrop.active,.backdrop-1.active {
+.backdrop.active,
+.backdrop-1.active {
   display: block;
 }
 
@@ -735,7 +735,7 @@ nav.open .nav-content span {
   flex-direction: column;
 }
 .student-img {
-  border: 3px dotted rgb(0, 0, 0);
+ 
   border-radius: 50%;
   padding: 3px;
 }
@@ -922,4 +922,327 @@ nav.open .nav-content span {
   border: none;
   font-weight: 800;
   background-color: rgb(205 205 205);
+}
+
+/* ================================ */
+
+:root {
+  --primary-colour: #c7c7c7;
+  --secondary-colour: hsl(233 80% 70%);
+  --star-colour: hsl(38 90% 55%);
+}
+
+.star-container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  height: 20%;
+  transform: translate(-50%, -50%) rotateY(180deg);
+}
+
+.container__items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+.container__items input {
+  display: none;
+}
+
+.container__items label {
+  width: 20%;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+
+.star-stroke {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.star-fill {
+  width: 95%;
+  aspect-ratio: 1;
+  background: var(--primary-colour);
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+input:checked ~ label .star-stroke .star-fill {
+  background: var(--star-colour);
+}
+
+.label-description::after {
+  content: attr(data-content);
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-top: 1em;
+  margin-inline: auto;
+  width: 100%;
+  height: 2em;
+  color: #fff;
+  text-align: center;
+  font-size: 2rem;
+  transform: rotateY(180deg);
+}
+
+.submit-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 20%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: var(--secondary-colour);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.submit-btn:hover {
+  background: var(--star-colour);
+}
+
+.star-container {
+  display: none;
+  z-index: 2;
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%) rotateY(180deg);
+  width: 89%;
+
+  background: rgb(255, 255, 255);
+}
+
+.star-container.active {
+  display: block;
+  z-index: 2;
+  margin-top: 78px;
+}
+
+.book-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.id-card {
+  font-family: "Verdana", "Arial", sans-serif;
+  width: 100%;
+  height: 315px;
+  background: white;
+
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.top-bar {
+  display: flex;
+  background: #ffd400;
+  padding: 10px;
+}
+
+.college-info h1 {
+  margin: 0;
+  font-size: 20px;
+  color: #003366;
+  line-height: 1.2;
+}
+.college-info h1 span {
+  display: block;
+  font-size: 15px;
+}
+.college-info p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: #003366;
+  font-style: italic;
+}
+
+.college-img img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 80px;
+  object-fit: cover;
+  transform: skewX(-20deg);
+
+  margin-left: 10px;
+}
+
+.student-info {
+  padding: 0px 10px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  border-bottom: 2px solid #ffd400;
+}
+
+.student-info h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  border-bottom: 2px solid #003366;
+  display: inline-block;
+  padding-bottom: 3px;
+  color: #005baa;
+}
+
+.student-info p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.bottom-bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.barcode {
+  width: 100%;
+  height: 40px;
+  background: repeating-linear-gradient(
+    90deg,
+    black 0px,
+    black 2px,
+    white 2px,
+    white 4px
+  );
+}
+
+.barcode-text {
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.principal-sign {
+  font-size: 14px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.side-year {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 100%;
+  background: linear-gradient(to bottom, #005baa, #0072ce);
+  color: white;
+  writing-mode: sideways-lr;
+  text-align: center;
+  font-size: 25px;
+
+  font-weight: bold;
+  padding-top: 20px;
+  letter-spacing: 1px;
+}
+.one-item {
+  margin-top: 20px;
+  width: 55%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .id-card {
+    height: 227px;
+  }
+
+  .top-bar {
+    padding: 5px;
+  }
+
+  .college-info h1 {
+    font-size: 15px;
+  }
+
+  .college-info h1 span {
+    font-size: 14px;
+  }
+
+  .college-info p {
+    font-size: 10px;
+    margin: 0px;
+  }
+
+  .college-img img {
+    width: 157px;
+    height: 60px;
+  }
+
+  .student-info {
+  }
+  .student-info h2 {
+    margin-bottom: 3px;
+    font-size: 13px;
+    border-bottom: 2px solid #003366;
+    display: inline-block;
+    padding-bottom: 3px;
+    color: #005baa;
+  }
+
+  .student-info p {
+    margin: 4px 0;
+    font-size: 13px;
+  }
+
+  .bottom-bar {
+    padding: 0;
+  }
+
+  .barcode {
+    width: 239px;
+    height: 30px;
+    background: repeating-linear-gradient(
+      90deg,
+      black -1px,
+      black 1px,
+      white -126px,
+      white 5px
+    );
+  }
+
+  .barcode-text {
+  }
+
+  .principal-sign {
+  }
+
+  .side-year {
+    width: 30px;
+    font-size: 20px;
+  }
+  .profile-top-portion {
+    padding: 5px;
+    margin-bottom: 10px;
+  }
 }

@@ -14,7 +14,7 @@ const { studentsData } = require("../data/students.js");
 // Function to generate JWT
 const signToken = (id) => {
   try {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "2d" });
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "90d" });
   } catch (e) {
     throw new Error("Token generation failed");
   }

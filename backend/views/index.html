@@ -29,19 +29,19 @@
                 <table class="info-table">
                   <tr>
                     <th>Edition</th>
-                    <td>3</td>
+                    <td class="edition_des"></td>
                   </tr>
                   <tr>
                     <th class="even">Author</th>
-                    <td class="unq">Raj Kamal</td>
+                    <td class="author_des"></td>
                   </tr>
                   <tr>
                     <th>Semester</th>
-                    <td>5</td>
+                    <td class="semester_des"></td>
                   </tr>
                   <tr>
                     <th class="even">Avalible</th>
-                    <td class="unq">20 Books</td>
+                    <td><b class="stock_des"></b> Books</td>
                   </tr>
                 </table>
                 <div class="rr-container active">
@@ -127,6 +127,7 @@
                       </ul>
                     </div>
                   </div>
+                  <h2 class="issue">Issued To</h2>
                   <ul class="user-feedback"></ul>
                   <div class="review-back-btn">
                     <img src="icons/return.svg" alt="" />
@@ -269,18 +270,50 @@
                 <div id="scan-line-1"></div>
               </div>
             </div>
-            <div class="scanned-result">
-              
-            </div>
+            <div class="scanned-result"></div>
           </div>
           <div class="container-3 hidden"></div>
         </section>
         <section class="profile">
           <div class="profile-top-portion">
-            <img src="./assets/profile.png" alt="" />
-            <div class="profile-details">
-              <h2>22ECEBE175</h2>
-              <small>Naveen V</small>
+            <div class="id-card">
+              <div class="top-bar">
+                <div class="college-info">
+                  <h1>SONA <span>COLLEGE OF TECHNOLOGY</span></h1>
+                  <p>Learning is a Celebration!</p>
+                </div>
+                <div class="college-img">
+                  <img src="./img/idcard.png" alt="College Image" />
+                </div>
+              </div>
+
+              <div class="student-info">
+                <h2>STUDENT ID CARD</h2>
+                <p>
+                  <strong>Name :</strong>
+                  <span id="student-name">Naveen V</span>
+                </p>
+                <p>
+                  <strong>Adm No:</strong>
+                  <span id="admission-no">22ECEBE175</span>
+                </p>
+                <p>
+                  <strong>Dept. :</strong>
+                  <span id="department"
+                    >BE - Electronics & Communication Engg.</span
+                  >
+                </p>
+              </div>
+
+              <div class="bottom-bar">
+                <div class="one-item">
+                  <div class="barcode"></div>
+                  <div class="barcode-text" id="barcode-text">22ECEBE175</div>
+                </div>
+                
+              </div>
+
+              <div class="side-year">2022-2026</div>
             </div>
           </div>
           <div class="profile-status">
@@ -530,7 +563,7 @@
                     </div>
                   </li>
 
-                  <li>
+                  <li id="logout">
                     Logout
                     <img src="./icons/right.svg" alt="" />
                   </li>

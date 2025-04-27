@@ -35,7 +35,10 @@ const BookSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  
 });
+
+
 
 // Exporting the model
 module.exports = mongoose.model("Book", BookSchema);

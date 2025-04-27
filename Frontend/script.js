@@ -23,8 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("search-box").focus();
       }
       if (index == 0) {
+        document.querySelector(".books-container").style.display = "flex";
         if (document.querySelector(".book-details").style.display == "flex") {
           document.querySelector(".book-details").style.display = "none";
+          document.querySelector(".books-container").style.display = "flex";
         }
       }
     });
@@ -55,6 +57,13 @@ async function loadBooks() {
 
   booksCard.forEach((book) => {
     book.addEventListener("click", () => {
+      let det = document.querySelector(".book-details");
+      if (det.style.display == "flex") {
+        console.log(det.style.display);
+        document.querySelector(".books-container").style.display = "flex";
+      } else {
+        document.querySelector(".books-container").style.display = "none";
+      }
       document.querySelector(".book-description h2").innerHTML =
         book.lastElementChild.firstElementChild.textContent;
       document
@@ -63,24 +72,71 @@ async function loadBooks() {
           "src",
           book.firstElementChild.firstElementChild.getAttribute("src")
         );
+      document.querySelector(".book-description .edition_des").innerHTML =
+        book.lastElementChild.children[1].firstElementChild.textContent
+          .split(" ")
+          .at(-1);
+      document.querySelector(".book-description .author_des").innerHTML =
+        book.lastElementChild.children[1].lastElementChild.textContent.replace(
+          "Author : ",
+          ""
+        );
+
+      document.querySelector(".book-description .stock_des").innerHTML =
+        book.lastElementChild.children[2].firstElementChild.lastChild.textContent;
+
       document.querySelector(".book-details").style.display = "flex";
+      fetchBookDetails(book.dataset.bookid);
     });
   });
 }
+
+async function fetchBookDetails(id) {
+  document.querySelector(".book-details").style.display = "flex";
+  try {
+    const response = await fetch(
+      `https://honnexus.onrender.com/api/v1/books/${id}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const { data, borrowers } = await response.json();
+    loadReviews(data.stats, data.stats.percentages, borrowers);
+
+    const book = data;
+    console.log("Book:", book);
+
+    document.querySelector(".book-description .semester_des").innerHTML =
+      book.semester;
+  } catch (error) {
+    console.error("Error fetching book data:", error);
+    // You can also show a user-friendly error message here
+  }
+}
+
 loadBooks();
 async function loadUser() {
-  let req = await fetch("https://honnexus.onrender.com/api/v1/users");
-  let { data } = await req.json();
+  let req = await fetch("https://honnexus.onrender.com/api/v1/users/me");
+  let { user } = await req.json();
 
-  let profile = document
-    .querySelector(".profile-top-portion img")
-    .setAttribute("src", "images/profiles/" + data.profile);
-  let name = document.querySelector(".profile-details h2");
-  let id = document.querySelector(".profile-details small");
-  name.innerHTML = data.username;
-  id.innerHTML = data.studentId;
+  updateIDCard(
+    user.username,
+    user.studentId,
+    "BE - Electronics & Communication Engg."
+  );
   setSemesterFromData(data.semester);
 }
+
+function updateIDCard(name, admNo, department) {
+  document.getElementById("student-name").innerText = name;
+  document.getElementById("admission-no").innerText = admNo;
+  document.getElementById("department").innerText = department;
+  document.getElementById("barcode-text").innerText = admNo;
+}
+
+// Example update (you can customize here)
 
 loadUser();
 
@@ -307,62 +363,57 @@ function isAuthor(review_userId, userId, reviewId) {
   }
 }
 let userReview = "";
-async function loadReviews() {
-  let req = await fetch("./data/review.json");
-  let res = await req.json();
-  if (req.status === 200) {
-    let { stats, reviews } = res;
-    document.querySelector(".user-feedback").innerHTML = "";
-    document.querySelector(".rating-num-left h1").innerHTML = stats.avgRating;
-    document.querySelector(".nRating").innerHTML = stats.nRating;
+async function loadReviews(stats, percentages, reviews) {
+  console.log(stats, reviews);
+  document.querySelector(".user-feedback").innerHTML = "";
+  document.querySelector(".rating-num-left h1").innerHTML = stats.avgRating;
+  document.querySelector(".nRating").innerHTML = `(${stats.nRating})`;
 
-    let barData = stats.percentages;
-    loadBars(barData);
-    reviews.forEach((data) => {
-      let template = ` <li class="review-card">
+  let barData = percentages;
+  loadBars(barData);
+  reviews.forEach((data) => {
+    console.log(data);
+    let template = ` <li class="review-card">
         <div class="review-card-head">
           <div class="review-left-part">
-            <div style="background-color:${getRandomColor()}" class="img review-profile">${data.user.username
-        .charAt(0)
-        .toLocaleUpperCase()}</div>
-            <p>${data.user.username}</p>
+            <div style="background-color:${getRandomColor()}" class="img review-profile">${data.student.username
+      .charAt(0)
+      .toLocaleUpperCase()}</div>
+            <p>${data.student.username}</p>
           </div>
           
         </div>
         
       </li>`;
-      if (false) {
-        userReview = template;
-        // Prepend the review by adding it to the start of the container
-        userFeedBack.innerHTML = template + userFeedBack.innerHTML;
-      } else {
-        // Append the review by adding it to the end of the container
-        userFeedBack.innerHTML += template;
-      }
+    if (false) {
+      userReview = template;
+      // Prepend the review by adding it to the start of the container
+      userFeedBack.innerHTML = template + userFeedBack.innerHTML;
+    } else {
+      // Append the review by adding it to the end of the container
+      userFeedBack.innerHTML += template;
+    }
 
-      let deleteButtons = document.querySelectorAll(".delete-review");
+    let deleteButtons = document.querySelectorAll(".delete-review");
 
-      deleteButtons.forEach((btn, index) => {
-        btn.addEventListener("click", (event) => {
-          document.querySelector(".write-pen").classList.remove("hide");
-          deleteReviewFromServer(event.target.parentElement.dataset.reviewId);
-          let reviewCard = event.target.closest(".review-card");
+    deleteButtons.forEach((btn, index) => {
+      btn.addEventListener("click", (event) => {
+        document.querySelector(".write-pen").classList.remove("hide");
+        deleteReviewFromServer(event.target.parentElement.dataset.reviewId);
+        let reviewCard = event.target.closest(".review-card");
 
-          reviewCard.remove(); // Remove the review from DOM
-        });
+        reviewCard.remove(); // Remove the review from DOM
       });
-    });
-  }
-
-  attachEditListeners();
-  document.querySelectorAll(".rr-dots").forEach((dot, index) => {
-    dot.addEventListener("click", () => {
-      document
-        .querySelectorAll(".rr-options")
-        [index].classList.toggle("active");
     });
   });
 }
+
+attachEditListeners();
+document.querySelectorAll(".rr-dots").forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    document.querySelectorAll(".rr-options")[index].classList.toggle("active");
+  });
+});
 
 function attachEditListeners() {
   // Select all edit buttons
@@ -524,6 +575,7 @@ postBtn.addEventListener("click", async () => {
 });
 
 function loadBars(data) {
+  console.log(data);
   document.querySelector(".bar-rating-5 .child-bar-line").style.width =
     `${data["5"]}` + "%";
   document.querySelector(".bar-rating-4 .child-bar-line").style.width =
@@ -601,4 +653,13 @@ navBtn.forEach((btn, index) => {
       adminPages[index].classList.remove("hidden");
     }
   });
+});
+
+const logoutBtn = document.getElementById("logout");
+logoutBtn.addEventListener("dblclick", async () => {
+  let req = await fetch("https://honnexus.onrender.com/api/v1/users/logout");
+  let res = await req.json();
+  if (res.status == "success") {
+    window.location.reload();
+  }
 });

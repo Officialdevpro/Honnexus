@@ -7,7 +7,7 @@ const { product } = require("../controllers/authController");
 
 router
   .route("/")
-  .get(borrowController.getBorrowsByStudentId)
+  .get(product,borrowController.getBorrowsByStudentId)
   .post(borrowController.borrowBook);
 
 router
