@@ -9,7 +9,6 @@ const mongoose = require("mongoose");
 const checkUserAndBook = async (studentId, bookId, next) => {
   // Check if user exists using the studentId (assuming it's a string in the database)
   const user = await User.findOne({ studentId });
-  console.log(user);
   if (!user) {
     return next(new AppError("User not found with provided studentId", 404));
   }
@@ -54,13 +53,18 @@ exports.borrowBook = catchAsync(async (req, res, next) => {
 
 // 📌 GET Borrow Records by Student ID with Manual Book Population
 exports.getBorrowsByStudentId = catchAsync(async (req, res, next) => {
-  const student = await User.findOne({ _id: req.user._id });
-  let studentId = student.studentId;
-  
-  
+  let studentId;
+  if (req.user.role !== "student") {
+    studentId = req.query.studentId;
+    if (!studentId) {
+      return next(new AppError("studentId is required", 400));
+    }
+  } else {
+    const student = await User.findOne({ _id: req.user._id });
+    studentId = student.studentId;
+  }
 
- 
-  const user = await User.findOne({ studentId});
+  const user = await User.findOne({ studentId });
   const result = await Borrow.aggregate([
     { $match: { studentId } },
     {
@@ -178,4 +182,45 @@ exports.deleteBorrow = catchAsync(async (req, res, next) => {
     status: "success",
     data: null,
   });
+});
+
+exports.returnBorrow = catchAsync(async (req, res, next) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    const book = await Book.findById(req.body.bookId).session(session);
+    if (!book) throw new Error("Book not found");
+
+    book.stock += 1;
+    await book.save({ session });
+
+    const plainBook = book.toObject();
+    const borrow = await Borrow.findOne({ bookId: plainBook.bookId }).session(
+      session
+    );
+    if (!borrow) throw new Error("Borrow record not found");
+
+    const studentId = borrow.studentId;
+    const user = await User.findOne({ studentId }).session(session);
+    if (!user) throw new Error("User not found");
+
+    user.returnCount += 1;
+    await user.save({ session });
+
+    // Optional: delete borrow record
+    await borrow.deleteOne({ _id: borrow._id });
+
+    await session.commitTransaction();
+    session.endSession();
+
+    res.status(200).json({
+      status: "success",
+      message: "Book returned successfully",
+    });
+  } catch (err) {
+    await session.abortTransaction();
+    session.endSession();
+    return next(new AppError(err.message, 500));
+  }
 });

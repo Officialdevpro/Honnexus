@@ -183,6 +183,7 @@
           </div>
         </section>
         <section class="admin" style="display: flex">
+          
           <div class="container-1 hidden">
             <div class="student-data">
               <!-- <button id="scan-btn">Start Barcode Scan</button> -->
@@ -606,16 +607,12 @@
                   /></a>
                 </span>
 
-                <span style="--i: 3" id="recordBtn">
+                <span style="--i: 4" id="recordBtn">
                   <a href="#" data-file-type="video"
                     ><img src="icons/server-bolt.svg" alt=""
                   /></a>
                 </span>
-                <span style="--i: 4" id="refresh">
-                  <a href="#" data-file-type="video"
-                    ><img src="icons/menu-4.svg" alt=""
-                  /></a>
-                </span>
+              
               </div>
             </nav>
           </li>
@@ -726,7 +723,16 @@
         transform: scale(1.05);
       }
     </style>
-
+    
+    <div class="confirmation-dialog">
+      <div class="dialog-content">
+          <h3>Are you sure you want to return this book?</h3>
+          <div class="dialog-buttons">
+              <button class="confirm-btn">Yes</button>
+              <button class="cancel-btn">Cancel</button>
+          </div>
+      </div>
+  </div>
     <script>
       function showConfirmation() {
         const modal = document.querySelector(".confirmation-modal");

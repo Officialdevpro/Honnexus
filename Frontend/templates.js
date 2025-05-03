@@ -1,3 +1,5 @@
+import { loadBooks, loadUser } from "./script.js";
+
 export function bookTemplate(book) {
   // Calculate how many full and empty stars are needed
   const fullStars = book.stats.avgRating;
@@ -112,9 +114,7 @@ export function borrowedBooksTemplate(borrowedBooks) {
           starContainer.classList.remove("active");
         }, 3000); // Close after 2 seconds
         const rating = input.id.split("-")[0].replace("st", "");
-        console.log(
-          `Rating ${rating} submitted for book: ${borrowedBooks[index]._id}`
-        );
+
         updateRating(borrowedBooks[index]._id, rating); // Call your update function here
         // Add your fetch/POST logic here
       });
@@ -154,9 +154,12 @@ function makeBookCard(books) {
                     <div class="right-portion">
                       <p>${book.bookName}</p>
                     </div>
-                    <button class="clean" data-bookId=${book._id}>Return</button>
+                    <button class="clean return-book" data-bookId="${book._id}" data-bookName="${book.bookName}">Return</button>
                   </li>`;
   });
+
+  // Update the dialog content in HTML
+
   return dataum;
 }
 
@@ -172,16 +175,7 @@ export function profileTemplate(books, user) {
                   <small>${user.studentId}</small>
                 </div>
               </div>
-              <div class="profile-status">
-                <div class="left-box">
-                  <b>Borrowed</b>
-                  <h1>${borrowed}</h1>
-                </div>
-                <div class="right-box">
-                  <b>Returned</b>
-                  <h1>${returned}</h1>
-                </div>
-              </div>
+              
               <h3>Borrowed Books</h3>
               <div class="borrowed-book-details">
                 
@@ -190,6 +184,44 @@ export function profileTemplate(books, user) {
               </div>`;
 
   document.querySelector(".scanned-result").innerHTML = template;
+  document.querySelectorAll(".return-book").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const bookId = e.target.dataset.bookid;
+
+      returnBook(bookId, e.target);
+    });
+  });
+}
+async function returnBook(bookId, btn) {
+  try {
+    const response = await fetch(
+      "https://honnexus.onrender.com/api/v1/borrow/return",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bookId }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || "Something went wrong while returning the book"
+      );
+    }
+    btn.parentElement.remove();
+    loadBooks();
+    loadUser(); // Reload the user data to reflect the changes
+    // Remove the book card from the UI
+
+    // You can update the UI or show a success message here
+  } catch (error) {
+    console.error("Error returning book:", error.message);
+    // Show error message to the user if needed
+  }
 }
 
 async function updateRating(bookId, rating) {
@@ -211,7 +243,6 @@ async function updateRating(bookId, rating) {
       throw new Error(data.message || "Something went wrong!");
     }
 
-    console.log("Rating updated successfully:", data);
     // You can also update your UI here based on `data`
   } catch (error) {
     console.error("Error updating rating:", error.message);

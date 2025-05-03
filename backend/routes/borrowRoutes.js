@@ -2,14 +2,16 @@
 const express = require("express");
 const router = express.Router();
 const borrowController = require("../controllers/borrowController");
-const { product } = require("../controllers/authController");
-
+const { product, restrictTo } = require("../controllers/authController");
 
 router
   .route("/")
-  .get(product,borrowController.getBorrowsByStudentId)
-  .post(borrowController.borrowBook);
+  .get(product, borrowController.getBorrowsByStudentId)
+  .post(product, restrictTo("admin"), borrowController.borrowBook);
 
+router
+  .route("/return")
+  .post(product, restrictTo("admin"), borrowController.returnBorrow);
 router
   .route("/:id")
   .get(borrowController.getBorrow)

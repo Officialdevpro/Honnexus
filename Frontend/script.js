@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-async function loadBooks() {
+export async function loadBooks() {
   let req = await fetch("https://honnexus.onrender.com/api/v1/books");
   let { data } = await req.json();
 
@@ -59,7 +59,6 @@ async function loadBooks() {
     book.addEventListener("click", () => {
       let det = document.querySelector(".book-details");
       if (det.style.display == "flex") {
-        console.log(det.style.display);
         document.querySelector(".books-container").style.display = "flex";
       } else {
         document.querySelector(".books-container").style.display = "none";
@@ -95,7 +94,7 @@ async function fetchBookDetails(id) {
   document.querySelector(".book-details").style.display = "flex";
   try {
     const response = await fetch(
-      `https://honnexus.onrender.com/api/v1/books/${id}`
+      `https://honnexus.onrender.com/api/v1/books/info/${id}`
     );
 
     if (!response.ok) {
@@ -106,7 +105,6 @@ async function fetchBookDetails(id) {
     loadReviews(data.stats, data.stats.percentages, borrowers);
 
     const book = data;
-    console.log("Book:", book);
 
     document.querySelector(".book-description .semester_des").innerHTML =
       book.semester;
@@ -117,23 +115,27 @@ async function fetchBookDetails(id) {
 }
 
 loadBooks();
-async function loadUser() {
+export async function loadUser() {
   let req = await fetch("https://honnexus.onrender.com/api/v1/users/me");
   let { user } = await req.json();
 
   updateIDCard(
     user.username,
     user.studentId,
-    "BE - Electronics & Communication Engg."
+    "BE - Electronics & Communication Engg.",
+    user.returnCount
   );
-  setSemesterFromData(data.semester);
+  setSemesterFromData(user.semester);
 }
 
-function updateIDCard(name, admNo, department) {
+function updateIDCard(name, admNo, department, returnCount) {
   document.getElementById("student-name").innerText = name;
   document.getElementById("admission-no").innerText = admNo;
   document.getElementById("department").innerText = department;
   document.getElementById("barcode-text").innerText = admNo;
+  document.querySelector(
+    ".profile-status"
+  ).lastElementChild.lastElementChild.innerText = returnCount;
 }
 
 // Example update (you can customize here)
@@ -270,7 +272,7 @@ async function fetchRandomBooks() {
     const response = await fetch(
       "https://honnexus.onrender.com/api/v1/books/random"
     ); // adjust path if needed
-    console.log(response);
+
     if (response.ok) {
       const { data } = await response.json();
 
@@ -364,7 +366,6 @@ function isAuthor(review_userId, userId, reviewId) {
 }
 let userReview = "";
 async function loadReviews(stats, percentages, reviews) {
-  console.log(stats, reviews);
   document.querySelector(".user-feedback").innerHTML = "";
   document.querySelector(".rating-num-left h1").innerHTML = stats.avgRating;
   document.querySelector(".nRating").innerHTML = `(${stats.nRating})`;
@@ -372,7 +373,6 @@ async function loadReviews(stats, percentages, reviews) {
   let barData = percentages;
   loadBars(barData);
   reviews.forEach((data) => {
-    console.log(data);
     let template = ` <li class="review-card">
         <div class="review-card-head">
           <div class="review-left-part">
@@ -575,7 +575,6 @@ postBtn.addEventListener("click", async () => {
 });
 
 function loadBars(data) {
-  console.log(data);
   document.querySelector(".bar-rating-5 .child-bar-line").style.width =
     `${data["5"]}` + "%";
   document.querySelector(".bar-rating-4 .child-bar-line").style.width =

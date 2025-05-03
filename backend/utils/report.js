@@ -16,7 +16,7 @@ exports.generateReport = async (data, res) => {
     ];
 
     data.forEach((doc) => {
-      console.log(doc)
+    
       workSheet.addRow({
         time: dateTimeFormat(doc.date),
         type:

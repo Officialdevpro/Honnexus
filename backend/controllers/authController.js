@@ -11,10 +11,12 @@ const path = require("path");
 const TempUsers = require("../models/tempModel.js");
 const { studentsData } = require("../data/students.js");
 
-// Function to generate JWT
-const signToken = (id) => {
+// Function to generate JWT with role included
+const signToken = (id, role) => {
   try {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "90d" });
+    return jwt.sign({ id, role }, process.env.JWT_SECRET, {
+      expiresIn: "90d",
+    });
   } catch (e) {
     throw new Error("Token generation failed");
   }
@@ -22,7 +24,8 @@ const signToken = (id) => {
 
 // Function to create and send token
 const createSendToken = (user, statusCode, res) => {
-  const token = signToken(user._id);
+  const token = signToken(user._id, user.role); // Pass role here
+
   const cookieOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
@@ -30,15 +33,15 @@ const createSendToken = (user, statusCode, res) => {
     secure: true,
     httpOnly: true,
   };
+
   res.cookie("jwt", token, cookieOptions);
+
   res.status(statusCode).json({
     status: "success",
     user,
     token,
   });
 };
-
-
 
 // Middleware to check if ID exists
 const checkId = catchAsync(async (req, res, next, val) => {
@@ -55,32 +58,56 @@ const checkId = catchAsync(async (req, res, next, val) => {
 
 // SIGNUP Controller
 const signup = catchAsync(async (req, res, next) => {
-  console.log(req.body);
-  const tempUser = await TempUsers.findOne({ studentId: req.body.studentId });
-  console.log(tempUser);
-  if (!tempUser) {
-    return next(new AppError("Something went wrong.", 400));
-  }
-  if (tempUser.otpExpires < Date.now()) {
-    return next(new AppError("Your OTP has expired.", 400));
-  }
-  if (tempUser.otp !== req.body.otp) {
-    return next(new AppError("OTP you entered is invalid", 400));
-  }
+  let role = "student"; // default
 
-  let isExist = await User.findOne({ studentId: req.body.studentId });
-  if (!isExist) {
-    const newUser = await User.create({
-      username: tempUser.username,
-      email: tempUser.email,
-      studentId: tempUser.studentId,
-    });
-    newUser.save();
-    createSendToken(newUser, 201, res);
+  if (req.body.adminId) {
+    if (req.body.adminId !== process.env.ADMIN_SECRET_KEY) {
+      return next(new AppError("Invalid admin ID", 400));
+    } else {
+      role = "admin";
+      let isExist = await User.findOne({ studentId: "admin" });
+      if (!isExist) {
+        const newAdmin = await User.create({
+          username: "admin",
+          email: "admin@gmail.com",
+          semester: 5,
+          studentId: "admin",
+          role: "admin",
+        });
+        newAdmin.save();
+        return createSendToken(newAdmin, 201, res);
+      }
+      return createSendToken(isExist, 200, res);
+    }
   } else {
-    createSendToken(isExist, 200, res);
+   
+  
+    const tempUser = await TempUsers.findOne({ studentId: req.body.studentId });
+   
+    if (!tempUser) {
+      return next(new AppError("Something went wrong.", 400));
+    }
+    if (tempUser.otpExpires < Date.now()) {
+      return next(new AppError("Your OTP has expired.", 400));
+    }
+    if (tempUser.otp !== req.body.otp) {
+      return next(new AppError("OTP you entered is invalid", 400));
+    }
+
+    let isExist = await User.findOne({ studentId: req.body.studentId });
+    if (!isExist) {
+      const newUser = await User.create({
+        username: tempUser.username,
+        email: tempUser.email,
+        studentId: tempUser.studentId,
+      });
+      newUser.save();
+      createSendToken(newUser, 201, res);
+    } else {
+      createSendToken(isExist, 200, res);
+    }
+    await TempUsers.findByIdAndDelete(tempUser._id);
   }
-  await TempUsers.findByIdAndDelete(tempUser._id);
 });
 
 // LOGIN Controller
@@ -136,10 +163,22 @@ const product = catchAsync(async (req, res, next) => {
   next();
 });
 
+const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        status: "fail",
+        message: "You do not have permission to perform this action.",
+      });
+    }
+    next();
+  };
+};
+
 const tempUser = catchAsync(async (req, res, next) => {
   const { studentId } = req.body;
 
-  console.log(studentId);
+ 
 
   // Find the student based on studentId
   const student = studentsData.find(
@@ -202,7 +241,7 @@ const tempUser = catchAsync(async (req, res, next) => {
   } catch (e) {
     return next(
       new AppError(
-        "There was an error sending the email. Try again later!",
+        "There was an error sending the email. Try again later!" + e,
         500
       )
     );
@@ -213,7 +252,6 @@ const sendForgotPage = catchAsync(async (req, res, next) => {
   res.sendFile(path.join(__dirname, "..", "views", "resetPassword.html"));
 });
 
-
 // Controller to send current user info
 const getCurrentUser = catchAsync(async (req, res, next) => {
   if (!req.user) {
@@ -222,12 +260,10 @@ const getCurrentUser = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-   
-      user: req.user,
-   
+
+    user: req.user,
   });
 });
-
 
 module.exports = {
   product,
@@ -235,12 +271,10 @@ module.exports = {
   signup,
   logIn,
   logOut,
-
+restrictTo,
   tempUser,
 
   createSendToken,
   signToken,
   sendForgotPage,
 };
-
-

@@ -17,14 +17,13 @@ document.getElementById("recordBtn").addEventListener("click", async () => {
   document.querySelector(".scanned-result").innerHTML = "";
   try {
     const data = await initScanner();
-    console.log("Scanned data:", data);
+
     fetch("https://honnexus.onrender.com/api/v1/borrow?studentId=" + data)
       .then((response) => {
         if (!response.ok) throw new Error("Network response was not ok");
         return response.json();
       })
       .then((data) => {
-        console.log("Borrowed data:", data);
         // Use the data as needed
         profileTemplate(data.books, data.user);
       })
@@ -93,7 +92,7 @@ function initQuagga(resolve, reject) {
       Quagga.onDetected((result) => {
         clearTimeout(timeout);
         const code = result.codeResult.code;
-        console.log("Detected code:", code);
+
         hideScanner();
         resolve(code);
       });

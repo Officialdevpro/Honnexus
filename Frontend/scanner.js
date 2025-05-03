@@ -19,7 +19,7 @@ document
   .addEventListener("click", async () => {
     try {
       const data = await initScanner();
-      console.log("Scanned data:", data);
+
       // Use the scanned data here
       fetchData("users", data);
     } catch (error) {
@@ -31,7 +31,7 @@ document
   .addEventListener("click", async () => {
     try {
       const data = await initScanner();
-      console.log("Scanned data:", data);
+
       fetchData("books", data);
       // Use the scanned data here
     } catch (error) {
@@ -138,7 +138,7 @@ async function fetchData(purpose, id) {
   } else if (purpose == "users") {
     let { student } = await req.json();
     studentId = student.studentId;
-    console.log(student);
+
     document
       .querySelector(".student-img img")
       .setAttribute("src", "images/profiles/" + student.profile);
@@ -179,7 +179,6 @@ async function linkTogether(data) {
       return;
     }
 
-    console.log("Success:", result);
     document.querySelector("li.book-card.padding").classList.add("active");
     document.querySelector(".student-content").classList.add("active");
     sections.forEach((section) => (section.style.display = "none"));

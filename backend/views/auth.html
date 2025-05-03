@@ -826,52 +826,24 @@
             </div> -->
             <button id="start-scan" class="btn solid">SCAN</button>
 
-            <p class="social-text">Or Sign in with social platforms</p>
-            <div class="social-media">
-              <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </div>
+            <p class="social-text">kindly scan your Student ID barcode.</p>
           </form>
           <form action="#" class="sign-up-form">
-            <h2 class="title">Sign up</h2>
+            <h2 class="title">Admin</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input type="text" placeholder="Username" id="username" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
+              <input type="email" placeholder="Email" id="email" />
             </div>
+
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input type="password" placeholder="Admin ID" id="adminid" />
             </div>
-            <input type="submit" class="btn" value="Sign up" />
-            <p class="social-text">Or Sign up with social platforms</p>
-            <div class="social-media">
-              <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </div>
+            <input type="button" id="admin-btn" class="btn" value="Submit" />
           </form>
         </div>
       </div>
@@ -879,21 +851,21 @@
       <div class="panels-container">
         <div class="panel left-panel">
           <div class="content">
-            <h3>New here ?</h3>
+            <h3>Admin ?</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+              If you are an administrator, please click the button below to
+              access the admin login panel.
             </p>
-            <button class="btn transparent" id="sign-up-btn">Sign up</button>
+            <button class="btn transparent" id="sign-up-btn">Login</button>
           </div>
           <img src="img/log.svg" class="image" alt="" />
         </div>
         <div class="panel right-panel">
           <div class="content">
-            <h3>One of us ?</h3>
+            <h3>Are you a Student ?</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
+              If you're a student, click the button below to log in and scan
+              your Student ID for access.
             </p>
             <button class="btn transparent" id="sign-in-btn">Sign in</button>
           </div>
@@ -1029,7 +1001,7 @@
               startButton.classList.remove("hidden");
               return;
             }
-            console.log("Barcode scanner initialized successfully");
+
             isScanning = true;
             Quagga.start();
           }
@@ -1051,7 +1023,6 @@
 
           // Display scanned data
 
-          console.log("Barcode detected:", code);
           requestOtp(code);
 
           playBeepSound();
@@ -1177,7 +1148,7 @@
           );
 
           const data = await response.json();
-          console.log(data);
+
           if (response.status == 200) {
             document.querySelector(".scanned-data").classList.add("active");
           } else {
@@ -1251,6 +1222,47 @@
           showMessage(e);
         }
       }
+
+      document
+        .getElementById("admin-btn")
+        .addEventListener("click", async function (e) {
+          e.preventDefault(); // Prevent form from refreshing the page on submit
+
+          // Get the input values
+          const username = document.getElementById("username").value || "";
+          const email = document.getElementById("email").value || "";
+
+          const adminId = document.getElementById("adminid").value || "";
+
+          // Validation object to keep track of missing fields
+
+          // Check if any field is empty and log respective errors
+          if (!username)
+            return showMessage({
+              message: "Username is required.",
+              status: "Failed",
+            });
+          if (!email)
+            return showMessage({
+              message: "Email is required.",
+              status: "Failed",
+            });
+
+          if (!adminId)
+            return showMessage({
+              message: "Admin ID is required.",
+              status: "Failed",
+            });
+
+          // If no errors, proceed with sending data
+          const userData = {
+            username: username,
+            email: email,
+
+            adminId: adminId,
+          };
+          VerifyOTP(userData);
+        });
     </script>
   </body>
 </html>

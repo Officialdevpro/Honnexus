@@ -189,7 +189,7 @@ exports.deleteBook = catchAsync(async (req, res, next) => {
 // 📌 GET Five Random Books
 exports.getRandomBooks = catchAsync(async (req, res, next) => {
   const randomBooks = await Book.aggregate([{ $sample: { size: 5 } }]);
-  console.log(randomBooks);
+
 
   if (!randomBooks || randomBooks.length === 0) {
     return next(new AppError("No books found", 404));

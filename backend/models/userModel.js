@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema({
     min: 1,
     max: 8,
   },
+  role: {
+    type: String,
+    enum: ["student", "admin"],
+    default: "student",
+  },
 
   createdAt: {
     type: Date,
@@ -37,6 +42,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: () => `profile-${Math.floor(Math.random() * 10)}.png`,
   },
+  returnCount: {
+    type: Number,
+    default: 0
+  }
 });
 
 userSchema.pre(/^find/, function (next) {
@@ -58,7 +67,7 @@ userSchema.pre("save", function (next) {
     // Clamp the value between 1 and 8
     this.semester = Math.min(Math.max(calculatedSemester, 1), 8);
 
-    console.log("Auto-set semester to:", this.semester);
+ 
   }
 
   next();

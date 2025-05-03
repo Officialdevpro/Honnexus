@@ -274,7 +274,6 @@ input:focus {
 }
 
 .profile-top-portion {
- 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -735,7 +734,6 @@ nav.open .nav-content span {
   flex-direction: column;
 }
 .student-img {
- 
   border-radius: 50%;
   padding: 3px;
 }
@@ -1245,4 +1243,67 @@ input:checked ~ label .star-stroke .star-fill {
     padding: 5px;
     margin-bottom: 10px;
   }
+}
+
+.confirmation-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.confirmation-dialog.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dialog-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  transform: translateY(-50px);
+  transition: transform 0.3s ease;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.show .dialog-content {
+  transform: translateY(0);
+}
+
+.dialog-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.dialog-buttons button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.dialog-buttons button:hover {
+  transform: scale(1.05);
+}
+
+.confirm-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
 }
