@@ -96,22 +96,111 @@ async function fetchBookDetails(id) {
     const response = await fetch(
       `https://honnexus.onrender.com/api/v1/books/info/${id}`
     );
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    if (!response.ok) throw new Error("Network response was not ok");
 
     const { data, borrowers } = await response.json();
     loadReviews(data.stats, data.stats.percentages, borrowers);
 
-    const book = data;
+    // Update book details
+    document.querySelector(".semester_des").textContent = data.semester;
 
-    document.querySelector(".book-description .semester_des").innerHTML =
-      book.semester;
+    // Render staff carousel
+    renderStaffCarousel(data.faculty);
   } catch (error) {
     console.error("Error fetching book data:", error);
-    // You can also show a user-friendly error message here
   }
+}
+
+// New function to handle staff rendering
+function renderStaffCarousel(faculty) {
+  const track = document.getElementById("staffCarouselTrack");
+  const dotsContainer = document.getElementById("staffDots");
+
+  track.innerHTML = "";
+  dotsContainer.innerHTML = "";
+  track.style.transform = "translateX(0)"; // Reset track position
+
+  // Create staff cards
+  faculty.forEach((member) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="card-content">
+        <img src="https://staffs-status.onrender.com/uploads/${member.image}" alt="${member.name}">
+        <h3>${member.name}</h3>
+        <p>${member.position}</p>
+        <small>${member.department}</small>
+      </div>
+    `;
+    track.appendChild(card);
+  });
+
+  // Initialize carousel functionality
+  initializeCarousel();
+}
+
+let carouselInterval = null; // Store interval reference globally
+let carouselIndex = 0;
+
+function initializeCarousel() {
+  const track = document.getElementById("staffCarouselTrack");
+  const cards = document.querySelectorAll("#staffCarouselTrack .card");
+  const dotsContainer = document.getElementById("staffDots");
+
+  // Clear existing interval and reset index
+  if (carouselInterval) {
+    clearInterval(carouselInterval);
+    carouselInterval = null;
+  }
+  carouselIndex = 0;
+
+  // Remove existing dots
+  dotsContainer.innerHTML = "";
+
+  // Only initialize if cards exist
+  if (cards.length === 0) return;
+
+  // Create new dots
+  function createDots() {
+    cards.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function updateDots(currentIndex) {
+    const dots = document.querySelectorAll("#staffDots .dot");
+    dots.forEach((dot) => dot.classList.remove("active"));
+    dots[currentIndex]?.classList.add("active");
+  }
+
+  function updateCards(currentIndex) {
+    cards.forEach((card) => card.classList.remove("active"));
+    cards[currentIndex]?.classList.add("active");
+  }
+
+  function goToSlide(slideIndex) {
+    carouselIndex = slideIndex;
+    track.style.transform = `translateX(-${carouselIndex * 100}%)`;
+    updateDots(carouselIndex);
+    updateCards(carouselIndex);
+  }
+
+  function moveCarousel() {
+    carouselIndex = (carouselIndex + 1) % cards.length;
+    track.style.transform = `translateX(-${carouselIndex * 100}%)`;
+    updateDots(carouselIndex);
+    updateCards(carouselIndex);
+  }
+
+  createDots();
+  cards[0]?.classList.add("active");
+
+  // Set new interval
+  carouselInterval = setInterval(moveCarousel, 2000);
 }
 
 loadBooks();
