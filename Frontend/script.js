@@ -662,3 +662,68 @@ logoutBtn.addEventListener("dblclick", async () => {
     window.location.reload();
   }
 });
+
+const modal = document.getElementById("bookFormModal");
+const openBtn = document.getElementById("openModal");
+const closeBtn = document.getElementById("closeModal");
+
+openBtn.addEventListener("click", () => {
+  modal.style.display = "flex";
+});
+
+closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+// Form Handling
+document
+  .getElementById("bookForm")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = {
+      icon: this.icon.value,
+      bookName: this.bookName.value,
+      author: this.author.value,
+      subject: this.subject.value,
+      stock: this.stock.value,
+      semester: this.semester.value,
+      edition: this.edition.value,
+      available: this.available.checked,
+    };
+
+    try {
+      const response = await fetch(
+        "https://honnexus.onrender.com/api/v1/books",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to add book");
+      }
+
+      const result = await response.json();
+      console.log("Book added:", result);
+
+      alert("✅ Book added successfully!");
+      this.reset();
+      modal.style.display = "none";
+      document.body.classList.remove("modal-open");
+    } catch (error) {
+      console.error("Error:", error);
+      alert(`❌ Error: ${error.message}`);
+    }
+  });
