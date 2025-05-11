@@ -854,6 +854,7 @@ document
       subject: this.subject.value,
       stock: this.stock.value,
       semester: this.semester.value,
+      location: this.location.value,
       edition: this.edition.value,
       available: this.available.checked,
     };
