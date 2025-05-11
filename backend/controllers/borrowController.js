@@ -69,7 +69,7 @@ exports.getBorrowsByStudentId = catchAsync(async (req, res, next) => {
     { $match: { studentId } },
     {
       $lookup: {
-        from: "books",
+        from: "book_staffs",
         localField: "bookId",
         foreignField: "bookId",
         as: "bookDetails",
