@@ -15,6 +15,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const bookNotificationRoutes = require("./routes/bookNotificationRoutes");
 
 const {
   product,
@@ -102,6 +103,7 @@ app.get("/", product, (req, res) => {
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/books", bookRoutes);
 app.use("/api/v1/borrow", borrowroutes);
+app.use("/api/v1/notifications", bookNotificationRoutes);
 
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/analytics", analysRoutes);

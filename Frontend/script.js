@@ -81,8 +81,13 @@ export async function loadBooks() {
           ""
         );
 
+      const stockText =
+        book.lastElementChild.children[2].firstElementChild.lastChild.textContent.trim();
+      const stock = parseInt(stockText, 10);
+
+      // Display stock info
       document.querySelector(".book-description .stock_des").innerHTML =
-        book.lastElementChild.children[2].firstElementChild.lastChild.textContent;
+        stockText;
 
       document.querySelector(".book-details").style.display = "flex";
       fetchBookDetails(book.dataset.bookid);
@@ -99,13 +104,58 @@ async function fetchBookDetails(id) {
     if (!response.ok) throw new Error("Network response was not ok");
 
     const { data, borrowers } = await response.json();
+    console.log(data);
+
     loadReviews(data.stats, data.stats.percentages, borrowers);
 
     // Update book details
     document.querySelector(".semester_des").textContent = data.semester;
+    document.querySelector(".book_location").textContent = data.location;
 
     // Render staff carousel
     renderStaffCarousel(data.faculty);
+
+    const stockContainer = document.querySelector(
+      ".book-description .stock_des"
+    ).parentElement;
+    const existingNotifyBtn = stockContainer.querySelector(".notify-btn");
+    if (existingNotifyBtn) {
+      existingNotifyBtn.remove();
+    }
+    // Check if stock is 0 and render Notify Me button
+    if (data.stock === 0) {
+      const notifyBtn = document.createElement("button");
+      notifyBtn.textContent = "Notify Me";
+      notifyBtn.className = "notify-btn";
+      notifyBtn.style.marginTop = "10px";
+
+      // Append button to the book description
+      document
+        .querySelector(".book-description .stock_des")
+        .parentElement.appendChild(notifyBtn);
+
+      // Handle click event to send POST request
+      notifyBtn.addEventListener("click", async () => {
+        notifyBtn.classList.add("vanish");
+
+        const bookId = data._id;
+
+        try {
+          const response = await fetch(
+            "https://honnexus.onrender.com/api/v1/notifications",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ bookId }),
+            }
+          );
+
+          const result = await response.json();
+        } catch (error) {}
+      });
+    }
   } catch (error) {
     console.error("Error fetching book data:", error);
   }
@@ -129,7 +179,7 @@ function renderStaffCarousel(faculty) {
         <img src="https://staffs-status.onrender.com/uploads/${member.image}" alt="${member.name}">
         <h3>${member.name}</h3>
         <p>${member.position}</p>
-        <small>${member.department}</small>
+        <small>${member.location}</small>
       </div>
     `;
     track.appendChild(card);
@@ -453,6 +503,25 @@ function isAuthor(review_userId, userId, reviewId) {
                 </div>  `;
   }
 }
+
+function getStudentYear(studentId) {
+  const joinYear = 2000 + parseInt(studentId.slice(0, 2));
+  const today = new Date();
+  const currentAcademicYear =
+    today.getMonth() >= 7 ? today.getFullYear() : today.getFullYear() - 1;
+
+  const studyYear = currentAcademicYear - joinYear + 1;
+
+  if (studyYear <= 0) return "Not started";
+  if (studyYear === 1) return "1st Year";
+  if (studyYear === 2) return "2nd Year";
+  if (studyYear === 3) return "3rd Year";
+  if (studyYear === 4) return "4th Year";
+  return "Graduated or beyond";
+}
+
+// Output: "3rd Year" (as of May 2025)
+
 let userReview = "";
 async function loadReviews(stats, percentages, reviews) {
   document.querySelector(".user-feedback").innerHTML = "";
@@ -469,7 +538,9 @@ async function loadReviews(stats, percentages, reviews) {
       .charAt(0)
       .toLocaleUpperCase()}</div>
             <p>${data.student.username}</p>
+           
           </div>
+           <small>${getStudentYear(data.student.studentId)}</small>
           
         </div>
         
@@ -816,3 +887,25 @@ document
       alert(`❌ Error: ${error.message}`);
     }
   });
+
+function showMessage(value, time = 50) {
+  let title = document.querySelector(".message-box .message");
+  let text = document.querySelector(".message-box .text");
+  text.textContent = value.message;
+  title.textContent = "Status : " + value.status;
+  // For tostal
+  let failureWidth = 100;
+  document.querySelector(".failure-tostal").style.display = "flex";
+  const failureIntervalId = setInterval(() => {
+    document.querySelector(".failure-line").style.width =
+      failureWidth - 1 + "%";
+    if (failureWidth <= -10) {
+      clearInterval(failureIntervalId);
+      document.querySelector(".failure-tostal").style.display = "none";
+      document.querySelector(".failure-line").style.width = "100%";
+
+      failureWidth = 0;
+    }
+    failureWidth--;
+  }, time);
+}

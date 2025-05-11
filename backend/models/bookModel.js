@@ -35,6 +35,7 @@ const BookSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+   location: { type: String },
   
 });
 

@@ -317,6 +317,7 @@ exports.getBookById = catchAsync(async (req, res, next) => {
         icon:1,
         stats: 1,
         faculty:1,
+        location:1,
         currentBorrower: {
           $cond: {
             if: { $ifNull: ["$currentStudent", false] },

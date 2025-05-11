@@ -1587,3 +1587,20 @@ input:checked ~ label .star-stroke .star-fill {
     font-size: 0.95rem;
   }
 }
+
+.notify-btn {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.notify-btn.vanish {
+  transform: scale(0.8);
+  opacity: 0;
+}
+
